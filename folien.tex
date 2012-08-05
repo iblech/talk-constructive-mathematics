@@ -1,4 +1,4 @@
-\documentclass[12pt,compact]{beamer}
+\documentclass[12pt]{beamer}
 
 \usepackage{ucs}
 \usepackage[utf8x]{inputenc}
@@ -28,13 +28,13 @@
 %\theoremseparator{:}
 \theoremstyle{plain}  %nonumberplain
 %\newtheorem{beh}{Behauptung}
-%\newtheorem{prop}{Proposition}
+\newtheorem{proposition}{Proposition}
 %\newtheorem{kor}{Korollar}
 %\newtheorem{satz}{Satz}
 %\newtheorem{lemma}{Lemma}
 %\newtheorem{hilfsaussage}{Hilfsaussage}
 %\theorembodyfont{\normalfont}
-%\newtheorem{defn}{Definition}
+\newtheorem{axiom}{Axiom}
 %\newtheorem{defnprop}{Definition/Proposition}
 %\newtheorem{bem}{Bemerkung}
 %\newtheorem{bsp}{Beispiel}
@@ -48,6 +48,7 @@
 
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
 \newcommand{\Hom}{\mathrm{Hom}}
 \newcommand{\Spur}[1]{\operatorname{Spur}#1}
 \newcommand{\SpurDyn}[1]{\operatorname{Spur}\left(#1\right)}
@@ -60,6 +61,10 @@
 \newcommand{\GL}[1]{\operatorname{GL}(#1)}
 \newcommand{\freist}{\_{}\_{}}
 
+\renewcommand{\P}{\mathcal{P}}
+\newcommand{\1}{\mathbf{1}}
+\renewcommand{\_}{\mathpunct{.}\,}
+
 \newcommand{\XXX}[1]{\textcolor{red}{#1}}
 
 %\newarrow{Equals}=====
@@ -71,24 +76,136 @@
 
 %\usetheme{Warsaw}  %Warsaw, Berkeley?
 \usetheme{Warsaw}
+\useoutertheme{split}
 \usecolortheme{seahorse}
 \usefonttheme{serif}
+\usepackage{palatino}
 \useinnertheme{rectangles}
-\usepackage{bookman}
-\setbeamercovered{transparent}
+%\usepackage{bookman}
+%\setbeamercovered{transparent}
 
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{footline}{}
 \setbeamertemplate{headline}{}
 
 \beamertemplateboldcenterframetitle
+\setbeamerfont{frametitle}{size={\Large}}
 
 \begin{document}
 
 \frame{\titlepage}
+\frame[t]{\tableofcontents}
 
-\section{Teilmengen der Eins}
+\section{Einführung}
+
+\subsection{Das Axiom vom ausgeschlossenen Dritten}
+\frame[t]{\frametitle{Das Axiom vom ausgeschlossenen Dritten}
+  \begin{axiom}[klassisch]
+    Eine jede Aussage stimmt oder stimmt nicht.
+  \end{axiom}
+
+  \begin{itemize}
+    \item intuitionistische Logik $:=$
+          klassische Logik ohne LEM
+  \end{itemize}
+}
+
+\section{Eine andere mathematische Welt}
+
+% XXX: Fehlt Intro.
+% insbes. erklären, dass wir durchaus an not(phi) ^ not(not(phi)) glauben.
+\subsection{Leere und nichtleere Mengen}
+\frame[t]{\frametitle{Leere und nichtleere Mengen}
+  Sei~$X$ eine Menge.
+  
+  \emph{Frage:} Sind die beiden folgenden Aussagen
+  äquivalent?
+  \begin{enumerate}
+    \item $X$ ist \emph{nicht leer}, d.\,h. $X \neq \emptyset$.
+    \item $X$ ist \emph{bewohnt}, d.\,h. $\exists x \in X$.
+  \end{enumerate}
+
+  \pause
+  Aussage~{\insertenumlabel} ist stärker: Man kann explizit ein Element~$x$ der
+  Menge angeben.
+}
+
+\subsection{Teilmengen der Eins}
 \frame[t]{\frametitle{Teilmengen der Eins}
+  \begin{definition}Die \emph{Menge der Wahrheitswerte~$\Omega$} ist
+  die Menge aller Teilmengen der Menge
+  \[ \1 := \{ \star \}, \]
+  also
+  \[ \Omega := \P(\1) = \{ U \subseteq \1 \}. \]
+  \end{definition}
+
+  \begin{itemize}
+    \item \emph{Frage:} Wie viele Elemente enthält~$\Omega$?
+    \pause
+    \item Es gibt auch
+    \begin{align*}
+      \Omega_{\text{entscheidbar}} &:= \{ p \in \Omega \,|\, \text{$\star \in p$
+      oder $\star \not\in p$} \}, \\
+      \Omega_{\text{klassisch}} &:= \{ p \in \Omega \,|\, \neg \neg(\star \in
+      p) \Rightarrow \star \in p \}.
+    \end{align*}
+    In welcher Beziehung stehen diese zu~$\Omega$?
+  \end{itemize}
+}
+
+% XXX fehlt: topologische Interpretation
+
+\subsection{Minima von Mengen natürlicher Zahlen}
+\frame[t]{\frametitle{Minima von Mengen natürlicher Zahlen}
+  Klassisch gilt: Jede bewohnte Menge natürlicher Zahlen besitzt ein Minimum.
+
+  \emph{Frage:} Stimmt das auch intuitionistisch?
+}
+
+\subsection{Endliche Mengen}
+\frame[t]{\frametitle{Endliche Mengen}
+  \begin{definition}
+    Sei~$X$ eine Menge. $X$ heißt\ldots
+    \begin{itemize}
+      \item \ldots\emph{endlich} \tabto{3.4cm} $:\Leftrightarrow$
+        $\exists n \in \N\_ \exists f{:}\, [n] \to X\_ \text{$f$ bijektiv}$.
+      \item \ldots\emph{endlich indiziert} \tabto{3.4cm} $:\Leftrightarrow$
+        $\exists n \in \N\_ \exists f{:}\, [n] \to X\_ \text{$f$ surjektiv}$.
+    \end{itemize}
+    Dabei ist~$[n] = \{ m \in \N \,|\, m < n \} = \{ 0, 1, \ldots, n-1 \}$.
+  \end{definition}
+
+  \emph{Frage:} Sind Teilmengen endlicher (endl. indizierter) Mengen wieder
+  endlich (endl. indiziert)?
+}
+
+
+\section{Eleganzassistenz}
+
+\subsection{Unendlichkeit der Primzahlen}
+\frame[t]{\frametitle{Unendlichkeit der Primzahlen}
+  \begin{theorem}[schwache Form]Die Menge~$\mathbb{P}$ der Primzahlen,
+  \[ \mathbb{P} := \{ 2, 3, 5, 7, 11, 13, \ldots \} \subseteq \N, \]
+  ist nicht endlich.\end{theorem}
+  \pause
+
+  \begin{theorem}[starke Form]Sei~$S$ eine endliche Menge von Primzahlen. Dann gibt es
+  eine weitere Primzahl, die nicht in~$S$ enthalten ist.\end{theorem}
+}
+
+\subsection{Übungsaufgabe in Linearer Algebra I}
+\frame[t]{\frametitle{Übungsaufgabe in Linearer Algebra I}
+  \begin{proposition}
+    Sei~$f{:}\, X \to Y$ eine Abbildung und sei
+    \[ \renewcommand{\arraystretch}{1.3}\begin{array}{@{}rrcl@{}}
+      \varphi{:} &\P(Y)&\longrightarrow& \P(X), \\
+      & U &\longmapsto& f^{-1}[U] := \{ x \in X \,|\, f(x) \in U \}
+    \end{array} \]
+    die zugehörige Urbildoperation. Dann ist~$f$ genau dann surjektiv,
+    wenn~$\varphi$ injektiv ist.
+  \end{proposition}
+
+  \emph{Zum Knobeln:} Auch für die Rückrichtung gibt es einen direkten Beweis.
 }
 
 \end{document}
