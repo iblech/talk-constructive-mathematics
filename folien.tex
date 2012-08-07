@@ -16,6 +16,7 @@
 \usepackage{tikz}
 \usetikzlibrary{decorations.pathreplacing}
 \usepackage{bussproofs}
+\usepackage{stmaryrd}
 
 %\usepackage[natbib=true,style=numeric]{biblatex}
 %\usepackage[babel]{csquotes}
@@ -72,6 +73,7 @@
 \renewcommand{\_}{\mathpunct{.}\,}
 \newcommand{\?}{\,{:}\,}
 \newcommand{\seq}[1]{\mathrel{\vdash\!\!\!_{#1}}}
+\renewcommand{\ll}[1]{\llbracket{#1}\rrbracket}
 
 \newcommand{\XXX}[1]{\textcolor{red}{#1}}
 
@@ -116,448 +118,448 @@
 \setbeameroption{show notes}
 \setbeamertemplate{note page}[plain]
 
-%\frame[plain]{
-%  \begin{center}
-%    \includegraphics[scale=0.65]{fortune-teller.png}
-%  \end{center}
-%}
-%
-%\frame{\titlepage}
-%\frame[t]{\scriptsize\tableofcontents}
-%
-%\section{Einführung}
-%
-%\subsection{Informale Bedeutung logischer Formeln}
-%\frame[t]{\frametitle{Informale Bedeutung logischer Formeln}
-%  \tikz[remember picture] \node[coordinate,yshift=0.0em] (n0) {};
-%  \vspace{-1.5em}
-%  \begin{description}\small
-%    \item[$\bot$] Es stimmt eine Falschheit.
-%    \tikz[remember picture] \node[coordinate,yshift=0.5em] (n2) {};
-%    \item[$A \wedge B$] $A$ und $B$ stimmen.
-%    \item[$A \vee B$] $A$ oder $B$ stimmt.
-%    \item[$A \Rightarrow B$] Sollte~$A$ stimmen, dann auch~$B$.
-%    \item[$\forall x{:}X\_\! A(x)$] Für alle~$x\?X$ stimmt jeweils~$A(x).$
-%    \item[$\exists x{:}X\_\! A(x)$] Es gibt mindestens ein~$x\?X$, für das~$A(x)$
-%    stimmt.
-%    \tikz[remember picture] \node[coordinate,yshift=-0.0em] (n1) {};
-%  \end{description}
-%  \vspace{1em}
-%
-%  \begin{description}\small
-%    \item[$\bot$] 
-%    \tikz[remember picture] \node[coordinate,yshift=0.5em] (n5) {};%
-%    Wir haben Beleg für eine Falschheit.
-%    \item[$A \wedge B$] Wir haben Beleg für~$A$ und für~$B$.
-%    \item[$A \vee B$] Wir haben Beleg für~$A$ oder für~$B$.
-%    \item[$A \Rightarrow B$] Sollten wir Beleg für~$A$ haben, können wir
-%    (gleichmäßig) auch Beleg für~$B$ konstruieren.
-%    \item[$\forall x{:}X\_\! A(x)$] Wir können (gleichmäßig) für alle~$x\?X$
-%    Belege für~$A(x)$ konstruieren.
-%    \item[$\exists x{:}X\_\! A(x)$] Wir haben ein~$x\?X$ zusammen mit Beleg
-%    für~$A(x)$.
-%    \tikz[remember picture] \node[coordinate,yshift=-0.0em] (n4) {};
-%  \end{description}
-%
-%  \begin{tikzpicture}[overlay,remember picture]
-%    \path (n2) -| node[coordinate] (n3) {} (n0);
-%    \path (n1) -| node[coordinate] (n33) {} (n0);
-%    \draw[thick,decorate,decoration={brace,amplitude=5pt}]
-%            (n33) -- (n3) node[midway,left=4pt] {kl.};
-%    \path (n5) -| node[coordinate] (n6) {} (n0);
-%    \path (n4) -| node[coordinate] (n44) {} (n0);
-%    \draw[thick,decorate,decoration={brace,amplitude=5pt}]
-%            (n44) -- (n6) node[midway,left=4pt] {int.};
-%  \end{tikzpicture}
-%
-%  \begin{tikzpicture}[remember picture,overlay]  
-%    \node [xshift=-1cm,yshift=-6cm] at (current page.north east)
-%      {\includegraphics[scale=0.3]{evidence.png}};
-%  \end{tikzpicture}
-%
-%  \note{
-%    \begin{definition}
-%      \begin{itemize}
-%        \item $\neg A \ :\equiv\ (A \Rightarrow \bot).$
-%        \item Einen Beleg für~$\bot$ gibt es nicht.
-%      \end{itemize}
-%    \end{definition}
-%
-%    \tikz[remember picture] \node[coordinate,yshift=0.0em] (n0) {};
-%    \vspace{-1.5em}
-%    \begin{description}\small
-%      \item[$\neg A$] $A$ stimmt nicht.
-%      \tikz[remember picture] \node[coordinate,yshift=0.5em] (n2) {};
-%      \item[$\neg \neg A$] $A$ stimmt.
-%      \tikz[remember picture] \node[coordinate,yshift=-0.0em] (n1) {};
-%    \end{description}
-%    \vspace{1em}
-%
-%    \begin{description}\small
-%      \item[$\neg A$] Es kann keinen Beleg für~$A$ geben.
-%      \tikz[remember picture] \node[coordinate,yshift=0.5em] (n5) {};%
-%      \item[$\neg \neg A$] Es kann keinen Beleg für~$\neg A$ geben (d.\,h. $A$
-%      ist "`potenziell wahr"').
-%      \tikz[remember picture] \node[coordinate,yshift=-0.0em] (n4) {};
-%    \end{description}
-%
-%    \begin{tikzpicture}[overlay,remember picture]
-%      \path (n2) -| node[coordinate] (n3) {} (n0);
-%      \path (n1) -| node[coordinate] (n33) {} (n0);
-%      \draw[thick,decorate,decoration={brace,amplitude=5pt}]
-%              (n33) -- (n3) node[midway,left=4pt] {kl.};
-%      \path (n5) -| node[coordinate] (n6) {} (n0);
-%      \path (n4) -| node[coordinate] (n44) {} (n0);
-%      \draw[thick,decorate,decoration={brace,amplitude=5pt}]
-%              (n44) -- (n6) node[midway,left=4pt] {int.};
-%    \end{tikzpicture}
-%  }
-%}
-%
-%\subsection{Das Axiom vom ausgeschlossenen Dritten}
-%\frame[t]{\frametitle{Das Axiom vom ausgeschlossenen Dritten}
-%  \begin{axiom}[\emph{LEM}, klassisch]
-%    Für jede Aussage~$A$ kann man
-%    \[ A \,\vee\, \neg A \]
-%    ableiten.
-%  \end{axiom}
-%
-%  \begin{itemize}
-%    \item Klassische Interpretation: \\ Eine jede Aussage stimmt oder stimmt nicht.
-%    \item Intuitionistische Interpretation: \\ Für jede Aussage haben wir jeweils Beleg
-%    für sie oder für ihre Negation.
-%    \vfill
-%    \item intuitionistische Logik $:=$
-%          klassische Logik ohne LEM
-%  \end{itemize}
-%
-%  \begin{tikzpicture}[remember picture,overlay]  
-%    \node [xshift=-1.7cm,yshift=-3.8cm] at (current page.north east)
-%      {\includegraphics[scale=0.4]{lem.png}};
-%  \end{tikzpicture}
-%}
-%
-%\note{
-%  \vspace{-1em}
-%  \begin{itemize}
-%    \item Die intuitionistische Interpretation von LEM ist offensichtlich
-%          falsch.
-%    \item Intuitionistische Logik ist abwärtskompatibel zu klassischer Logik:
-%          Alles, was intuitionistisch ableitbar ist, ist auch klassisch ableitbar.
-%    \item Auch intuitionistisch gilt $\neg(A \wedge \neg A)$: Angenommen, wir
-%          hätten Beleg für $A \wedge \neg A$. Dann haben wir Beleg
-%          für~$A$ und können aus Belegen für~$A$ Belege für~$\bot$
-%          konstruieren. Also erhalten wir Beleg für~$\bot$.
-%    \item Speziell folgt~$\neg(\neg B \wedge \neg \neg B)$. Es kann also auch
-%          intuitionistisch für eine Aussage~$B$ nicht sein, dass weder sie noch
-%          ihre Negation folgt.
-%  \end{itemize}
-%}
-%
-%\note{
-%  \begin{proposition}
-%    Das Axiom vom ausgeschlossenen Dritten (LEM),
-%    \[ A \ \vee\ \neg A \]
-%    für alle Aussagen~$A$, ist äquivalent zum Axiom der
-%    Doppelnegationselimination (DNE),
-%    \[ \neg\neg A \ \Rightarrow\ A \]
-%    für alle Aussagen~$A$.
-%  \end{proposition}
-%  \begin{proof}
-%    Gelte LEM. Gelte~$\neg\neg A$. Dann gilt nach LEM $A$ oder~$\neg A$.
-%    Letzteres kann nicht eintreten, also folgt~$A$.
-%
-%    Gelte umgekehrt DNE. Dann genügt es, $\neg\neg(A \vee \neg A)$ zu zeigen.
-%    Angenommen $\neg(A \vee \neg A)$. Dann folgt~$\neg A$ (wieso?) und analog
-%    $\neg\neg A$. Das ist ein Widerspruch.
-%  \end{proof}
-%}
-%
-%\frame[t]{\frametitle{Irrational hoch irrational}
-%  \begin{definition}
-%    Eine reelle Zahl heißt genau dann \emph{irrational}, wenn sie
-%    nicht rational ist, d.\,h. wenn sie sich nicht als Bruch
-%    \[ \frac{a}{b} \]
-%    mit $a$, $b \in \mathbb{Z}$ schreiben lässt.
-%  \end{definition}
-%
-%  \begin{theorem}
-%    Es gibt irrationale Zahlen~$x$, $y$, sodass $x^y$ rational ist.
-%  \end{theorem}
-%
-%  \note{
-%    \begin{proof}[Beweis (klassisch, mit LEM)]
-%      Es ist~$\sqrt{2}^{\sqrt{2}}$ rational oder irrational. Setze im ersten
-%      Fall
-%      \begin{align*}
-%        x &:= \sqrt{2}, & y &:= \sqrt{2},
-%      \intertext{im zweiten}
-%        x &:= \sqrt{2}^{\sqrt{2}}, & y & := \sqrt{2}. \qedhere
-%      \end{align*}
-%    \end{proof}
-%  }
-%
-%  \note{
-%    \begin{proof}[Beweis (intuitionistisch und klassisch zulässig)]
-%      Setze~$x := \sqrt{2}$, $y := \log_{\sqrt{2}} 3$. Dann $x^y = 3$.
-%    \end{proof}
-%  }
-%}
-%
-%\subsection{Anwendungen}
-%\frame[t]{\frametitle{Anwendungen}
-%  \only<1>{
-%    \begin{center}
-%      \includegraphics[scale=0.4]{fun.png}
-%    \end{center}
-%  }
-%  \pause
-%
-%  \begin{itemize}
-%    \item Mit intuitionistischer Logik kann man Belegbarkeitsfragen untersuchen.
-%    \item Aus intuitionistischen Beweisen kann man maschinell \emph{Programme} extrahieren.
-%    \item Die \emph{interne Sprache} von Topoi ist i.\,A. intuitionistisch.
-%    \item Intuitionistisch kann man \emph{Traummathematik} studieren.
-%  \end{itemize}
-%
-%  \vfill
-%  \begin{center}
-%    \phantom{a}
-%    \hfill
-%    \includegraphics[scale=0.4]{program-extraction.png}
-%    \hfill
-%    \includegraphics[scale=0.4]{constructive-maths.png}
-%    \hfill
-%    \includegraphics[scale=0.4]{dream-maths.png}
-%    \hfill
-%    \phantom{a}
-%  \end{center}
-%
-%  \note<2>{
-%    \begin{itemize}
-%      \item Intuitionistische Logik formalisiert (eine Spielart der)
-%            konstruktiven Mathematik.
-%      \item Beispiele für Traumaxiome sind:
-%            \begin{itemize}
-%              \item \emph{Alle Funktionen sind stetig.}
-%              \item \emph{Es gibt nilquadratische Zahlen~$x$ (d.\,h. Zahlen mit $x^2 = 0$),
-%            die aber selbst nicht null sind.}
-%            \end{itemize}
-%            Diese führen klassisch sofort
-%            zu einem Widerspruch, intuitionistisch aber nicht.
-%    \end{itemize}
-%  }
-%}
-%
-%\section{Eine andere mathematische Welt}
-%
-%\subsection{Leere und nichtleere Mengen}
-%\frame[t]{\frametitle{Leere und nichtleere Mengen}
-%  Sei~$X$ eine Menge.
-%  
-%  \emph{Frage:} Sind die beiden folgenden Aussagen
-%  äquivalent?
-%  \begin{enumerate}
-%    \item $X$ ist \emph{nicht leer}, d.\,h. $X \neq \emptyset$.
-%    \item $X$ ist \emph{bewohnt}, d.\,h. $\exists x \in X$.
-%  \end{enumerate}
-%
-%  \visible<2>{
-%  Aussage~{\insertenumlabel} ist stärker: Wir können explizit ein Element~$x$ der
-%  Menge angeben.
-%  }
-%
-%  \vfill
-%  \begin{center}
-%    \includegraphics[scale=0.4]{empty-set.png}
-%    \hfill
-%    \includegraphics[scale=0.4]{schwebe-set.png}
-%    \hfill
-%    \includegraphics[scale=0.4]{inhabited-set.png}
-%  \end{center}
-%
-%  \note<2>{
-%    \begin{proposition}
-%      Wenn für alle Mengen~$X$ aus Nichtleerheit schon Bewohntheit folgt, gilt
-%      DNE (und damit LEM).
-%    \end{proposition}
-%    \begin{proof}
-%      Sei~$A$ eine Aussage und gelte~$\neg\neg A$. Definiere $X := \{ \star \,|\, A \}$. Dann gilt~$X
-%      \neq \varnothing$, denn das ist gleichbedeutend mit~$\neg(\neg \exists x
-%      \in X)$, also mit~$\neg \neg A$. Nach Voraussetzung folgt damit~$\exists x \in
-%      X$, also~$A$.
-%    \end{proof}
-%  }
-%}
-%
-%\subsection{Teilmengen der Eins}
-%\frame[t]{\frametitle{Teilmengen der Eins}
-%  \begin{definition}Die \emph{Menge der Wahrheitswerte~$\Omega$} ist
-%  die Menge aller Teilmengen der Menge
-%  \[ \1 := \{ \star \}, \]
-%  also
-%  \[ \Omega := \P(\1) = \{ U \,|\, U \subseteq \1 \}. \]
-%  \end{definition}
-%
-%  \begin{itemize}
-%    \item \emph{Frage:} Wie viele Elemente enthält~$\Omega$?
-%    \pause
-%    \item Es gibt auch
-%    \begin{align*}
-%      \Omega_{\text{entscheidbar}} &:= \{ p \in \Omega \,|\, \text{$\star \in p$
-%      oder $\star \not\in p$} \}, \\
-%      \Omega_{\text{stabil}} &:= \{ p \in \Omega \,|\, \neg \neg(\star \in
-%      p) \Rightarrow \star \in p \}.
-%    \end{align*}
-%    In welcher Beziehung stehen diese zu~$\Omega$?
-%  \end{itemize}
-%
-%  \note<2>{
-%    \vspace{-1em}
-%    \begin{scriptsize}\begin{itemize}
-%      \item Klassisch gilt~$\Omega = \{ \varnothing, \{ \star \} \}$, aber
-%            intuitionistisch kann man nur~"`$\supseteq$"' zeigen.
-%      \item \vspace{-0.5em} Sind~$A$ und~$B$ Aussagen, hat man beispielsweise zumindest
-%            folgende Elemente von~$\Omega$ (und noch viele weitere):
-%            \vspace{-0.5em}
-%            \begin{center}\begin{tikzpicture}[node distance=0.7cm]
-%              \node (T)                {$\{ \star \}$};
-%              \node (P)  [below of=T]  {};
-%              \node (A)  [left  of=P]  {$\{ \star \,|\, A \}$};
-%              \node (B)  [right of=P]  {$\{ \star \,|\, B \}$};
-%              \node (AB) [below of=P]  {$\{ \star \,|\, A \wedge B \}$};
-%              \node (F)  [below of=AB] {$\varnothing$};
-%              \draw (T)  -- (A);
-%              \draw (T)  -- (B);
-%              \draw (A)  -- (AB);
-%              \draw (B)  -- (AB);
-%              \draw (AB) -- (F);
-%            \end{tikzpicture}\end{center}
-%      \item \vspace{-0.5em} Man kann aber nicht zeigen, dass diese Zwischenmengen
-%      ungleich~$\{ \star \}$ und ungleich~$\varnothing$ sind
-%      (Abwärtskompatibilität zur klassischen Logik!).
-%      \item \vspace{-0.5em} Es gilt $\Omega_{\text{entscheidbar}} = \{ \varnothing, \{ \star \} \}$ und
-%            $\Omega_{\text{entscheidbar}} \subseteq \Omega_{\text{stabil}} \subseteq \Omega$.
-%      \item \vspace{-0.5em} Die Bezeichung \emph{entscheidbar} hat eine anschauliche
-%            Interpretation in der Informatik: Entscheidbare Aussagen sind
-%            solche, für die wir einen Algorithmus angeben können, der (in
-%            endlicher Zeit) prüft, ob die Aussage gilt oder nicht.
-%    \end{itemize}\end{scriptsize}
-%  }
-%}
-%
-%\subsection{Minima von Mengen natürlicher Zahlen}
-%\frame[t]{\frametitle{Minima von Mengen natürlicher Zahlen}
-%  Klassisch gilt: Jede bewohnte Menge natürlicher Zahlen besitzt ein Minimum.
-%
-%  \emph{Frage:} Stimmt das auch intuitionistisch?
-%
-%  \vspace{1em}
-%  \begin{center}
-%    \includegraphics[scale=0.6]{minima.png}
-%  \end{center}
-%
-%  \note{
-%    \begin{proposition}
-%      Wenn alle bewohnten Mengen natürlicher Zahlen ein Minimum besitzen, gilt
-%      LEM.
-%    \end{proposition}
-%    \begin{proof}
-%      Sei~$A$ eine Aussage. Wir definieren die Menge
-%      \[ X := \{ 1 \} \cup \{ 0 \,|\, A \} \subseteq \mathbb{N}. \]
-%      Dann ist~$X$ bewohnt (da~$1 \in X$) und besitzt daher nach Voraussetzung
-%      ein Minimum~$x \in \mathbb{N}$.
-%      Es ist~$\mathbb{N}$ diskret, daher folgt~$x = 0$ oder~$x \neq 0$. Im
-%      ersten Fall folgt~$A$, im zweiten~$\neg A$.
-%    \end{proof}
-%
-%    Man kann mit einer Zusatzvoraussetzung das Prinzip retten: Alle
-%    bewohnten und herauslösbaren Teilmengen $X \subseteq \mathbb{N}$ (d.\,h.
-%    solche mit
-%    $\forall x \in \mathbb{N}\_ x \in X \vee x \not\in X$) besitzen ein
-%    Minimum.
-%  }
-%}
-%
-%\subsection{Endliche Mengen}
-%\frame[t]{\frametitle{Endliche Mengen}
-%  \begin{definition}
-%    Sei~$X$ eine Menge. $X$ heißt\ldots
-%    \begin{itemize}
-%      \item \ldots\emph{endlich} \tabto{3.4cm} $:\Leftrightarrow$
-%        $\exists n \in \N\_ \exists f{:}\, [n] \to X\_ \text{$f$ bijektiv}$.
-%      \item \ldots\emph{endlich indiziert} \tabto{3.4cm} $:\Leftrightarrow$
-%        $\exists n \in \N\_ \exists f{:}\, [n] \to X\_ \text{$f$ surjektiv}$.
-%    \end{itemize}
-%    Dabei ist~$[n] := \{ m \in \N \,|\, m < n \} = \{ 0, 1, \ldots, n-1 \}$.
-%  \end{definition}
-%
-%  \emph{Frage:} \tabto{1.2cm} Sind Teilmengen endlicher (endl. indizierter) \\
-%  \tabto{1.2cm} Mengen wieder endlich (endl. indiziert)?
-%
-%  \begin{tikzpicture}[remember picture,overlay]  
-%    \node [xshift=-2.0cm,yshift=-7.8cm] at (current page.north east)
-%      {\includegraphics[scale=0.4]{many-sheep.png}};
-%  \end{tikzpicture}
-%
-%  \note{\begin{itemize}
-%    \item Die Mengen~$[n]$ für~$n \in \mathbb{N}$ stellen wir uns
-%          als die Prototypen endlicher Mengen vor.
-%    \item Aus \emph{endlich} folgt \emph{endlich indiziert}.
-%    \item Endlich indizierte Mengen sind entweder leer oder bewohnt.
-%    \item Sollte alle Teilmengen endlich indizierter Mengen wieder
-%          endlich indiziert sein, gilt LEM.
-%  \end{itemize}}
-%}
-%
-%
-%\section{Eleganzassistenz}
-%
-%\subsection{Unendlichkeit der Primzahlen}
-%\frame[t]{\frametitle{Unendlichkeit der Primzahlen}
-%  \begin{theorem}[schwache Form]Die Menge~$\mathbb{P}$ der Primzahlen,
-%  \[ \mathbb{P} := \{ 2, 3, 5, 7, 11, 13, \ldots \} \subseteq \N, \]
-%  ist nicht endlich.\end{theorem}
-%  \pause
-%
-%  \begin{theorem}[starke Form]Sei~$S$ eine endliche Menge von Primzahlen. Dann gibt es
-%  eine weitere Primzahl, die nicht in~$S$ enthalten ist.\end{theorem}
-%
-%  \note<2>{\begin{itemize}
-%    \item Die schwache Formulierung hat wegen der negativen Behauptung keinen
-%    algorithmischen Inhalt.
-%    \item Aus einem intuitionistischen Beweis der starken Form kann man
-%    maschinell einen entsprechenden Algorithmus extrahieren.
-%    \item Euklids Beweis der starken Form ist kürzer und klarer als der der
-%    schwachen Form, und zeigt auch noch eine stärkere Aussage.
-%  \end{itemize}}
-%}
-%
-%\subsection{Übungsaufgabe in Linearer Algebra I}
-%\frame[t]{\frametitle{Übungsaufgabe in Linearer Algebra I}
-%  \begin{proposition}
-%    Sei~$f{:}\, X \to Y$ eine Abbildung und sei
-%    \[ \renewcommand{\arraystretch}{1.3}\begin{array}{@{}rrcl@{}}
-%      \varphi{:} &\P(Y)&\longrightarrow& \P(X), \\
-%      & U &\longmapsto& f^{-1}[U] := \{ x \in X \,|\, f(x) \in U \}
-%    \end{array} \]
-%    die zugehörige Urbildoperation. Dann ist~$f$ genau dann surjektiv,
-%    wenn~$\varphi$ injektiv ist.
-%  \end{proposition}
-%
-%  \emph{Zum Knobeln:} Auch für die Rückrichtung gibt es einen direkten Beweis.
-%
-%  \note{
-%    \begin{proof}[Beweis (umständlich, nur klassisch zulässig)]
-%      Angenommen,~$f$ ist nicht surjektiv. Dann gibt es ein~$y \in Y$, welches
-%      nicht im Bild von~$f$ liegt. Somit gilt~$\varphi(\{y\}) = \varnothing =
-%      \varphi(\varnothing)$ im Widerspruch zur Injektivität von~$\varphi$.
-%    \end{proof}
-%    \begin{proof}[Beweis (elegant)]
-%      Es gilt~$\varphi(\Bild f) = X = \varphi(Y)$, also~$\Bild f = Y$.
-%    \end{proof}
-%  }
-%}
+\frame[plain]{
+  \begin{center}
+    \includegraphics[scale=0.65]{fortune-teller.png}
+  \end{center}
+}
+
+\frame{\titlepage}
+\frame[t]{\scriptsize\tableofcontents}
+
+\section{Einführung}
+
+\subsection{Informale Bedeutung logischer Formeln}
+\frame[t]{\frametitle{Informale Bedeutung logischer Formeln}
+  \tikz[remember picture] \node[coordinate,yshift=0.0em] (n0) {};
+  \vspace{-1.5em}
+  \begin{description}\small
+    \item[$\bot$] Es stimmt eine Falschheit.
+    \tikz[remember picture] \node[coordinate,yshift=0.5em] (n2) {};
+    \item[$A \wedge B$] $A$ und $B$ stimmen.
+    \item[$A \vee B$] $A$ oder $B$ stimmt.
+    \item[$A \Rightarrow B$] Sollte~$A$ stimmen, dann auch~$B$.
+    \item[$\forall x{:}X\_\! A(x)$] Für alle~$x\?X$ stimmt jeweils~$A(x).$
+    \item[$\exists x{:}X\_\! A(x)$] Es gibt mindestens ein~$x\?X$, für das~$A(x)$
+    stimmt.
+    \tikz[remember picture] \node[coordinate,yshift=-0.0em] (n1) {};
+  \end{description}
+  \vspace{1em}
+
+  \begin{description}\small
+    \item[$\bot$] 
+    \tikz[remember picture] \node[coordinate,yshift=0.5em] (n5) {};%
+    Wir haben Beleg für eine Falschheit.
+    \item[$A \wedge B$] Wir haben Beleg für~$A$ und für~$B$.
+    \item[$A \vee B$] Wir haben Beleg für~$A$ oder für~$B$.
+    \item[$A \Rightarrow B$] Sollten wir Beleg für~$A$ haben, können wir
+    (gleichmäßig) auch Beleg für~$B$ konstruieren.
+    \item[$\forall x{:}X\_\! A(x)$] Wir können (gleichmäßig) für alle~$x\?X$
+    Belege für~$A(x)$ konstruieren.
+    \item[$\exists x{:}X\_\! A(x)$] Wir haben ein~$x\?X$ zusammen mit Beleg
+    für~$A(x)$.
+    \tikz[remember picture] \node[coordinate,yshift=-0.0em] (n4) {};
+  \end{description}
+
+  \begin{tikzpicture}[overlay,remember picture]
+    \path (n2) -| node[coordinate] (n3) {} (n0);
+    \path (n1) -| node[coordinate] (n33) {} (n0);
+    \draw[thick,decorate,decoration={brace,amplitude=5pt}]
+            (n33) -- (n3) node[midway,left=4pt] {kl.};
+    \path (n5) -| node[coordinate] (n6) {} (n0);
+    \path (n4) -| node[coordinate] (n44) {} (n0);
+    \draw[thick,decorate,decoration={brace,amplitude=5pt}]
+            (n44) -- (n6) node[midway,left=4pt] {int.};
+  \end{tikzpicture}
+
+  \begin{tikzpicture}[remember picture,overlay]  
+    \node [xshift=-1cm,yshift=-6cm] at (current page.north east)
+      {\includegraphics[scale=0.3]{evidence.png}};
+  \end{tikzpicture}
+
+  \note{
+    \begin{definition}
+      \begin{itemize}
+        \item $\neg A \ :\equiv\ (A \Rightarrow \bot).$
+        \item Einen Beleg für~$\bot$ gibt es nicht.
+      \end{itemize}
+    \end{definition}
+
+    \tikz[remember picture] \node[coordinate,yshift=0.0em] (n0) {};
+    \vspace{-1.5em}
+    \begin{description}\small
+      \item[$\neg A$] $A$ stimmt nicht.
+      \tikz[remember picture] \node[coordinate,yshift=0.5em] (n2) {};
+      \item[$\neg \neg A$] $A$ stimmt.
+      \tikz[remember picture] \node[coordinate,yshift=-0.0em] (n1) {};
+    \end{description}
+    \vspace{1em}
+
+    \begin{description}\small
+      \item[$\neg A$] Es kann keinen Beleg für~$A$ geben.
+      \tikz[remember picture] \node[coordinate,yshift=0.5em] (n5) {};%
+      \item[$\neg \neg A$] Es kann keinen Beleg für~$\neg A$ geben (d.\,h. $A$
+      ist "`potenziell wahr"').
+      \tikz[remember picture] \node[coordinate,yshift=-0.0em] (n4) {};
+    \end{description}
+
+    \begin{tikzpicture}[overlay,remember picture]
+      \path (n2) -| node[coordinate] (n3) {} (n0);
+      \path (n1) -| node[coordinate] (n33) {} (n0);
+      \draw[thick,decorate,decoration={brace,amplitude=5pt}]
+              (n33) -- (n3) node[midway,left=4pt] {kl.};
+      \path (n5) -| node[coordinate] (n6) {} (n0);
+      \path (n4) -| node[coordinate] (n44) {} (n0);
+      \draw[thick,decorate,decoration={brace,amplitude=5pt}]
+              (n44) -- (n6) node[midway,left=4pt] {int.};
+    \end{tikzpicture}
+  }
+}
+
+\subsection{Das Axiom vom ausgeschlossenen Dritten}
+\frame[t]{\frametitle{Das Axiom vom ausgeschlossenen Dritten}
+  \begin{axiom}[\emph{LEM}, klassisch]
+    Für jede Aussage~$A$ kann man
+    \[ A \,\vee\, \neg A \]
+    ableiten.
+  \end{axiom}
+
+  \begin{itemize}
+    \item Klassische Interpretation: \\ Eine jede Aussage stimmt oder stimmt nicht.
+    \item Intuitionistische Interpretation: \\ Für jede Aussage haben wir jeweils Beleg
+    für sie oder für ihre Negation.
+    \vfill
+    \item intuitionistische Logik $:=$
+          klassische Logik ohne LEM
+  \end{itemize}
+
+  \begin{tikzpicture}[remember picture,overlay]  
+    \node [xshift=-1.7cm,yshift=-3.8cm] at (current page.north east)
+      {\includegraphics[scale=0.4]{lem.png}};
+  \end{tikzpicture}
+}
+
+\note{
+  \vspace{-1em}
+  \begin{itemize}
+    \item Die intuitionistische Interpretation von LEM ist offensichtlich
+          falsch.
+    \item Intuitionistische Logik ist abwärtskompatibel zu klassischer Logik:
+          Alles, was intuitionistisch ableitbar ist, ist auch klassisch ableitbar.
+    \item Auch intuitionistisch gilt $\neg(A \wedge \neg A)$: Angenommen, wir
+          hätten Beleg für $A \wedge \neg A$. Dann haben wir Beleg
+          für~$A$ und können aus Belegen für~$A$ Belege für~$\bot$
+          konstruieren. Also erhalten wir Beleg für~$\bot$.
+    \item Speziell folgt~$\neg(\neg B \wedge \neg \neg B)$. Es kann also auch
+          intuitionistisch für eine Aussage~$B$ nicht sein, dass weder sie noch
+          ihre Negation folgt.
+  \end{itemize}
+}
+
+\note{
+  \begin{proposition}
+    Das Axiom vom ausgeschlossenen Dritten (LEM),
+    \[ A \ \vee\ \neg A \]
+    für alle Aussagen~$A$, ist äquivalent zum Axiom der
+    Doppelnegationselimination (DNE),
+    \[ \neg\neg A \ \Rightarrow\ A \]
+    für alle Aussagen~$A$.
+  \end{proposition}
+  \begin{proof}
+    Gelte LEM. Gelte~$\neg\neg A$. Dann gilt nach LEM $A$ oder~$\neg A$.
+    Letzteres kann nicht eintreten, also folgt~$A$.
+
+    Gelte umgekehrt DNE. Dann genügt es, $\neg\neg(A \vee \neg A)$ zu zeigen.
+    Angenommen $\neg(A \vee \neg A)$. Dann folgt~$\neg A$ (wieso?) und analog
+    $\neg\neg A$. Das ist ein Widerspruch.
+  \end{proof}
+}
+
+\frame[t]{\frametitle{Irrational hoch irrational}
+  \begin{definition}
+    Eine reelle Zahl heißt genau dann \emph{irrational}, wenn sie
+    nicht rational ist, d.\,h. wenn sie sich nicht als Bruch
+    \[ \frac{a}{b} \]
+    mit $a$, $b \in \mathbb{Z}$ schreiben lässt.
+  \end{definition}
+
+  \begin{theorem}
+    Es gibt irrationale Zahlen~$x$, $y$, sodass $x^y$ rational ist.
+  \end{theorem}
+
+  \note{
+    \begin{proof}[Beweis (klassisch, mit LEM)]
+      Es ist~$\sqrt{2}^{\sqrt{2}}$ rational oder irrational. Setze im ersten
+      Fall
+      \begin{align*}
+        x &:= \sqrt{2}, & y &:= \sqrt{2},
+      \intertext{im zweiten}
+        x &:= \sqrt{2}^{\sqrt{2}}, & y & := \sqrt{2}. \qedhere
+      \end{align*}
+    \end{proof}
+  }
+
+  \note{
+    \begin{proof}[Beweis (intuitionistisch und klassisch zulässig)]
+      Setze~$x := \sqrt{2}$, $y := \log_{\sqrt{2}} 3$. Dann $x^y = 3$.
+    \end{proof}
+  }
+}
+
+\subsection{Anwendungen}
+\frame[t]{\frametitle{Anwendungen}
+  \only<1>{
+    \begin{center}
+      \includegraphics[scale=0.4]{fun.png}
+    \end{center}
+  }
+  \pause
+
+  \begin{itemize}
+    \item Mit intuitionistischer Logik kann man Belegbarkeitsfragen untersuchen.
+    \item Aus intuitionistischen Beweisen kann man maschinell \emph{Programme} extrahieren.
+    \item Die \emph{interne Sprache} von Topoi ist i.\,A. intuitionistisch.
+    \item Intuitionistisch kann man \emph{Traummathematik} studieren.
+  \end{itemize}
+
+  \vfill
+  \begin{center}
+    \phantom{a}
+    \hfill
+    \includegraphics[scale=0.4]{program-extraction.png}
+    \hfill
+    \includegraphics[scale=0.4]{constructive-maths.png}
+    \hfill
+    \includegraphics[scale=0.4]{dream-maths.png}
+    \hfill
+    \phantom{a}
+  \end{center}
+
+  \note<2>{
+    \begin{itemize}
+      \item Intuitionistische Logik formalisiert (eine Spielart der)
+            konstruktiven Mathematik.
+      \item Beispiele für Traumaxiome sind:
+            \begin{itemize}
+              \item \emph{Alle Funktionen sind stetig.}
+              \item \emph{Es gibt nilquadratische Zahlen~$x$ (d.\,h. Zahlen mit $x^2 = 0$),
+            die aber selbst nicht null sind.}
+            \end{itemize}
+            Diese führen klassisch sofort
+            zu einem Widerspruch, intuitionistisch aber nicht.
+    \end{itemize}
+  }
+}
+
+\section{Eine andere mathematische Welt}
+
+\subsection{Leere und nichtleere Mengen}
+\frame[t]{\frametitle{Leere und nichtleere Mengen}
+  Sei~$X$ eine Menge.
+  
+  \emph{Frage:} Sind die beiden folgenden Aussagen
+  äquivalent?
+  \begin{enumerate}
+    \item $X$ ist \emph{nicht leer}, d.\,h. $X \neq \emptyset$.
+    \item $X$ ist \emph{bewohnt}, d.\,h. $\exists x \in X$.
+  \end{enumerate}
+
+  \visible<2>{
+  Aussage~{\insertenumlabel} ist stärker: Wir können explizit ein Element~$x$ der
+  Menge angeben.
+  }
+
+  \vfill
+  \begin{center}
+    \includegraphics[scale=0.4]{empty-set.png}
+    \hfill
+    \includegraphics[scale=0.4]{schwebe-set.png}
+    \hfill
+    \includegraphics[scale=0.4]{inhabited-set.png}
+  \end{center}
+
+  \note<2>{
+    \begin{proposition}
+      Wenn für alle Mengen~$X$ aus Nichtleerheit schon Bewohntheit folgt, gilt
+      DNE (und damit LEM).
+    \end{proposition}
+    \begin{proof}
+      Sei~$A$ eine Aussage und gelte~$\neg\neg A$. Definiere $X := \{ \star \,|\, A \}$. Dann gilt~$X
+      \neq \varnothing$, denn das ist gleichbedeutend mit~$\neg(\neg \exists x
+      \in X)$, also mit~$\neg \neg A$. Nach Voraussetzung folgt damit~$\exists x \in
+      X$, also~$A$.
+    \end{proof}
+  }
+}
+
+\subsection{Teilmengen der Eins}
+\frame[t]{\frametitle{Teilmengen der Eins}
+  \begin{definition}Die \emph{Menge der Wahrheitswerte~$\Omega$} ist
+  die Menge aller Teilmengen der Menge
+  \[ \1 := \{ \star \}, \]
+  also
+  \[ \Omega := \P(\1) = \{ U \,|\, U \subseteq \1 \}. \]
+  \end{definition}
+
+  \begin{itemize}
+    \item \emph{Frage:} Wie viele Elemente enthält~$\Omega$?
+    \pause
+    \item Es gibt auch
+    \begin{align*}
+      \Omega_{\text{entscheidbar}} &:= \{ p \in \Omega \,|\, \text{$\star \in p$
+      oder $\star \not\in p$} \}, \\
+      \Omega_{\text{stabil}} &:= \{ p \in \Omega \,|\, \neg \neg(\star \in
+      p) \Rightarrow \star \in p \}.
+    \end{align*}
+    In welcher Beziehung stehen diese zu~$\Omega$?
+  \end{itemize}
+
+  \note<2>{
+    \vspace{-1em}
+    \begin{scriptsize}\begin{itemize}
+      \item Klassisch gilt~$\Omega = \{ \varnothing, \{ \star \} \}$, aber
+            intuitionistisch kann man nur~"`$\supseteq$"' zeigen.
+      \item \vspace{-0.5em} Sind~$A$ und~$B$ Aussagen, hat man beispielsweise zumindest
+            folgende Elemente von~$\Omega$ (und noch viele weitere):
+            \vspace{-0.5em}
+            \begin{center}\begin{tikzpicture}[node distance=0.7cm]
+              \node (T)                {$\{ \star \}$};
+              \node (P)  [below of=T]  {};
+              \node (A)  [left  of=P]  {$\{ \star \,|\, A \}$};
+              \node (B)  [right of=P]  {$\{ \star \,|\, B \}$};
+              \node (AB) [below of=P]  {$\{ \star \,|\, A \wedge B \}$};
+              \node (F)  [below of=AB] {$\varnothing$};
+              \draw (T)  -- (A);
+              \draw (T)  -- (B);
+              \draw (A)  -- (AB);
+              \draw (B)  -- (AB);
+              \draw (AB) -- (F);
+            \end{tikzpicture}\end{center}
+      \item \vspace{-0.5em} Man kann aber nicht zeigen, dass diese Zwischenmengen
+      ungleich~$\{ \star \}$ und ungleich~$\varnothing$ sind
+      (Abwärtskompatibilität zur klassischen Logik!).
+      \item \vspace{-0.5em} Es gilt $\Omega_{\text{entscheidbar}} = \{ \varnothing, \{ \star \} \}$ und
+            $\Omega_{\text{entscheidbar}} \subseteq \Omega_{\text{stabil}} \subseteq \Omega$.
+      \item \vspace{-0.5em} Die Bezeichung \emph{entscheidbar} hat eine anschauliche
+            Interpretation in der Informatik: Entscheidbare Aussagen sind
+            solche, für die wir einen Algorithmus angeben können, der (in
+            endlicher Zeit) prüft, ob die Aussage gilt oder nicht.
+    \end{itemize}\end{scriptsize}
+  }
+}
+
+\subsection{Minima von Mengen natürlicher Zahlen}
+\frame[t]{\frametitle{Minima von Mengen natürlicher Zahlen}
+  Klassisch gilt: Jede bewohnte Menge natürlicher Zahlen besitzt ein Minimum.
+
+  \emph{Frage:} Stimmt das auch intuitionistisch?
+
+  \vspace{1em}
+  \begin{center}
+    \includegraphics[scale=0.6]{minima.png}
+  \end{center}
+
+  \note{
+    \begin{proposition}
+      Wenn alle bewohnten Mengen natürlicher Zahlen ein Minimum besitzen, gilt
+      LEM.
+    \end{proposition}
+    \begin{proof}
+      Sei~$A$ eine Aussage. Wir definieren die Menge
+      \[ X := \{ 1 \} \cup \{ 0 \,|\, A \} \subseteq \mathbb{N}. \]
+      Dann ist~$X$ bewohnt (da~$1 \in X$) und besitzt daher nach Voraussetzung
+      ein Minimum~$x \in \mathbb{N}$.
+      Es ist~$\mathbb{N}$ diskret, daher folgt~$x = 0$ oder~$x \neq 0$. Im
+      ersten Fall folgt~$A$, im zweiten~$\neg A$.
+    \end{proof}
+
+    Man kann mit einer Zusatzvoraussetzung das Prinzip retten: Alle
+    bewohnten und herauslösbaren Teilmengen $X \subseteq \mathbb{N}$ (d.\,h.
+    solche mit
+    $\forall x \in \mathbb{N}\_ x \in X \vee x \not\in X$) besitzen ein
+    Minimum.
+  }
+}
+
+\subsection{Endliche Mengen}
+\frame[t]{\frametitle{Endliche Mengen}
+  \begin{definition}
+    Sei~$X$ eine Menge. $X$ heißt\ldots
+    \begin{itemize}
+      \item \ldots\emph{endlich} \tabto{3.4cm} $:\Leftrightarrow$
+        $\exists n \in \N\_ \exists f{:}\, [n] \to X\_ \text{$f$ bijektiv}$.
+      \item \ldots\emph{endlich indiziert} \tabto{3.4cm} $:\Leftrightarrow$
+        $\exists n \in \N\_ \exists f{:}\, [n] \to X\_ \text{$f$ surjektiv}$.
+    \end{itemize}
+    Dabei ist~$[n] := \{ m \in \N \,|\, m < n \} = \{ 0, 1, \ldots, n-1 \}$.
+  \end{definition}
+
+  \emph{Frage:} \tabto{1.2cm} Sind Teilmengen endlicher (endl. indizierter) \\
+  \tabto{1.2cm} Mengen wieder endlich (endl. indiziert)?
+
+  \begin{tikzpicture}[remember picture,overlay]  
+    \node [xshift=-2.0cm,yshift=-7.8cm] at (current page.north east)
+      {\includegraphics[scale=0.4]{many-sheep.png}};
+  \end{tikzpicture}
+
+  \note{\begin{itemize}
+    \item Die Mengen~$[n]$ für~$n \in \mathbb{N}$ stellen wir uns
+          als die Prototypen endlicher Mengen vor.
+    \item Aus \emph{endlich} folgt \emph{endlich indiziert}.
+    \item Endlich indizierte Mengen sind entweder leer oder bewohnt.
+    \item Sollte alle Teilmengen endlich indizierter Mengen wieder
+          endlich indiziert sein, gilt LEM.
+  \end{itemize}}
+}
+
+
+\section{Eleganzassistenz}
+
+\subsection{Unendlichkeit der Primzahlen}
+\frame[t]{\frametitle{Unendlichkeit der Primzahlen}
+  \begin{theorem}[schwache Form]Die Menge~$\mathbb{P}$ der Primzahlen,
+  \[ \mathbb{P} := \{ 2, 3, 5, 7, 11, 13, \ldots \} \subseteq \N, \]
+  ist nicht endlich.\end{theorem}
+  \pause
+
+  \begin{theorem}[starke Form]Sei~$S$ eine endliche Menge von Primzahlen. Dann gibt es
+  eine weitere Primzahl, die nicht in~$S$ enthalten ist.\end{theorem}
+
+  \note<2>{\begin{itemize}
+    \item Die schwache Formulierung hat wegen der negativen Behauptung keinen
+    algorithmischen Inhalt.
+    \item Aus einem intuitionistischen Beweis der starken Form kann man
+    maschinell einen entsprechenden Algorithmus extrahieren.
+    \item Euklids Beweis der starken Form ist kürzer und klarer als der der
+    schwachen Form, und zeigt auch noch eine stärkere Aussage.
+  \end{itemize}}
+}
+
+\subsection{Übungsaufgabe in Linearer Algebra I}
+\frame[t]{\frametitle{Übungsaufgabe in Linearer Algebra I}
+  \begin{proposition}
+    Sei~$f{:}\, X \to Y$ eine Abbildung und sei
+    \[ \renewcommand{\arraystretch}{1.3}\begin{array}{@{}rrcl@{}}
+      \varphi{:} &\P(Y)&\longrightarrow& \P(X), \\
+      & U &\longmapsto& f^{-1}[U] := \{ x \in X \,|\, f(x) \in U \}
+    \end{array} \]
+    die zugehörige Urbildoperation. Dann ist~$f$ genau dann surjektiv,
+    wenn~$\varphi$ injektiv ist.
+  \end{proposition}
+
+  \emph{Zum Knobeln:} Auch für die Rückrichtung gibt es einen direkten Beweis.
+
+  \note{
+    \begin{proof}[Beweis (umständlich, nur klassisch zulässig)]
+      Angenommen,~$f$ ist nicht surjektiv. Dann gibt es ein~$y \in Y$, welches
+      nicht im Bild von~$f$ liegt. Somit gilt~$\varphi(\{y\}) = \varnothing =
+      \varphi(\varnothing)$ im Widerspruch zur Injektivität von~$\varphi$.
+    \end{proof}
+    \begin{proof}[Beweis (elegant)]
+      Es gilt~$\varphi(\Bild f) = X = \varphi(Y)$, also~$\Bild f = Y$.
+    \end{proof}
+  }
+}
 
 \section{Kalkül natürlichen Schließens}
 \frame[t]{\frametitle{Kalkül natürlichen Schließens}
@@ -573,7 +575,7 @@
 
 \section{Semantik}
 
-\subsection{Heytingalgebren}
+\subsection{Heytingmodelle}
 \frame[t]{\frametitle{Heytingalgebren}
   \begin{definition}
     Eine \emph{Heytingalgebra}~$H$ ist eine partiell geordnete Menge~($\leq$), in der
@@ -590,6 +592,60 @@
     \item Beispiele für Heytingalgebren: $\{ 0, \nicefrac{1}{2}, 1\}$, $\P(\1)$, $\O(X)$
     \item Nutzen als Modelle für intuitionistische propositionale Logik
   \end{itemize}
+}
+
+\frame[t]{\frametitle{Heytingmodelle I\phantom{I}}
+  \begin{definition}
+    Ein \emph{Heytingmodell} besteht aus
+    \begin{enumerate}
+      \item einer Heytingalgebra~$H$ und
+      \item einer Zuordnung~$\ll{\cdot}$ von Formeln zu Elementen aus~$H$
+    \end{enumerate}
+    sodass die Axiome
+    \begin{align*}
+      \ll{\top} &= \text{größtes Element von~$H$} \\
+      \ll{\bot} &= \text{kleinstes Element von~$H$} \\
+      \ll{A \wedge B} &= \ll{A} \sqcap \ll{B} \\
+      \ll{A \vee B} &= \ll{A} \sqcup \ll{B} \\
+      \ll{A \Rightarrow B} &= \ll{A} \to \ll{B}
+    \end{align*}
+    für alle Formeln~$A$, $B$ erfüllt sind.
+  \end{definition}
+}
+
+\frame[t]{\frametitle{Heytingmodelle II}
+  \begin{theorem}
+    \begin{enumerate}
+      \item Heytingmodelle sind korrekt: Es gilt
+            \[ A \seq{} B \quad\Rightarrow\quad \ll{A} \leq \ll{B} \]
+            für alle Formeln $A$, $B$ und Heytingmodelle~$\ll{\cdot}$.
+      \item Heytingmodelle sind auch vollständig: Gilt für gewisse Formeln $A$,
+            $B$, dass
+            \[ \ll{A} \leq \ll{B} \]
+            für alle Heytingmodelle~$\ll{\cdot}$, so folgt $A \seq{} B$.
+    \end{enumerate}
+  \end{theorem}
+
+  \note{
+    \begin{proof}
+      \begin{enumerate}
+        \item Induktion über den Aufbau intuitionistischer Ableitungen im
+        Gentzenkalkül.
+        \item Die \emph{Lindenbaumalgebra}
+              \[ L := (\text{Menge aller Formeln})/(\text{ableitbare Äquivalenz}) \]
+              mit~$\ll{A} := [A]$ (Äquivalenzklasse von~$A$) ist ein spezielles
+              Heytingmodell, in dem $[A] \leq [B]$ gleichbedeutend mit $A \seq{} B$ ist.
+              \qedhere
+      \end{enumerate}
+    \end{proof}
+    \vfill
+
+    Das Konzept des Heytingmodells lässt sich von propositionaler
+    Logik auf Prädikatenlogik erster und höherer
+    Ordnung verallgemeinern; dann benötigt man nicht nur eine Heytingalgebra,
+    sondern für jeden Typ der Sprache jeweils eine. Diese Daten organisieren
+    sich zu einem Topos.
+  }
 }
 
 \subsection{Kripkemodelle}
@@ -610,10 +666,16 @@
       \leq u$: \\ \tabto{2.3cm} ${\qquad}$ Aus $u \models A$ folgt $u \models B$.
     \end{enumerate}
   \end{definition}
+
+  \note{\begin{itemize}
+    \item $w \models \neg A$ gdw. $\neg\exists v \geq w\_ v \models A$.
+    \item $w \models \neg\neg A$ gdw. $\forall v \geq w\_ \neg\neg\exists u
+    \geq v\_ u \models A$.
+  \end{itemize}}
 }
 
 \section{Doppelnegationsübersetzung}
-\frame[t]{\frametitle{Doppelnegationsübersetzung I}
+\frame[t]{\frametitle{Doppelnegationsübersetzung I\phantom{II}}
   \begin{definition}
     \begin{itemize}
       \item
@@ -632,9 +694,21 @@
     \item Entscheidbare Aussagen sind auch stabil.
     \item Jede Aussage der Form $\neg\neg B$ ist stabil.
   \end{itemize}
+
+  \note{
+    \begin{proof}
+      \begin{enumerate}
+        \item Das folgt mit Induktion.
+        \item Folgt wie beim Beweis LEM\,$\Rightarrow$\,DNE.
+        \item Allgemein gilt~$\neg\neg\neg A \Rightarrow \neg A$: Denn
+        angenommen~$A$. Dann folgt~$\neg\neg A$. Da~$\neg\neg\neg A$,
+        folgt~$\bot$. \qedhere
+      \end{enumerate}
+    \end{proof}
+  }
 }
 
-\frame[t]{\frametitle{Doppelnegationsübersetzung II}
+\frame[t]{\frametitle{Doppelnegationsübersetzung II\phantom{I}}
   \begin{definition}
     Die Doppelnegationsübersetzung~$A^\circ$ ist für Aussagen~$A$ wie folgt
     rekursiv definiert:
@@ -673,7 +747,7 @@
         \item Klar (Induktion über den Formelaufbau).
         \item Einfach (Induktion über den Formelaufbau).
         \item Einfach (noethersche Induktion über den Aufbau klassischer
-        Ableitungen im Gentzenkalkül). \qedhere
+        Ableitungen im Gentzenkalkül unter Verwendung der gezeigten Stabilität). \qedhere
       \end{enumerate}
     \end{proof}
 
@@ -682,6 +756,29 @@
       $\bot^\circ$. Das ist äquivalent zu $\bot$.
     \end{proof}
   }
+}
+
+\section*{Literaturhinweise}
+\frame[t]{\frametitle{Literaturhinweise}
+  \small
+  \begin{itemize}
+    \item Beispiele für konstruktive Mathematik: \\
+          \href{http://math.andrej.com/category/constructive-math/}{A. Bauer.
+          Blog auf \texttt{http://math.andrej.com/}.}
+    \item Philosophische Einordnung: \\
+          \href{http://plato.stanford.edu/entries/logic-intuitionistic/}{J.
+          Moschovakis. \emph{Intuitionistic Logic.} The Stanford Encyclopedia of
+          Philosophy, 2010.}
+    \item Beispiel für Traummathematik: \\
+          A. Kock. \emph{Synthetic Differential Geometry.} Cambridge University
+          Press, 2006.
+    \item Einführungen in Topostheorie: \\
+          S. Mac Lane, I. Moerdijk. \emph{Sheaves in Geometry and Logic: A First
+          Introduction to Topos Theory.} Springer, 1992. \\
+          P. Johnstone. \emph{Sketches of an Elephant: A Topos Theory
+          Compendium.}
+          Oxford University Press, 2002.
+  \end{itemize}
 }
 
 \end{document}
