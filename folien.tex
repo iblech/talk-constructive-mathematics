@@ -198,8 +198,9 @@
     \begin{description}\small
       \item[$\neg A$] Es kann keinen Beleg für~$A$ geben.
       \tikz[remember picture] \node[coordinate,yshift=0.5em] (n5) {};%
-      \item[$\neg \neg A$] Es kann keinen Beleg für~$\neg A$ geben (d.\,h. $A$
-      ist "`potenziell wahr"').
+      \item[$\neg \neg A$] Es kann keinen Beleg für~$\neg A$ geben
+      (gewissermaßen ist $A$
+      "`potenziell wahr"').
       \tikz[remember picture] \node[coordinate,yshift=-0.0em] (n4) {};
     \end{description}
 
@@ -385,8 +386,8 @@
     \end{proposition}
     \begin{proof}
       Sei~$A$ eine Aussage und gelte~$\neg\neg A$. Definiere $X := \{ \star \,|\, A \}$. Dann gilt~$X
-      \neq \varnothing$, denn das ist gleichbedeutend mit~$\neg(\neg \exists x
-      \in X)$, also mit~$\neg \neg A$. Nach Voraussetzung folgt damit~$\exists x \in
+      \neq \emptyset$, denn das ist gleichbedeutend mit~$\neg\neg \exists x
+      \in X$, also mit~$\neg \neg A$. Nach Voraussetzung folgt damit~$\exists x \in
       X$, also~$A$.
     \end{proof}
   }
@@ -406,10 +407,10 @@
     \pause
     \item Es gibt auch
     \begin{align*}
-      \Omega_{\text{entscheidbar}} &:= \{ p \in \Omega \,|\, \text{$\star \in p$
-      oder $\star \not\in p$} \}, \\
+      \Omega_{\text{entscheidbar}} &:= \{ p \in \Omega \,|\, \star \in p \ \vee\ 
+      \star \not\in p \}, \\
       \Omega_{\text{stabil}} &:= \{ p \in \Omega \,|\, \neg \neg(\star \in
-      p) \Rightarrow \star \in p \}.
+      p) \ \Rightarrow\  \star \in p \}.
     \end{align*}
     In welcher Beziehung stehen diese zu~$\Omega$?
   \end{itemize}
@@ -417,7 +418,7 @@
   \note<2>{
     \vspace{-1em}
     \begin{scriptsize}\begin{itemize}
-      \item Klassisch gilt~$\Omega = \{ \varnothing, \{ \star \} \}$, aber
+      \item Klassisch gilt~$\Omega = \{ \emptyset, \{ \star \} \}$, aber
             intuitionistisch kann man nur~"`$\supseteq$"' zeigen.
       \item \vspace{-0.5em} Sind~$A$ und~$B$ Aussagen, hat man beispielsweise zumindest
             folgende Elemente von~$\Omega$ (und noch viele weitere):
@@ -428,7 +429,7 @@
               \node (A)  [left  of=P]  {$\{ \star \,|\, A \}$};
               \node (B)  [right of=P]  {$\{ \star \,|\, B \}$};
               \node (AB) [below of=P]  {$\{ \star \,|\, A \wedge B \}$};
-              \node (F)  [below of=AB] {$\varnothing$};
+              \node (F)  [below of=AB] {$\emptyset$};
               \draw (T)  -- (A);
               \draw (T)  -- (B);
               \draw (A)  -- (AB);
@@ -436,9 +437,9 @@
               \draw (AB) -- (F);
             \end{tikzpicture}\end{center}
       \item \vspace{-0.5em} Man kann aber nicht zeigen, dass diese Zwischenmengen
-      ungleich~$\{ \star \}$ und ungleich~$\varnothing$ sind
+      ungleich~$\{ \star \}$ und ungleich~$\emptyset$ sind
       (Abwärtskompatibilität zur klassischen Logik!).
-      \item \vspace{-0.5em} Es gilt $\Omega_{\text{entscheidbar}} = \{ \varnothing, \{ \star \} \}$ und
+      \item \vspace{-0.5em} Es gilt $\Omega_{\text{entscheidbar}} = \{ \emptyset, \{ \star \} \}$ und
             $\Omega_{\text{entscheidbar}} \subseteq \Omega_{\text{stabil}} \subseteq \Omega$.
       \item \vspace{-0.5em} Die Bezeichung \emph{entscheidbar} hat eine anschauliche
             Interpretation in der Informatik: Entscheidbare Aussagen sind
@@ -507,7 +508,8 @@
           als die Prototypen endlicher Mengen vor.
     \item Aus \emph{endlich} folgt \emph{endlich indiziert}.
     \item Endlich indizierte Mengen sind entweder leer oder bewohnt.
-    \item Sollte alle Teilmengen endlich indizierter Mengen wieder
+          (Bei beliebigen Mengen kann man diese Disjunktion nicht zeigen.)
+    \item Sollten alle Teilmengen endlich indizierter Mengen wieder
           endlich indiziert sein, gilt LEM.
   \end{itemize}}
 }
@@ -552,8 +554,8 @@
   \note{
     \begin{proof}[Beweis (umständlich, nur klassisch zulässig)]
       Angenommen,~$f$ ist nicht surjektiv. Dann gibt es ein~$y \in Y$, welches
-      nicht im Bild von~$f$ liegt. Somit gilt~$\varphi(\{y\}) = \varnothing =
-      \varphi(\varnothing)$ im Widerspruch zur Injektivität von~$\varphi$.
+      nicht im Bild von~$f$ liegt. Somit gilt~$\varphi(\{y\}) = \emptyset =
+      \varphi(\emptyset)$ im Widerspruch zur Injektivität von~$\varphi$.
     \end{proof}
     \begin{proof}[Beweis (elegant)]
       Es gilt~$\varphi(\Bild f) = X = \varphi(Y)$, also~$\Bild f = Y$.
@@ -592,6 +594,14 @@
     \item Beispiele für Heytingalgebren: $\{ 0, \nicefrac{1}{2}, 1\}$, $\P(\1)$, $\O(X)$
     \item Nutzen als Modelle für intuitionistische propositionale Logik
   \end{itemize}
+
+  \note{
+    \begin{itemize}
+      \item Die definierende universelle Eigenschaft von~$({\to})$ ist genau so
+      gemacht, dass sie der Schlussregel für die Implikation im Gentzenkalkül
+      entspricht.
+    \end{itemize}
+  }
 }
 
 \frame[t]{\frametitle{Heytingmodelle I\phantom{I}}
@@ -619,7 +629,7 @@
       \item Heytingmodelle sind korrekt: Es gilt
             \[ A \seq{} B \quad\Rightarrow\quad \ll{A} \leq \ll{B} \]
             für alle Formeln $A$, $B$ und Heytingmodelle~$\ll{\cdot}$.
-      \item Heytingmodelle sind auch vollständig: Gilt für gewisse Formeln $A$,
+      \item Heytingmodelle sind auch vollständig: Gilt für gegebene Formeln $A$,
             $B$, dass
             \[ \ll{A} \leq \ll{B} \]
             für alle Heytingmodelle~$\ll{\cdot}$, so folgt $A \seq{} B$.
@@ -638,7 +648,6 @@
               \qedhere
       \end{enumerate}
     \end{proof}
-    \vfill
 
     Das Konzept des Heytingmodells lässt sich von propositionaler
     Logik auf Prädikatenlogik erster und höherer
@@ -701,7 +710,7 @@
         \item Das folgt mit Induktion.
         \item Folgt wie beim Beweis LEM\,$\Rightarrow$\,DNE.
         \item Allgemein gilt~$\neg\neg\neg A \Rightarrow \neg A$: Denn
-        angenommen~$A$. Dann folgt~$\neg\neg A$. Da~$\neg\neg\neg A$,
+        angenommen~$A$. Dann folgt~$\neg\neg A$ (wieso?). Da aber~$\neg\neg\neg A$,
         folgt~$\bot$. \qedhere
       \end{enumerate}
     \end{proof}
@@ -760,11 +769,15 @@
 
 \section*{Literaturhinweise}
 \frame[t]{\frametitle{Literaturhinweise}
-  \small
+  \scriptsize
   \begin{itemize}
     \item Beispiele für konstruktive Mathematik: \\
           \href{http://math.andrej.com/category/constructive-math/}{A. Bauer.
-          Blog auf \texttt{http://math.andrej.com/}.}
+          Blog auf \texttt{http://math.andrej.com/}.} \\
+          \href{http://alg.math.uni-augsburg.de/lehre/vorlesungsskripte/linalg.pdf/at_download/file}{M. Nieper-Wißkirchen.
+          Lineare Algebra I und II. Vorlesungsskript, 2008.} \\
+          \href{http://alg.math.uni-augsburg.de/lehre/vorlesungsskripte/einfuhrung-in-die-algebra/at_download/file}{M. Nieper-Wißkirchen. 
+          Galoissche Theorie. Unveröffentlicht, 2012.}
     \item Philosophische Einordnung: \\
           \href{http://plato.stanford.edu/entries/logic-intuitionistic/}{J.
           Moschovakis. \emph{Intuitionistic Logic.} The Stanford Encyclopedia of
