@@ -100,7 +100,7 @@
 \setbeamertemplate{headline}{}
 
 \beamertemplateboldcenterframetitle
-\setbeamerfont{frametitle}{size={\Large}}
+%\setbeamerfont{frametitle}{size={\Large}}
 
 \newenvironment{changemargin}[2]{%
   \begin{list}{}{%
@@ -125,7 +125,7 @@
 }
 
 \frame{\titlepage}
-\frame[t]{\scriptsize\tableofcontents}
+\frame[t]{\frametitle{Gliederung}\begin{minipage}{\textwidth}\begin{small}\tableofcontents\end{small}\end{minipage}}
 
 \section{Einführung}
 
@@ -247,13 +247,11 @@
           falsch.
     \item Intuitionistische Logik ist abwärtskompatibel zu klassischer Logik:
           Alles, was intuitionistisch ableitbar ist, ist auch klassisch ableitbar.
+          Insbesondere ist die Negation von LEM kein Axiom.
     \item Auch intuitionistisch gilt $\neg(A \wedge \neg A)$: Angenommen, wir
           hätten Beleg für $A \wedge \neg A$. Dann haben wir Beleg
           für~$A$ und können aus Belegen für~$A$ Belege für~$\bot$
           konstruieren. Also erhalten wir Beleg für~$\bot$.
-    \item Speziell folgt~$\neg(\neg B \wedge \neg \neg B)$. Es kann also auch
-          intuitionistisch für eine Aussage~$B$ nicht sein, dass weder sie noch
-          ihre Negation folgt.
   \end{itemize}
 }
 
@@ -340,6 +338,12 @@
     \begin{itemize}
       \item Intuitionistische Logik formalisiert (eine Spielart der)
             konstruktiven Mathematik.
+      \item Sehr viele Teilgebiete der Mathematik (auch analytische)
+            lassen sich intuitionistisch behandeln. Dabei muss man manchmal
+            Zusatzvoraussetzungen fordern, die klassisch stets erfüllt sind.
+            Üblicherweise empfindet man das nicht als Nachteil, sondern als
+            willkommenes Mittel, um abstrakte Konzepte und Zusammenhänge besser zu
+            verstehen.
       \item Beispiele für Traumaxiome sind:
             \begin{itemize}
               \item \emph{Alle Funktionen sind stetig.}
@@ -507,10 +511,15 @@
     \item Die Mengen~$[n]$ für~$n \in \mathbb{N}$ stellen wir uns
           als die Prototypen endlicher Mengen vor.
     \item Aus \emph{endlich} folgt \emph{endlich indiziert}.
+          Die Umkehrung gilt für diskrete Mengen.
     \item Endlich indizierte Mengen sind entweder leer oder bewohnt.
           (Bei beliebigen Mengen kann man diese Disjunktion nicht zeigen.)
-    \item Sollten alle Teilmengen endlich indizierter Mengen wieder
-          endlich indiziert sein, gilt LEM.
+    \item Sollten Teilmengen endlich indizierter Mengen stets wieder
+          endlich indiziert sein, gilt LEM. Um das zu zeigen, betrachtet man geeignete
+          Teilmengen der endlich indizierten (sogar endlichen) Menge~$\1 =
+          \{\star\}$.
+    \item Es gibt noch weitere Endlichkeitsbegriffe, die für manche
+          Anwendungen besser oder schlechter geeignet sind.
   \end{itemize}}
 }
 
@@ -534,6 +543,9 @@
     maschinell einen entsprechenden Algorithmus extrahieren.
     \item Euklids Beweis der starken Form ist kürzer und klarer als der der
     schwachen Form, und zeigt auch noch eine stärkere Aussage.
+    \item Empirisches Faktum: Versucht man, klassische Theorien
+    intuitionistisch zu entwickeln, stößt man auf einfachere und elegantere
+    Konzepte und Beweise.
   \end{itemize}}
 }
 
@@ -557,21 +569,77 @@
       nicht im Bild von~$f$ liegt. Somit gilt~$\varphi(\{y\}) = \emptyset =
       \varphi(\emptyset)$ im Widerspruch zur Injektivität von~$\varphi$.
     \end{proof}
+    \rotatebox{180}{\vbox{
     \begin{proof}[Beweis (elegant)]
       Es gilt~$\varphi(\Bild f) = X = \varphi(Y)$, also~$\Bild f = Y$.
-    \end{proof}
+    \end{proof}}}
   }
 }
 
-\section{Kalkül natürlichen Schließens}
-\frame[t]{\frametitle{Kalkül natürlichen Schließens}
+\section{Gentzens Kalkül natürlichen Schließens}
+\frame[t]{\frametitle{Gentzens Kalkül natürlichen Schließens}
+  \small
   \begin{itemize}
     \item Strukturelle Regeln: \\
-    \AxiomC{}\UnaryInfC{$A \seq{\vec x} A$}\DisplayProof
+    \vspace{-1em}
+    \phantom{a}\hfill
+    \AxiomC{$\phantom{\seq{\vec x}}$}\UnaryInfC{$A \seq{\vec x} A$}\DisplayProof\hfill
     \AxiomC{$A \seq{\vec x} B$}\UnaryInfC{$A[\vec s/\vec x]
-    \seq{\vec y} B[\vec s/\vec x]$}\DisplayProof
+    \seq{\vec y} B[\vec s/\vec x]$}\DisplayProof\hfill
     \AxiomC{$A \seq{\vec x} B$}\AxiomC{$B \seq{\vec x}
-    C$}\BinaryInfC{$A \seq{\vec x} C$}\DisplayProof
+    C$}\BinaryInfC{$A \seq{\vec x} C$}\DisplayProof\hfill
+    \phantom{a}
+    \vspace{-0.3em}
+    \item Regeln für Konjunktion: \\
+    \AxiomC{$\phantom{\seq{\vec x}}$}\UnaryInfC{$A \seq{\vec x} \top$}\DisplayProof\hfill
+    \AxiomC{$\phantom{\seq{\vec x}}$}\UnaryInfC{$A \wedge B \seq{\vec x} A$}\DisplayProof\hfill
+    \AxiomC{$\phantom{\seq{\vec x}}$}\UnaryInfC{$A \wedge B \seq{\vec x} B$}\DisplayProof\hfill
+    \AxiomC{$A \seq{\vec x} B$}\AxiomC{$A \seq{\vec x} C$}\BinaryInfC{$A \seq{\vec x} B \wedge C$}\DisplayProof
+    \vspace{-0.3em}
+    \item Regeln für Disjunktion: \\
+    \AxiomC{$\phantom{\seq{\vec x}}$}\UnaryInfC{$\bot \seq{\vec x} A$}\DisplayProof\hfill
+    \AxiomC{$\phantom{\seq{\vec x}}$}\UnaryInfC{$A \seq{\vec x} A \vee B$}\DisplayProof\hfill
+    \AxiomC{$\phantom{\seq{\vec x}}$}\UnaryInfC{$B \seq{\vec x} A \vee B$}\DisplayProof\hfill
+    \AxiomC{$A \seq{\vec x} C$}\AxiomC{$B \seq{\vec x} C$}\BinaryInfC{$A \vee B \seq{\vec x} C$}\DisplayProof
+    \vspace{-0.3em}
+    \item Doppelregel für Implikation: \\
+    {\centering \AxiomC{$A \wedge B \seq{\vec x} C$}\doubleLine\UnaryInfC{$A \seq{\vec x} B \Rightarrow C$}\DisplayProof\par}
+    \vspace{-0.3em}
+    \item Doppelregeln für Quantifikation: \\
+    \vspace{-0.7em}
+    \phantom{a}\hfill
+    \AxiomC{$A \seq{\vec x, y} B$}\doubleLine\UnaryInfC{$\exists y\_\! A \seq{\vec x} B$}\DisplayProof\hfill
+    \AxiomC{$A \seq{\vec x, y} B$}\doubleLine\UnaryInfC{$A \seq{\vec x} \forall y\_\! B$}\DisplayProof\hfill
+    \phantom{a}
+  \end{itemize}
+
+  \note{
+    \begin{itemize}
+      \item Vorkommende Variablen sind in der Notation unterdrückt.
+      \item Exemplarisch bedeutet die Regel für Implikation folgendes:
+            Genau dann, wenn sich unter der Annahme~$A \wedge B$ die Formel~$C$
+            herleiten lässt, lässt sich auch unter der Annahme von~$A$ die
+            Formel~$(B \Rightarrow C)$ herleiten.
+      \item Unter der anfangs gegebenen informalen Bedeutung sind all diese Regeln plausibel.
+      \item Die Regeln für Disjunktion und Konjunktion sind zueinander dual.
+      \item Das Axiom vom ausgeschlossenen Dritten sieht in der Regelschreibweise so aus: \\
+            {\centering \AxiomC{$\phantom{\seq{\vec x}}$}\UnaryInfC{$\seq{\vec x} A \vee \neg A$}\DisplayProof\par}
+    \end{itemize}
+  }
+}
+
+\note{
+  \begin{itemize}
+    \item Die Regel für den Existenzquantor muss auf solche Formeln~$B$ eingeschränkt werden, in denen die Variable~$y$
+          nicht vorkommt. Analog darf bei der Regel für den Allquantor in der Formel~$A$ kein~$y$ vorkommen.
+    \item Die Regel für den Existenzquantor rechtfertigt folgendes informelles Beweisschema, um
+          aus der Annahme~$\exists y\_\! A$ eine Formel~$B$ zu folgern:
+
+          \emph{Gelte $\exists y\_\! A$. Dann gibt es ein~$y$ mit~$A$. \dots Also gilt~$B$.}
+    \item Analog rechtfertigt die Regel für den Allquantor folgendes Vorgehen,
+          um aus der Annahme~$A$ die Formel~$\forall\! y\_ B$ abzuleiten:
+
+          \emph{Gelte~$A$. Sei~$y$ beliebig. \dots Also gilt~$B$.}
   \end{itemize}
 }
 
@@ -592,7 +660,8 @@
   \vfill
   \begin{itemize}
     \item Beispiele für Heytingalgebren: $\{ 0, \nicefrac{1}{2}, 1\}$, $\P(\1)$, $\O(X)$
-    \item Nutzen als Modelle für intuitionistische propositionale Logik
+    \item Wir stellen uns Elemente einer Heytingalgebra als (verallgemeinerte)
+    Wahrheitswerte vor.
   \end{itemize}
 
   \note{
@@ -600,6 +669,9 @@
       \item Die definierende universelle Eigenschaft von~$({\to})$ ist genau so
       gemacht, dass sie der Schlussregel für die Implikation im Gentzenkalkül
       entspricht.
+      \item Für ein Element~$a \in H$ ist~$(a \to \bot)$ das sog.
+      \emph{Pseudokomplement} von~$a$. Im Allgemeinen gilt natürlich nicht $a
+      \sqcup (a \to \bot) = \top$.
     \end{itemize}
   }
 }
@@ -765,6 +837,29 @@
       $\bot^\circ$. Das ist äquivalent zu $\bot$.
     \end{proof}
   }
+}
+
+\note{
+  \small
+  Weitere wichtige Stichpunkte:
+
+  \begin{itemize}
+    \item \emph{Satz von Barr:} Aussagen einer gewissen syntaktischen Form (sog. \emph{geometrische
+    Aussagen}, aber die Bezeichnung ist zunächst irreführend) lassen sich genau
+    dann klassisch ableiten, wenn sie sich intuitionistisch ableiten lassen.
+    Dieses Metatheorem kann man allerdings nur mit klassischer Logik zeigen.
+
+    \item \emph{Curry-Howard-Korrespondenz:} Logische Formeln entsprechen
+    Typen, Beweisen der Formeln Termen dieser Typen. Unter dieser Korrespondenz
+    geht die Doppelnegationsübersetzung in die
+    \emph{Continuation Passing Transformation} (CPS) über.
+
+    \item Eine Formalisierung konstruktiver Mengenlehre ist
+    \emph{Intuitionistic Zermelo Fraenkel} (IZF). In ihr ist das
+    Auswahlaxiom nicht enthalten, da aus ihm der Satz vom ausgeschlossenen
+    Dritten folgt (und da es unter den üblichen Interpretationen auch
+    offensichtlich falsch ist).
+  \end{itemize}
 }
 
 \section*{Literaturhinweise}
