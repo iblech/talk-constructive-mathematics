@@ -1,0 +1,163 @@
+\documentclass[12pt,utf8,notheorems,compress]{beamer}
+\usepackage{etex}
+
+\usepackage[english]{babel}
+
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing,arrows}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{ragged2e}
+\usepackage{multicol}
+\usepackage{tabto}
+\usepackage{xstring}
+
+\usepackage[protrusion=true,expansion=false]{microtype}
+
+\setlength\parskip{\medskipamount}
+\setlength\parindent{0pt}
+
+\renewcommand{\U}{\mathcal{U}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\Id}{\mathrm{Id}}
+\newcommand{\fst}{\mathsf{fst}}
+\newcommand{\snd}{\mathsf{snd}}
+\newcommand{\inv}{\mathsf{inv}}
+\newcommand{\refl}{\mathsf{refl}}
+\newcommand{\ap}{\mathsf{ap}}
+\renewcommand{\succ}{\mathsf{succ}}
+\newcommand{\seg}{\mathsf{seg}}
+\newcommand{\base}{\mathsf{base}}
+\newcommand{\lloop}{\mathsf{loop}}
+\newcommand{\ua}{\mathsf{ua}}
+\newcommand{\code}{\mathsf{code}}
+\newcommand{\surf}{\mathsf{surf}}
+\newcommand{\merid}{\mathsf{merid}}
+\newcommand{\N}{\mathsf{N}}
+\renewcommand{\S}{\mathsf{S}}
+\newcommand{\Cyl}{\mathrm{Cyl}}
+\newcommand{\IsContr}{\mathsf{IsContr}}
+\newcommand{\IsMereProp}{\mathsf{IsMereProp}}
+\newcommand{\IsSet}{\mathsf{IsSet}}
+\newcommand{\IsEquiv}{\mathsf{IsEquiv}}
+\newcommand{\LEM}{\mathsf{LEM}}
+\newcommand{\UIP}{\mathsf{UIP}}
+\newcommand{\fib}{\mathsf{fib}}
+\newcommand{\List}{\mathsf{List}}
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\defeqv}{\vcentcolon\equiv}
+\newcommand{\ct}{%
+  \mathchoice{\mathbin{\raisebox{0.5ex}{$\displaystyle\centerdot$}}}%
+             {\mathbin{\raisebox{0.5ex}{$\centerdot$}}}%
+             {\mathbin{\raisebox{0.25ex}{$\scriptstyle\,\centerdot\,$}}}%
+             {\mathbin{\raisebox{0.1ex}{$\scriptscriptstyle\,\centerdot\,$}}}
+}
+
+\title{The double negation translation}
+\author[XXX]{\vspace{-1em}\\\includegraphics[scale=0.3]{torus.png} \\[0.5em] Ingo Blechschmidt \\[-0.3em] {\scriptsize June 3rd, 2015}}
+\date{June 3d, 2015}
+
+\usetheme{Warsaw}
+\usecolortheme{seahorse}
+%\usefonttheme{default}?
+%\usepackage{kurier}?
+\usefonttheme{serif}
+%\usepackage{libertine}?
+\usepackage{mathpazo}
+\useinnertheme{rectangles}
+
+\setbeamertemplate{title page}[default][colsep=-1bp,rounded=false,shadow=false,bg=white]
+\setbeamertemplate{frametitle}[default][colsep=-2bp,rounded=false,shadow=false,center]
+
+\setbeamertemplate{headline}{}
+\setbeamertemplate{navigation symbols}{}
+
+\newcommand{\floatbox}[3]{%
+  \raisebox{0pt}[0pt][0pt]{%
+    \begin{picture}(0,0)(#1,#2)#3\end{picture}\leavevmode%
+  }%
+}
+
+\newcommand{\backupstart}{
+  \newcounter{framenumberpreappendix}
+  \setcounter{framenumberpreappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+  \addtocounter{framenumberpreappendix}{-\value{framenumber}}
+  \addtocounter{framenumber}{\value{framenumberpreappendix}} 
+}
+
+\newcommand*\oldmacro{}%
+\let\oldmacro\insertshorttitle%
+\renewcommand*\insertshorttitle{%
+  \oldmacro\hfill\insertframenumber\,/\,\inserttotalframenumber\hfill}
+
+\newcommand{\hil}[1]{{\usebeamercolor[fg]{item}{\textbf{#1}}}}
+
+\newcommand{\img}[3]{\begin{center}\includegraphics[scale=#1]{#2}\\\scriptsize#3\end{center}}
+%\newcommand{\imageslide}[3]{\frame{\frametitle{#1}\img{#2}{#3}}}
+
+\IfSubStr{\jobname}{\detokenize{nonotes}}{
+  \setbeameroption{hide notes}
+}{
+  \setbeameroption{show notes}
+}
+\setbeamertemplate{note page}[plain]
+
+\newenvironment{changemargin}[2]{%
+  \begin{list}{}{%
+    \setlength{\topsep}{0pt}%
+    \setlength{\leftmargin}{#1}%
+    \setlength{\rightmargin}{#2}%
+    \setlength{\listparindent}{\parindent}%
+    \setlength{\itemindent}{\parindent}%
+    \setlength{\parsep}{\parskip}%
+  }%
+  \item[]}{\end{list}}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\frame[t]{\frametitle{Outline}\scriptsize\begin{itemize}\item[]\tableofcontents\end{itemize}}
+
+\note{\fontsize{8pt}{9.6}\selectfont
+  \begin{center}\large\textbf{Abstract}\end{center}
+
+  \begin{changemargin}{2.5em}{2.5em}
+    \justifying
+    Constructive mathematicians don't use the law of excluded middle, which
+    approximately says that for any proposition~$P$, either~$P$ is true or~$\neg P$
+    is true. Several advantages emerge from this rejection, for instance one
+    can mechanically extract algorithms from constructive proofs of existence
+    statements and rigorously work with non-standard \emph{dream axioms} which are
+    plainly false in classical mathematics, such as \emph{any function is
+    smooth}.
+
+    For communicating with classicial mathematicians, constructive
+    mathematicians can employ the \emph{double-negation translation}. This
+    device associates to any formula a translated formula in such a way that
+    a given formula holds classically if and only if its translation holds
+    constructively.
+
+    The talk will give an introduction to these topics and discuss the
+    intriguing relationship of the double-negation translation with the
+    well-known con\-tin\-u\-a\-tion-pas\-sing transformation: In some sense, they are
+    the same. This is a beautiful facet of \emph{computational trinitarianism}.
+
+    For the first part of the talk, no background in formal logic or
+    constructive mathematics is required. For the second part of the talk,
+    one should be vaguely familiar with the continuation-passing
+    transformation.
+  \end{changemargin}
+}
+
+\end{document}
+
+1. Constructive mathematics
+2. The double negation translation
+3. in Haskell/CPS
