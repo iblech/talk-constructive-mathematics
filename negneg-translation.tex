@@ -12,7 +12,7 @@
 \usepackage{tabto}
 \usepackage{xstring}
 
-\usepackage[protrusion=true,expansion=false]{microtype}
+\usepackage[protrusion=true,expansion=true]{microtype}
 
 \setlength\parskip{\medskipamount}
 \setlength\parindent{0pt}
@@ -56,11 +56,19 @@
              {\mathbin{\raisebox{0.1ex}{$\scriptscriptstyle\,\centerdot\,$}}}
 }
 \renewcommand{\_}{\mathpunct{.}}
+\newcommand{\fix}{\mathsf{fix}}
 
 \newtheorem{axiom}{Axiom}
 
 \title{Double-negation translation and\\ CPS transformation}
-\author[Ingo Blechschmidt]{\vspace{-1em}\\\includegraphics[scale=0.6]{lem} \\[0.5em] Ingo Blechschmidt \\[-0.3em] {\scriptsize June 3rd, 2015}}
+\author{
+  \texorpdfstring{
+    \vspace{-1em} \\
+    \includegraphics[scale=0.6]{lem} \\[0.5em]
+    Ingo Blechschmidt \\[-0.3em]
+    {\scriptsize June 3rd, 2015}%
+  }{Ingo Blechschmidt}
+}
 \date{June 3d, 2015}
 
 \usetheme{Warsaw}
@@ -208,7 +216,7 @@
   ``For any formula~$A$, we may deduce~$A \,\vee\, \neg A$.''
 
   \medskip
-  Classical mathematics $=$ \\
+  Classical logic $=$ \\
   intuitionistic logic $+$ law of excluded middle.
 
   \vfill
@@ -278,9 +286,10 @@
 \frame{\frametitle{Applications}
   \begin{changemargin}{-0.5em}{-0.5em}
     \only<1>{
+      \vspace*{-0.5em}
       Intuitionistic logic \ldots
       \begin{itemize}
-        \item can guide you to more elegant proofs, \\[0.2em]
+        \item can guide to more elegant proofs, \\[0.2em]
         \item is good for the mental hygiene, and \\[0.2em]
         \item allows to make finer distictions.
       \end{itemize}
@@ -291,7 +300,7 @@
         of existence statements. \\[0.2em]
         \item The \hil{internal language of toposes} is intuitionistic.
         \\[0.2em]
-        \item \hil{Dream mathematics} works only intuitionistically.
+        \item \hil{Dream mathematics} only works intuitionistically.
       \end{itemize}
     }
   \end{changemargin}
@@ -309,11 +318,194 @@
   \par
 }
 
+\note{\justifying\footnotesize
+  Here is a basic example for extracting algorithms from proofs. Consider the
+  statement
+
+  \begin{quote}``There are infinitely many prime numbers.''
+  \textnormal{or somewhat more explicitly,}
+  ``For any finite list~$p_1,\ldots,p_n$ of prime numbers, there
+  exists an additional prime number~$q$ not on that list.''\end{quote}
+  The standard proof, attributed to Euclid, goes like this:
+
+  \begin{quote}
+  Consider the number~$N \defeq p_1 \cdots p_n + 1$.
+  Since~$N \geq 2$, there exists some prime factor~$q$ of~$N$. (If~$N$ is
+  itself prime, we can take~$q \defeq N$.)
+  This prime is not equal to any~$p_i$, since the numbers~$p_i$ don't divide~$N$
+  whereas~$q$ does.
+  \end{quote}
+
+  The algorithm for constructing~$q$ can be directly read off from the proof.
+  Different proofs result in different algorithms; in particular, there exist
+  (more complex) proofs whose algorithms produce better (smaller) witnesses.
+
+  See the wonderful book \emph{Applied Proof Theory: Proof Interpretations and
+  their Use in Mathematics} by Kohlenbach for details. Already its introduction
+  is a very worthwhile reading.\par
+}
+
+\note{\justifying\footnotesize
+  Tangentially, observe that the stated constructive version of Euclid's proof
+  is less prone to misunderstandings than its well-known counterpart which uses
+  proof by contradiction:
+
+  \begin{quote}Assume that there are only a finite number of
+  primes,~$p_1,\ldots,p_n$. Then consider~$N \defeq p_1 \cdots p_n +
+  1$. This number is either prime or composite. Since no prime number
+  divides~$N$ (by assumption the only primes are the~$p_i$ and these don't
+  divide~$N$), it cannot be composite. Therefore~$N$ is prime. Since~$N$
+  doesn't equal any of the~$p_i$, this is a contradiction.
+  \end{quote}
+
+  From this proof one might think that for primes~$p_1,\ldots,p_n$ the
+  number~$N \defeq p_1 \cdots p_n + 1$ is always prime. But this only holds in
+  a counterfactual world where there are only finitely many primes. In fact,
+  the number
+  \[ N \defeq 2 \cdot 3 \cdot 5 \cdot 7 \cdot 11 \cdot 13 + 1 = 59 \cdot 509 \]
+  is composite. A shorter example is
+  \[ N \defeq 2 \cdot 7 + 1 = 3 \cdot 5. \]
+}
+
+\frame{\frametitle{Topos power}
+  \centering
+
+  \begin{minipage}{0.65\textwidth}
+    \begin{exampleblock}{}
+      \justifying
+      Any finitely generated vector space does \emph{not not} possess a basis.
+    \end{exampleblock}
+  \end{minipage}
+  \medskip
+
+  \scalebox{3}{$\Downarrow$}
+
+  \begin{minipage}{0.65\textwidth}
+    \begin{exampleblock}{}
+      \justifying
+      Any sheaf of modules of finite type on a \mbox{reduced} scheme is locally free on a dense
+      open subset.
+    \end{exampleblock}
+  \end{minipage}
+  \par
+}
+
+\note{\justifying\footnotesize
+  Toposes are certain kinds of categories, thought of as \emph{mathematical
+  universes}. The usual topos in which we do mathematics is the category of
+  sets and maps between sets, but there are many others:
+  \begin{itemize}
+  \item In the \emph{effective topos}, any map is computable.
+  \item In the \emph{sheaf topos} of a topological space~$X$ the objects and
+  morphisms depend on our position in~$X$.
+  \end{itemize}
+  A metatheorem states that \emph{intuitionistically provable statements holds
+  in any topos}. This greatly expands the scope of an intuitionistic theorem.
+
+  A side project of mine is to recognize the basic concepts and statements of
+  algebraic geometry as topos-theoretic interpretations of simple concepts and
+  statements of ordinary first-year linear algebra. See
+  \url{https://github.com/iblech/internal-methods} for expository notes on this
+  topic.
+  \par
+}
+
+\frame{\frametitle{Dream mathematics}
+  \centering
+
+  \begin{minipage}{0.85\textwidth}
+    \begin{block}{\centering Synthetic differential geometry}
+      Any map~$\RR \to \RR$ is smooth.
+    \end{block}
+  \end{minipage}
+
+  \begin{minipage}{0.85\textwidth}
+    \begin{block}{\centering Synthetic domain theory}
+      \justifying
+      For any set~$X$ there exists a map
+      \vspace*{-0.9em}
+      \[ \fix : (X \to X) \to X \]
+      \vspace*{-2.1em}
+
+      such that
+      $f(\fix(f)) = \fix(f)$ for any~$f : X \to X$.
+    \end{block}
+  \end{minipage}
+
+  \begin{minipage}{0.85\textwidth}
+    \begin{block}{\centering Synthetic computability theory}
+      \justifying
+      There are only countably many subsets of~$\NN$.
+    \end{block}
+  \end{minipage}
+
+  \par
+}
+
+% XXX:
+% * State uses of dream mathematics.
+% * Give pointers to literature.
+% * Warn that my renditions of the axioms are not faithful.
+
 \section{The double-negation translation}
 
-\subsection{The double-negated law of excluded middle}
+\subsection{The doubly-negated law of excluded middle}
+
+\frame{\frametitle{The doubly-negated LEM}
+  \centering
+  Even intuitionistically ``$\neg\neg(A \,\vee\, \neg A)$'' holds.
+  \par
+
+  % XXX: Play.
+
+  \begin{minipage}{0.90\textwidth}
+    \begin{exampleblock}{}
+      \justifying
+      \textbf{Proof.} Assume~$\neg(A \vee \neg A)$, we want to show~$\bot$. \\[0.3em]
+      If~$A$, then~$A \vee \neg A$, thus~$\bot$. Therefore~$\neg A$. \\[0.3em]
+      Since~$\neg A$, we have $A \vee \neg A$, thus~$\bot$.
+    \end{exampleblock}
+  \end{minipage}
+  \par
+}
 
 \subsection{The fundamental result}
+
+\newcommand{\inegneg}{{\usebeamercolor[fg]{item}{\boldsymbol{\neg\neg}}}}
+\newcommand{\gnegneg}[1]{\textcolor{gray}{\boldsymbol{\neg\neg}(}#1\textcolor{gray}{)}}
+
+\frame{\frametitle{The $\boldsymbol{\neg\neg}$-translation}
+  \vspace*{-2em}
+  \begin{align*}
+    A^\Box &\defeqv \inegneg A \text{ for atomic formulas~$A$} \\
+    (A \wedge B)^\Box &\defeqv \gnegneg{A^\Box \wedge B^\Box} \\
+    (A \vee B)^\Box &\defeqv \inegneg(A^\Box \vee B^\Box) \\
+    (A \Rightarrow B)^\Box &\defeqv \gnegneg{A^\Box \Rightarrow B^\Box} \\
+    (\forall x{:}X\_ A(x))^\Box &\defeqv \gnegneg{\forall x{:}X\_ A^\Box(x)} \\
+    (\exists x{:}X\_ A(x))^\Box &\defeqv \inegneg(\exists x{:}X\_ A^\Box(x))
+  \end{align*}
+
+  \hil{Theorem.} $A$ classically $\Longleftrightarrow$ $A^\Box$ intuitionistically.
+}
+
+\note{\justifying\footnotesize
+  Note that~$\bot^\Box \equiv \neg\neg\bot \Leftrightarrow \bot$.
+
+  \textbf{Corollary.} Peano arithmetic and Heyting arithmetic are equiconsistent.
+  (Recall that Heyting arithmetic is the same as Peano arithmetic, only with
+  intuitionistic instead of classical logic.)
+
+  \textbf{Proof.} It is clear that inconsistency of Heyting arithmetic implies
+  inconsistency of Peano arithmetic.
+
+  For the converse direction, write~$\mathrm{Ax}$ for the axioms of Peano
+  arithmetic, thought of as a single formula by conjuction. If Peano arithmetic
+  proves~$\bot$, that is if~$\mathrm{Ax} \Rightarrow \bot$ classically, then by
+  the theorem~$\mathrm{Ax}^\Box \Rightarrow \bot^\Box$ intuitionistically. By
+  inspection~$\mathrm{Ax} \Rightarrow \mathrm{Ax}^\Box$ intuitionistically.
+  Therefore~$\mathrm{Ax} \Rightarrow \bot$ intuitionistically.
+  \par
+}
 
 \section{Continuations}
 
@@ -325,10 +517,11 @@ Start with the Spiked Math comic, of course.
    * LEM
    * (Informal) BKH interpretation
    * Applications
+     (in "note" slides state that the word "contradiction" is not forbidden per se)
 
 2. The double-negation translation
    * Proof of neg neg (phi v neg phi)
-   * Game-theoretical intepretation
+   * Game-theoretical interpretation
    * The translation and the fundamental result
 
 3. Relation to continuations
