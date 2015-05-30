@@ -241,7 +241,7 @@
   \par
 }
 
-\note{\justifying
+\note{\justifying\footnotesize
   More precisely, one should say: Classical mathematics $=$ intuitionistic
   logic $+$ law of excluded middle $+$ a set theory including the axiom of
   choice.
@@ -255,14 +255,50 @@
   but there was no direct evidence for either type.
   Kate Moss was not prosecuted; in this sense, Great Britain's judicial system
   operated intuitionistically.
+
+  Note that constructive mathematicians do \emph{not} claim that the law of excluded
+  middle is false (that is, that its negation holds). In fact, some
+  instances of the law of excluded middle are true intuitionistically: For
+  example one can show by induction that any natural number is zero or is not
+  zero. Constructive mathematicians simply don't suppose that the law of
+  excluded holds generally.
   \par
 }
 
 \subsection{Interpretation of intuitionistic logic}
 
+\frame{\frametitle{Negated statements}
+  \centering
+  ``$\neg A$'' is syntactic sugar for $(A \Rightarrow \bot)$ \\[0.2em]
+  and means: There can't be any evidence for~$A$.
+
+  \vfill
+  \constructiveinterpretation
+  \par
+}
+
+\note{\justifying\footnotesize
+  Note that the word ``contradiction'' is not generally forbidden in
+  intuitionistic logic. For instance, the usual proof that~$\sqrt{2}$ is not
+  rational, deducing~$\bot$ from the assumption that~$\sqrt{2}$ were rational,
+  is perfectly fine intuitionistically.
+
+  Colloquially, those proofs are called ``proof by contradiction'', but this
+  labeling is deceptive. A true proof by contradiction runs like this:
+
+  \begin{quote}We want to show~$A$. Assume~$\neg A$. Then $\ldots$,
+  so~$\bot$. Therefore~$\neg\neg A$. Thus~$A$.\end{quote}
+
+  The last step needs the axiom of double negation elimination, $\neg\neg A
+  \Rightarrow A$, which is not available in intuitionistic logic. (In fact, the
+  statement that double negation elimination holds for all~$A$ is equivalent to
+  the statement that the law of excluded middle holds for all~$A$.)
+  \par
+}
+
 \frame{\frametitle{Doubly-negated statements}
   \centering
-  ``$\neg\neg A$'' means: There is no evidence for~$\neg A$.
+  ``$\neg\neg A$'' means: There can't be any evidence for~$\neg A$.
 
   Trivially, we have $A \Longrightarrow \neg\neg A$. \\
   We can't deduce $\neg\neg A \Longrightarrow A$.
@@ -486,6 +522,19 @@
   \end{align*}
 
   \hil{Theorem.} $A$ classically $\Longleftrightarrow$ $A^\Box$ intuitionistically.
+}
+
+\note{\justifying\footnotesize
+  The gray \textcolor{gray}{$\neg\neg$}'s can be omitted: One can prove by
+  structural induction that translating with those double negations yields
+  logically equivalent formulas as translating without those.
+
+  The blue $\inegneg$'s in contrast are crucial.
+
+  One could say that the only difference between intuitionistic logic and
+  classical logic is in the meaning of disjunction and existential
+  quantification.
+  \par
 }
 
 \note{\justifying\footnotesize
