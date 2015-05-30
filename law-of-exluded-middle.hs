@@ -22,6 +22,13 @@ lem' = MkCont $ \k -> k $ Right $ \x -> MkCont $ \k' -> k (Left x)
 lem'' :: Cont r (Either a (a -> Cont r b))
 lem'' = callCC $ \k -> return $ Right $ \x -> k $ Left x
 
+callCC' :: ((a -> Cont r b) -> Cont r a) -> Cont r a
+callCC' f = do
+    check <- lem'
+    case check of
+        Left  x -> return x
+        Right g -> f g
+
 type Nat = Int
 -- thought of as nonnegative integers
 
