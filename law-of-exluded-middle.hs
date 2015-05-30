@@ -32,6 +32,14 @@ callCC' f = do
 type Nat = Int
 -- thought of as nonnegative integers
 
+-- Given a natural number n, fakePrimalityTest n decides whether n is
+-- prime or not. In the first case, it returns the Right option:
+-- a function which takes a factor of n and produces any value whatsoever.
+-- In the second case, it returns the Left option: some factor of n.
+--
+-- Of course, primality of natural numbers is actually decidable.
+-- But it is not, or very expensive, for elements of more complicated rings,
+-- for instance the ring of polynomials with rational coefficients.
 fakePrimalityTest :: Nat -> Cont r (Either Nat (Nat -> Cont r b))
 fakePrimalityTest n = lem'
 
