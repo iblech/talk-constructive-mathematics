@@ -1,3 +1,4 @@
+% Compile using: TEXINPUTS=minted/source: pdflatex -shell-escape %
 \documentclass[14pt,utf8,notheorems,compress,t]{beamer}
 \usepackage{etex}
 
@@ -11,6 +12,8 @@
 \usepackage{multicol}
 \usepackage{tabto}
 \usepackage{xstring}
+
+\usepackage{minted}
 
 \usepackage[protrusion=true,expansion=true]{microtype}
 
@@ -82,7 +85,8 @@
 %\usepackage{mathpazo}
 \useinnertheme{rectangles}
 
-\setbeamertemplate{title page}[default][colsep=-1bp,rounded=false,shadow=false,bg=white]
+
+\setbeamertemplate{title page}[default][colsep=-1bp,rounded=false,shadow=false]
 \setbeamertemplate{frametitle}[default][bg=red,colsep=-2bp,rounded=false,shadow=false,center]
 \setbeamertemplate{blocks}[rounded][shadow=false]
 
@@ -188,7 +192,7 @@
   \end{changemargin}
 }
 
-\frame{\frametitle{Outline}\begin{itemize}\item[]\tableofcontents\end{itemize}}
+\frame{\frametitle{Outline}\begin{itemize}\item[]\footnotesize\tableofcontents\end{itemize}}
 
 \section{Constructive mathematics}
 
@@ -305,7 +309,18 @@
   We can't deduce $\neg\neg A \Longrightarrow A$.
 
   \vfill
-  \constructiveinterpretation
+  \only<1>{\constructiveinterpretation}
+  \only<2>{
+    \begin{minipage}{0.7\textwidth}
+      \begin{block}{\centering Where is the key?}
+        \centering
+        $\neg\neg (\exists x\_ \text{the key is at position $x$})$ \\[0.7em]
+        \emph{versus} \\[0.7em]
+        $\phantom{\neg\neg(} \exists x\_ \text{the key is at position $x$}
+        \phantom{)}$
+      \end{block}
+    \end{minipage}
+  }
   \par
 }
 
@@ -452,7 +467,9 @@
 
   \begin{minipage}{0.85\textwidth}
     \begin{block}{\centering Synthetic differential geometry}
-      Any map~$\RR \to \RR$ is smooth.
+      \justifying
+      Any map~$\RR \to \RR$ is smooth. There are in\-fi\-ni\-te\-si\-mal
+      numbers~$\varepsilon$ such that~$\varepsilon^2 = 0$ and~$\varepsilon \neq 0$.
     \end{block}
   \end{minipage}
 
@@ -492,8 +509,6 @@
   \centering
   Even intuitionistically ``$\neg\neg(A \,\vee\, \neg A)$'' holds.
   \par
-
-  % XXX: Play.
 
   \begin{minipage}{0.90\textwidth}
     \begin{exampleblock}{}
@@ -563,7 +578,7 @@
 \subsection{Game-theoretical interpretation}
 
 \frame{\frametitle{A classical logic fairy tale}
-  {\centering IMAGE\par}
+  {\centering XXX: IMAGE\par}
   \pause
 
   \begin{changemargin}{-0.9em}{-0.9em}
@@ -571,7 +586,7 @@
   we can defend~$A$ in any dialog.
   \bigskip
 
-  $A$ classically \tabto{3.93cm}$\Longleftrightarrow$
+  \tabto{1.3cm}$A$ classically \tabto{3.93cm}$\Longleftrightarrow$
   we can defend~$A^\Box$ in any dialog.
   \pause
 
@@ -595,7 +610,7 @@
     conjuction $A \wedge B$ & product type $(A,B)$ \\
     disjunction $A \vee B$ & sum type \textsf{Either} $A$ $B$ \\
     implication $A \Rightarrow B$ & function type $A \to B$ \pause \\
-    \hil{$\inegneg$-translation} & \hil{CPS transform} \pause \\
+    \hil{$\inegneg$-translation} & \hil{CPS transformation} \pause \\
     \only<3>{$\neg\neg A$ & ?? \\} \pause
     $(A \Rightarrow \bot) \Rightarrow \bot$ & $(A \to r) \to r$
   \end{tabular}
@@ -603,15 +618,42 @@
   \par
 }
 
+\note{\justifying\footnotesize
+  Note that different, but logically equivalent versions of the double-negation
+  translation yield different variants of the CPS transformation (call by name,
+  call by value, \ldots).
+
+  Prefixing every subformula with~$\neg\neg$ yields the XXX transformation.
+  \par
+}
+
 \subsection{Computational content of classical proofs}
+
+\begin{frame}[fragile]\frametitle{Computational content of classical proofs}
+  \begin{changemargin}{-0.5em}{-0.5em}
+  \begin{minted}{haskell}
+type Cont r a = ((a -> r) -> r)
+
+-- Decide an arbitrary statement a.
+lem :: Cont r (Either a (a -> Cont r b))
+lem k = k $ Right $ \x -> (\k' -> k (Left x))
+
+-- Calculate the minimum of an infinite list
+-- of natural numbers.
+min :: [Nat] -> Cont r (Int, Int -> Cont r ())
+min xs = ...
+  \end{minted}
+  \end{changemargin}
+\end{frame}
+
 
 \section{Outlook}
 
 \frame{\frametitle{Outlook}
   \begin{itemize}
-    \item CPS transform $=$ Yoneda embedding
+    \item CPS transformation $=$ Yoneda embedding
     \item Geometrical interpretation:
-    \[ \Sh(X) \models A^\Box \qquad\Longleftrightarrow\qquad
+    \[ \Sh(X) \models A^\Box \quad\Longleftrightarrow\quad
     \Sh(X_{\neg\neg}) \models A \]
     \item Generalize from~$\neg\neg$ to arbitrary \hil{modal
     operators} (monads): Relevant axioms are
@@ -621,6 +663,11 @@
       \item $\Box(A \wedge B) \Leftrightarrow \Box A \wedge \Box B$
     \end{enumerate}
   \end{itemize}
+  \pause
+
+  \centering
+  \href{https://github.com/iblech/talk-constructive-mathematics}{github/iblech/talk-constructive-mathematics}
+  \par
 }
 
 \end{document}
@@ -640,7 +687,7 @@ Start with the Spiked Math comic, of course.
 
 3. Relation to continuations
    * Curry--Howard correspondence
-   * negneg-translation = CPS transform
+   * negneg-translation = CPS transformation
    * Computational content of classical proofs
 
 4. Outlook
