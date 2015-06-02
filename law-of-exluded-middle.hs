@@ -1,7 +1,7 @@
 {-# LANGUAGE DeriveFunctor #-}
 module Main where
 
-import Prelude hiding (recip)
+import Prelude hiding (recip, minimum)
 
 newtype Cont r a = MkCont { runCont :: (a -> r) -> r }
     deriving (Functor)
@@ -31,6 +31,12 @@ callCC' f = do
 
 type Nat = Int
 -- thought of as nonnegative integers
+
+type Ix = Nat
+minimum :: [Nat] -> Cont r (Ix, Ix -> Cont r ())
+minimum as = callCC (go 0)
+    where
+    go n k = k (n, \i -> do if as !! i < as !! n then go i k >> return () else return ())
 
 -- Given a natural number n, fakePrimalityTest n decides whether n is
 -- prime or not. In the first case, it returns the Right option:
