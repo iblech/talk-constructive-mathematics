@@ -23,6 +23,7 @@
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\RR}{\mathbb{R}}
 \newcommand{\Id}{\mathrm{Id}}
+\newcommand{\Sh}{\mathrm{Sh}}
 \newcommand{\fst}{\mathsf{fst}}
 \newcommand{\snd}{\mathsf{snd}}
 \newcommand{\inv}{\mathsf{inv}}
@@ -534,6 +535,9 @@
   One could say that the only difference between intuitionistic logic and
   classical logic is in the meaning of disjunction and existential
   quantification.
+
+  % XXX:
+  % Note that the $\neg\neg$-translation also works with r instead of \bot.
   \par
 }
 
@@ -556,7 +560,68 @@
   \par
 }
 
+\subsection{Game-theoretical interpretation}
+
+\frame{\frametitle{A classical logic fairy tale}
+  {\centering IMAGE\par}
+  \pause
+
+  \begin{changemargin}{-0.9em}{-0.9em}
+  $A$ intuitionistically \tabto{3.93cm}$\Longleftrightarrow$
+  we can defend~$A$ in any dialog.
+  \bigskip
+
+  $A$ classically \tabto{3.93cm}$\Longleftrightarrow$
+  we can defend~$A^\Box$ in any dialog.
+  \pause
+
+  \tabto{3.93cm}$\Longleftrightarrow$
+  we can defend~$A$ in any dialog \\
+  \tabto{3.93cm}$\phantom{\Longleftrightarrow}$ with jumps back in time allowed.
+  \end{changemargin}
+}
+
 \section{Continuations}
+
+\subsection{The Curry--Howard correspondence}
+
+\frame{\frametitle{Curry--Howard correspondence}
+  \centering
+  \setlength{\extrarowheight}{0.3em}
+  \begin{tabular}{r@{\quad}l}
+    \hil{logic} & \hil{programming} \\
+    formula $A$ & type $A$ \\
+    intuitionistic proof $p:A$ & term $p:A$ \\
+    conjuction $A \wedge B$ & product type $(A,B)$ \\
+    disjunction $A \vee B$ & sum type \textsf{Either} $A$ $B$ \\
+    implication $A \Rightarrow B$ & function type $A \to B$ \pause \\
+    \hil{$\inegneg$-translation} & \hil{CPS transform} \pause \\
+    \only<3>{$\neg\neg A$ & ?? \\} \pause
+    $(A \Rightarrow \bot) \Rightarrow \bot$ & $(A \to r) \to r$
+  \end{tabular}
+
+  \par
+}
+
+\subsection{Computational content of classical proofs}
+
+\section{Outlook}
+
+\frame{\frametitle{Outlook}
+  \begin{itemize}
+    \item CPS transform $=$ Yoneda embedding
+    \item Geometrical interpretation:
+    \[ \Sh(X) \models A^\Box \qquad\Longleftrightarrow\qquad
+    \Sh(X_{\neg\neg}) \models A \]
+    \item Generalize from~$\neg\neg$ to arbitrary \hil{modal
+    operators} (monads): Relevant axioms are
+    \begin{enumerate}
+      \item $A \Rightarrow \Box A$
+      \item $\Box\Box A \Rightarrow \Box A$
+      \item $\Box(A \wedge B) \Leftrightarrow \Box A \wedge \Box B$
+    \end{enumerate}
+  \end{itemize}
+}
 
 \end{document}
 
@@ -570,11 +635,13 @@ Start with the Spiked Math comic, of course.
 
 2. The double-negation translation
    * Proof of neg neg (phi v neg phi)
-   * Game-theoretical interpretation
    * The translation and the fundamental result
+   * Game-theoretical interpretation
 
 3. Relation to continuations
-   * ...
+   * Curry--Howard correspondence
+   * negneg-translation = CPS transform
+   * Computational content of classical proofs
 
 4. Outlook
    * CPS transformation = Yoneda embedding
@@ -597,11 +664,6 @@ Start with the Spiked Math comic, of course.
 * Murthy's PhD thesis!
 
 * Cite Helger Rückert in /Essays on Non-Classical Logic/
-
-* Slide: "Curry--Howard correspondence" with table
-  formula | type
-  proof | term
-  ...
 
 * Case study: Minimum of a set of natural numbers.
   In which sense do we know that the algorithm terminates?
