@@ -70,7 +70,7 @@
     \vspace{-1em} \\
     \includegraphics[scale=0.6]{lem} \\[0.5em]
     Ingo Blechschmidt \\[-0.3em]
-    {\scriptsize June 3rd, 2015}%
+    {\scriptsize June 3rd, 2015 at KU Leuven}%
   }{Ingo Blechschmidt}
 }
 \date{June 3d, 2015}
@@ -137,6 +137,7 @@
   \setbeameroption{show notes}
 }
 \setbeamertemplate{note page}[plain]
+  \setbeameroption{hide notes}
 
 \newenvironment{changemargin}[2]{%
   \begin{list}{}{%
@@ -359,7 +360,7 @@
 
   \vfill
   \centering
-  \only<1>{\includegraphics[height=5cm]{fun}}
+  \only<1>{\includegraphics[height=5cm]{fun-en}}
   \only<2>{%
     \includegraphics[height=3cm]{program-extraction}
     \hfill
@@ -578,7 +579,8 @@
 \subsection{Game-theoretical interpretation}
 
 \frame{\frametitle{A classical logic fairy tale}
-  {\centering XXX: IMAGE\par}
+  % http://www.geekalerts.com/u/Collectible-Harry-Potter-Sorcerers-Stone1.jpg
+  {\centering \includegraphics[scale=0.25]{philosophers-stone.jpeg}\par}
   \pause
 
   \begin{changemargin}{-0.9em}{-0.9em}
@@ -622,8 +624,6 @@
   Note that different, but logically equivalent versions of the double-negation
   translation yield different variants of the CPS transformation (call by name,
   call by value, \ldots).
-
-  Prefixing every subformula with~$\neg\neg$ yields the XXX transformation.
   \par
 }
 
@@ -666,7 +666,7 @@ min xs = ...
   \pause
 
   \centering
-  \href{https://github.com/iblech/talk-constructive-mathematics}{github/iblech/talk-constructive-mathematics}
+  \href{https://github.com/iblech/talk-constructive-mathematics}{\includegraphics[height=2em]{github}\textsf{/iblech/talk-constructive-mathematics}}
   \par
 }
 
@@ -708,7 +708,9 @@ Start with the Spiked Math comic, of course.
 * According to many-happy-returns.ps, logical contents of delimited
   continuations are explored by Kamenaya.
 
-* Murthy's PhD thesis!
+* Murthy's PhD thesis! Give him due credit.
+  (Murthy was a student of Robert Constable (Cornell), who in turn was a
+  student of Kleene.)
 
 * Cite Helger Rückert in /Essays on Non-Classical Logic/
 
