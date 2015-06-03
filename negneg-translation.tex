@@ -21,9 +21,11 @@
 \setlength\parindent{0pt}
 
 \renewcommand{\U}{\mathcal{U}}
+\renewcommand{\P}{\mathcal{P}}
 \newcommand{\NN}{\mathbb{N}}
 \newcommand{\id}{\mathrm{id}}
 \newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
 \newcommand{\RR}{\mathbb{R}}
 \newcommand{\Id}{\mathrm{Id}}
 \newcommand{\Sh}{\mathrm{Sh}}
@@ -61,6 +63,7 @@
 }
 \renewcommand{\_}{\mathpunct{.}}
 \newcommand{\fix}{\mathsf{fix}}
+\newcommand{\styledhref}[2]{\href{#1}{\underline{#2}}}
 
 \newtheorem{axiom}{Axiom}
 
@@ -198,6 +201,29 @@
   \end{changemargin}
 }
 
+\newcommand{\classicalcontent}{
+  \begin{changemargin}{2.5em}{2.5em}
+    \justifying
+
+    By the Curry--Howard correspondence intuitionistic
+    proofs have computational content. By the double-negation translation, we
+    see that \emph{classical proofs too have computational content}.
+
+    As long as we stay in the continuation monad, the required bluffing and
+    cheating will not be apparent.
+
+    Care must be taken when leaving the continuation monad (for instance by
+    supplying the identity continuation), since then we might obtain
+    \emph{incorrect results}.
+  \end{changemargin}
+}
+
+\note{
+  \begin{center}\large\textbf{Teaser}\end{center}
+
+  \classicalcontent
+}
+
 \frame{\frametitle{Outline}\begin{itemize}\item[]\footnotesize\tableofcontents\end{itemize}}
 
 \section{Constructive mathematics}
@@ -216,6 +242,16 @@
   In the second case, take~$x \defeq \sqrt{2}^{\sqrt{2}}$ and~$y \defeq
   \sqrt{2}$. Then~$x^y = 2$ is rational.
 \end{frame}
+
+\note{\justifying\footnotesize
+  The proof is nice and short. However, after the proof, we are still not able
+  to give an example of irrational numbers~$x,y$ such that~$x^y$ is rational!
+  The proof was \emph{non-constructive}.
+
+  It turns out that from all the axioms of classical logic, exactly one is
+  responsible for non-constructivity: the law of excluded middle.
+  \par
+}
 
 \newcommand{\constructiveinterpretation}{
   \begin{minipage}{0.99\textwidth}
@@ -272,13 +308,23 @@
 
   The constructive interpretation of the axiom of excluded middle is: For any
   formula~$A$, we have evidence for~$A$ or for~$\neg A$. This is an absurd
-  statement.
+  statement -- recall that there exist undecidable statements (``Gödel
+  sentences'').
+
+  By ``we'' in the definition of the constructive intepretation, we don't
+  literally refer to some group of people. It should be read in a generic
+  mathematical way. Look up \emph{Brouwer–Heyting–Kolmogorov interpretation}
+  and \emph{Realizability Theory} (see for instance
+  \styledhref{http://math.andrej.com/data/c2c.pdf}{Andrej Bauer's notes}) for a
+  formal treatment.
 
   Several years ago a video showing Kate Moss consuming drugs surfaced.
   From the video it was clear that the drugs were either of some type~$A$ or of some type~$B$,
   but there was no direct evidence for either type.
   Kate Moss was not prosecuted; in this sense, Great Britain's judicial system
-  operated intuitionistically.
+  operated intuitionistically. Check out
+  \styledhref{http://blog.sigfpe.com/2008/06/drugs-kate-moss-and-intuitionistic.html}{Dan
+  Piponi's blog post about this topic}.
 
   Note that constructive mathematicians do \emph{not} claim that the law of excluded
   middle is false (that is, that its negation holds). In fact, some
@@ -347,9 +393,14 @@
   If we know that the key to our apartment has to be somewhere in the
   apartment (since we used it to enter last night) but we can't find it, we can
   constructively only justify
-  \[ \neg\neg \exists x\_ \text{the key is at position $x$}, \]
+  \[ \neg\neg( \exists x\_ \text{the key is at position $x$} ), \]
   not the stronger statement
-  \[ \phantom{\neg\neg} \exists x\_ \text{the key is at position $x$}. \]
+  \[ \phantom{\neg\neg(} \exists x\_ \text{the key is at position
+  $x$}.\phantom{)} \]
+
+  (Of course, this example does not quite work, since ``we'' now really has to
+  refer to us key-seekers.)
+  \par
 }
 
 \subsection{Applications}
@@ -386,6 +437,48 @@
     \hfill
     \includegraphics[height=3cm]{dream-maths}
   }
+  \par
+}
+
+\note{\justifying\footnotesize
+  Regarding intuitionistic logic as an elegance assisting device: In classical
+  logic, we might have the habit of beginning proofs like this:
+
+  \begin{quote}If the set~$X$ is empty, the claim holds trivially. So suppose
+  that~$X$ is not empty; then consider \ldots\end{quote}
+  Often it's the case that the second part of the proof applies just as fine to
+  the trivial case -- if we don't fear the empty set. In these cases, the proof
+  can be streamlined by skipping the case distiction.
+
+  Intuitionistically, the case distinction is not possible without further
+  hypotheses on~$X$. Therefore, by trying to make a proof intuitionistically
+  acceptable, we are nudged to remove unnecessary case distictions and related
+  issues.
+  \par
+}
+
+\note{\justifying\footnotesize
+  Here is a concrete example. Let~$f : X \to Y$ be a map and let
+  \[ \renewcommand{\arraystretch}{1.3}\begin{array}{@{}rrcl@{}}
+    \varphi: &\P(Y)&\longrightarrow& \P(X), \\
+    & U &\longmapsto& f^{-1}[U] := \{ x \in X \,|\, f(x) \in U \}
+  \end{array} \]
+  be the inverse image operation. Then it's a standard exercise to show
+  that~$f$ is surjective if and only if~$\varphi$ is injective.
+
+  Can you do it, especially the ``$\Rightarrow$'' direction? There is a very
+  short and elegant proof for it! But the proof which might first come to your
+  mind is non-constructive and unnecessarily cumbersome:
+
+  \begin{quote}Assume that~$f$ fails to be surjective. Then there exists~$y \in
+  Y$ such that~$y$ is not an element of the image of~$f$.
+  Therefore~$\varphi(\{y\}) = \emptyset = \varphi(\emptyset)$. This is a
+  contradiction to the injectivity of~$\varphi$.\end{quote}
+
+  \vfill\hfill\rotatebox{180}{\tiny\textbf{Spoiler.}
+  \textcolor{gray}{We have~$\varphi(\operatorname{im} f) = X = \varphi(Y)$,
+  thus~$\operatorname{im} f = Y$.}}
+  \medskip
   \par
 }
 
@@ -463,21 +556,23 @@
 
 \note{\justifying\footnotesize
   Toposes are certain kinds of categories, thought of as \emph{mathematical
-  universes}. The usual topos in which we do mathematics is the category of
+  universes}. The usual topos in which we do mathematics in is the category of
   sets and maps between sets, but there are many others:
   \begin{itemize}
   \item In the \emph{effective topos}, any map is computable.
   \item In the \emph{sheaf topos} of a topological space~$X$ the objects and
   morphisms depend on our position in~$X$.
   \end{itemize}
-  A metatheorem states that \emph{intuitionistically provable statements holds
+  A metatheorem states that \emph{intuitionistically provable statements hold
   in any topos}. This greatly expands the scope of an intuitionistic theorem.
 
   A side project of mine is to recognize the basic concepts and statements of
   algebraic geometry as topos-theoretic interpretations of simple concepts and
   statements of ordinary first-year linear algebra. See
   \url{https://github.com/iblech/internal-methods} for expository notes on this
-  topic.
+  topic (directed at geometers). The example of the slide is taken from these
+  notes. The simple statement about vector spaces \emph{automatically implies}
+  the more complicated statement about sheaves.
   \par
 }
 
@@ -512,6 +607,34 @@
     \end{block}
   \end{minipage}
 
+  \par
+}
+
+\note{\justifying\footnotesize
+  Dream mathematics is working with dream axioms -- axioms which are
+  classically false, but very convenient:
+  \begin{itemize}\justifying
+  \item If you adopt synthetic differential geometry, you can do calculus like
+  300 hundred years ago, by manipulating infinitesimals.
+  \item If you adopt synthetic domain theory, you can use the ordinary
+  mathematical notions of sets and maps to give semantics to programming
+  languages. See
+  \styledhref{http://homepages.inf.ed.ac.uk/als/Talks/lfps04.pdf}{slides of a talk by
+  Alex Simpson} and
+  \styledhref{https://www.dpmms.cam.ac.uk/~martin/Research/Oldpapers/synthetic91.pdf}{a
+  paper by Hyland}.
+  \item If you adopt synthetic computability theory, you can use the ordinary
+  notions of sets and maps to really talk about enumerable sets and computable
+  maps. You can drop any of the usual adjectives like ``effectively'' or
+  ``enumerable''. See \styledhref{http://math.andrej.com/data/synthetic.pdf}{a paper
+  by Andrej Bauer}.
+  \end{itemize}
+
+  All of these dream axioms can be made to work: By dropping the law of
+  excluded middle. More precisely, there are alternate toposes in which the law
+  of excluded middle does not hold but the given dream axiom does. Also there
+  are metatheorems which guaranteed that results obtained in the dream universe
+  also hold in the the usual universe.
   \par
 }
 
@@ -570,8 +693,11 @@
   classical logic is in the meaning of disjunction and existential
   quantification.
 
-  % XXX:
-  % Note that the $\neg\neg$-translation also works with r instead of \bot.
+  If~$A$ does not contain~``$\Rightarrow$'' and~``$\forall$'', then~$A^\Box
+  \Leftrightarrow \not\not A$. Such formulas are also called \emph{geometric},
+  because their truth value is preserved by so-called \emph{geometric functors}
+  in topos theory. In general, there is no implicational relation
+  between~$A^\Box$ and~$\not\not A$.
   \par
 }
 
@@ -596,6 +722,12 @@
 
 \subsection{Game-theoretical interpretation}
 
+\note{
+  \centering
+  \includegraphics[height=\textheight]{philosophers-stone}
+  \par
+}
+
 \frame{\frametitle{A classical logic fairy tale}
   % http://www.geekalerts.com/u/Collectible-Harry-Potter-Sorcerers-Stone1.jpg
   {\centering \includegraphics[scale=0.25]{philosophers-stone.jpeg}\par}
@@ -616,6 +748,38 @@
   \end{changemargin}
 }
 
+\note{\justifying\footnotesize
+  Recall the usual dialog metaphor for proofs:
+
+  \begin{quote}
+    \textbf{Alice.} I claim that~$\forall x:X\_ A(x) \Rightarrow B(x)$.
+
+    \textbf{Eve.} Really? Take this particular~$x_0:X$!
+
+    \textbf{Alice.} Sure. Then I claim that~$A(x_0) \Rightarrow B(x_0)$.
+
+    \textbf{Eve.} My~$x_0$ satisfies~$A(x_0)$, see? \ldots
+
+    \textbf{Alice.} Right. And from this I'm able to show~$B(x_0)$: \ldots
+  \end{quote}
+
+  This metaphor can be formalized. Then it's a theorem that a statment~$A$
+  holds intuitionistically if and only if the proponent has a winning strategy
+  for dialogs about~$A$. See the survey article by Helger Rückert in
+  \emph{Essays on Non-Classical Logic} for details.
+
+  Reading~``$A$'' for~``Philosopher's Stone'' and~``$A \Rightarrow \bot$'' for
+  ``using the Philosopher's Stone to produce arbitrary amounts of gold'', the
+  classical logic fairy tale gives a proof of the law of excluded middle -- in
+  dialog form, with time jumps.
+  See \styledhref{http://blog.ezyang.com/2013/04/a-classical-logic-fairy-tale/}{this
+  blog post by Edward Yang} for a different rendition of the tale and for
+  references.
+
+  It is not a coincidence that the tale feels ``continuation-y''.
+  \par
+}
+
 \section{Continuations}
 
 \subsection{The Curry--Howard correspondence}
@@ -632,6 +796,7 @@
     implication $A \Rightarrow B$ & function type $A \to B$ \pause \\
     \hil{$\inegneg$-translation} & \hil{CPS transformation} \pause \\
     \only<3>{$\neg\neg A$ & ?? \\} \pause
+    \only<4>{$(A \Rightarrow \bot) \Rightarrow \bot$ & ?? \\} \pause
     $(A \Rightarrow \bot) \Rightarrow \bot$ & $(A \to r) \to r$
   \end{tabular}
 
@@ -639,7 +804,18 @@
 }
 
 \note{\justifying\footnotesize
-  Note that different, but logically equivalent versions of the double-negation
+  On the previous slide $r$ should denote the void type (having no
+  inhabitants). But this is a bit boring; we can also use any type for~$r$ and
+  employ a variant of the double-negation translation: One where we don't
+  use~$\neg\neg$, but~$\neg_r \neg_r$, where~$\neg_r$ is defined as~$\neg_r A
+  \defeq (A \Rightarrow r)$. For this variant, it still holds that we can
+  transform classical proofs of~$A$ into intuitionistic proofs of~$A^{\Box_r}$.
+
+  To see that the double-negation translation corresponds to the CPS
+  transformation, simply note that the type~$(a \rightarrow r) \rightarrow r$ is also
+  known under the name~\textsf{Cont}~$r$~$a$.
+
+  Different but logically equivalent versions of the double-negation
   translation yield different variants of the CPS transformation (call by name,
   call by value, \ldots).
   \par
@@ -664,6 +840,80 @@ min xs = ...
   \end{changemargin}
 \end{frame}
 
+\note{\justifying\footnotesize
+  To decide an arbitrary statement~$A$, we proceed as follows. When asked
+  whether~$A$ or~$\neg A$ holds, we bluff and immediately claim that~$\neg A$
+  holds. Since~$\neg A$ is defined as~$(A \Rightarrow \bot)$, \emph{our
+  opponent has to work in order to rebut our claim}. As soon as our opponent
+  presents evidence for~$A$, we rewind time and make it look as if we always
+  claimed that~$A$ holds from the start.
+
+  Similarly, to find the minimum of an infinite list~$(x_n)_n$ of natural numbers, we
+  simply claim the first number~$x_0$ of the list is the minimum. This might actually
+  be true. Should our opponent later present a smaller element~$x_i$, we rewind time
+  (take a previously-stored continuation) and claim that~$x_i$ is the minimum.
+  This process of refining our initial guess will terminate after at most~$x_0$
+  many time jumps.
+  \par
+}
+
+\note{
+  \begin{center}\large\textbf{Food for thought}\end{center}
+
+  \classicalcontent
+}
+
+\note{\justifying\footnotesize
+  Here is a practical example from algorithmic number theory for the use of the
+  ``computational law of excluded middle''. Let~$x$ be an algebraic number,
+  that is a complex number which is a zero of a polynomial~$f(X) \in \QQ[X]$.
+  Consider the field extension~$\QQ(x)$ of~$\QQ$ generated by~$x$; this field
+  contains the rational numbers, the number~$x$, and every number which can be
+  obtained from these by addition, subtraction, multiplication, and division.
+
+  We want to describe an algorithm for computing the inverse of a nonzero
+  element in~$\QQ(x)$ and expressing this inverse as a polynomial in~$x$. In
+  principle, this can be done as follows.
+
+  Factor~$f(X)$ into irreducible polynomials. One of the factors, say~$g(X)$,
+  will be zero at~$x$. This factor is called the \emph{minimal polynomial}
+  of~$x$ and general theory tells us that~$\QQ(x) \cong \QQ[X]/(g(X))$; so
+  working in~$\QQ(x)$ is the same as working in the polynomial ring~$\QQ[X]$
+  modulo~$g(X)$. Since the extended Euclidean algorithm provides an efficient
+  method for finding modular inverses, it looks like we are done.
+
+  However, factoring~$f(X)$ into irreducible polynomials is computationally
+  expensive. Is there a way to avoid that?
+  \par
+}
+
+\note{\justifying\footnotesize
+  Yes! Let~$[h(X)] \in \QQ[X]/(f(X))$. We want to compute a modular inverse
+  to~$h(x)$ in~$\QQ(x)$. Note that since~$f(X)$ might not be irreducible, the
+  ring~$\QQ[X]/(f(X))$ might not be a field (any factor of~$f(X)$ is a zero
+  divisor in this ring). Nevertheless, we can use the extended Euclidean
+  algorithm to compute the (monic) greatest common divisor~$d(X)$ of~$f(X)$ and~$h(X)$
+  and a \emph{Bézout representation}
+  \[ d(X) = a(X) f(X) + b(X) h(X). \]
+  Three cases can occur:
+  \begin{enumerate}\justifying\scriptsize
+  \item $d(X) = 1$. Then the equation shows that~$b(X)$ is inverse to~$h(X)$
+  modulo~$f(X)$ (and therefore, \emph{a fortiori}, modulo the
+  inaccessible~$g(X)$). In particular,~$b(x)$ is inverse to~$h(x)$ in~$\QQ(x)$.
+  \item $d(X) = f(X)$. Then the equation shows that~$h(X)$ is a multiple
+  of~$f(X)$ and therefore~$h(x)$ is zero. In this case we don't need (and
+  can't) compute an inverse.
+  \item Else~$d(X)$ is a nontrivial factor of~$f(X)$. At least one of the
+  polynomials~$d(X)$ and~$f(X)/d(X)$ still has~$x$ as a zero. Call this
+  polynomial~$\tilde f(X)$. Then restart the calculation using~$\tilde
+  f(X)$ instead of~$f(X)$.
+  \end{enumerate}
+  In this way we can work in~$\QQ[X]/(g(X))$ without having to explicitly
+  compute~$g(X)$. ``Leaving the continuation monad'' is not a problem, since
+  inverses modulo~$f(X)$ or~$\tilde f(X)$ or~$\tilde{\tilde f}(X)$
+  are also inverses modulo the proper~$g(X)$.
+  \par
+}
 
 \section{Outlook}
 
@@ -686,6 +936,18 @@ min xs = ...
   \centering
   \href{https://github.com/iblech/talk-constructive-mathematics}{\includegraphics[height=2em]{github}\textsf{/iblech/talk-constructive-mathematics}}
   \par
+}
+
+\note{\justifying\footnotesize
+  Recommended reading:
+  \begin{itemize}
+    \item \styledhref{http://okmij.org/ftp/Computation/lem.html}{Oleg Kiselyov on the law of excluded middle}.
+    \item Chetan Murthy's PhD thesis
+    \styledhref{http://ecommons.library.cornell.edu/bitstream/1813/6991/1/90-1151.pdf}{Extracting
+    Constructive Content from Classical Proofs}.
+    \item The \styledhref{http://math.andrej.com}{blog of Andrej Bauer},
+    especially the posts tagged \texttt{constructive-math}.
+  \end{itemize}
 }
 
 \end{document}
@@ -734,3 +996,7 @@ Start with the Spiked Math comic, of course.
 
 * Case study: Minimum of a set of natural numbers.
   In which sense do we know that the algorithm terminates?
+
+* Axiom of choice.
+
+http://math.andrej.com/wp-content/uploads/2014/03/real-world-realizability.pdf
