@@ -131,13 +131,12 @@
 \newcommand{\img}[3]{\begin{center}\includegraphics[scale=#1]{#2}\\\scriptsize#3\end{center}}
 %\newcommand{\imageslide}[3]{\frame{\frametitle{#1}\img{#2}{#3}}}
 
-\IfSubStr{\jobname}{\detokenize{nonotes}}{
-  \setbeameroption{hide notes}
-}{
+\IfSubStr{\jobname}{\detokenize{notes}}{
   \setbeameroption{show notes}
+}{
+  \setbeameroption{hide notes}
 }
 \setbeamertemplate{note page}[plain]
-  \setbeameroption{hide notes}
 
 \newenvironment{changemargin}[2]{%
   \begin{list}{}{%
@@ -161,6 +160,12 @@
 }
 
 \frame{\titlepage}
+
+\note{
+  \textcolor{red}{This annotated version of the slides is not yet finished.}
+
+  Expect references and more explanations in the next few days.
+}
 
 \note{\fontsize{8pt}{9.6}\selectfont
   \begin{center}\large\textbf{Abstract}\end{center}
