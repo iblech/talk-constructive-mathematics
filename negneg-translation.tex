@@ -164,12 +164,6 @@
 
 \frame{\titlepage}
 
-\note{
-  \textcolor{red}{This annotated version of the slides is not yet finished.}
-
-  Expect references and more explanations in the next few days.
-}
-
 \note{\fontsize{8pt}{9.6}\selectfont
   \begin{center}\large\textbf{Abstract}\end{center}
 
@@ -244,7 +238,7 @@
 \end{frame}
 
 \note{\justifying\footnotesize
-  The proof is nice and short. However, after the proof, we are still not able
+  The proof is nice and short. However, after having seen the proof, we are still not able
   to give an example of irrational numbers~$x,y$ such that~$x^y$ is rational!
   The proof was \emph{non-constructive}. If we want to extract explicit
   witnesses from the proof, the proof has to be constructive, such as this one:
@@ -698,19 +692,26 @@
   quantification.
 
   If~$A$ does not contain~``$\Rightarrow$'' and~``$\forall$'', then~$A^\Box
-  \Leftrightarrow \not\not A$. Such formulas are also called \emph{geometric},
+  \Leftrightarrow \neg\neg A$. Such formulas are also called \emph{geometric},
   because their truth value is preserved by so-called \emph{geometric functors}
   in topos theory. In general, there is no implicational relation
   between~$A^\Box$ and~$\not\not A$.
+
+  If you can read German, then see
+  \styledhref{http://pizzaseminar.speicherleck.de/skript2/konstruktive-mathematik.pdf}{these
+  pizza seminar notes} for a detailed treatment. Else see \emph{Constructivism
+  in Mathematics: An Introduction} by Troelstra and van~Dalen. The proof is
+  routine; for each of the logical rules of classical logic you show that its
+  double-negation translation is valid intuitionistically.
   \par
 }
 
 \note{\justifying\footnotesize
   Note that~$\bot^\Box \equiv \neg\neg\bot \Leftrightarrow \bot$.
+  Also recall that Heyting arithmetic is the same as Peano arithmetic, only
+  with intuitionistic instead of classical logic.
 
   \textbf{Corollary.} Peano arithmetic and Heyting arithmetic are equiconsistent.
-  (Recall that Heyting arithmetic is the same as Peano arithmetic, only with
-  intuitionistic instead of classical logic.)
 
   \textbf{Proof.} It is clear that inconsistency of Heyting arithmetic implies
   inconsistency of Peano arithmetic.
@@ -777,8 +778,10 @@
   classical logic fairy tale gives a proof of the law of excluded middle -- in
   dialog form, with time jumps.
   See \styledhref{http://blog.ezyang.com/2013/04/a-classical-logic-fairy-tale/}{this
-  blog post by Edward Yang} for a different rendition of the tale and for
-  references.
+  blog post by Edward Yang} for a different rendition of the tale. It was
+  popularized by Philip Wadler in his
+  \styledhref{http://homepages.inf.ed.ac.uk/wadler/papers/dual/dual.pdf}{CbV is
+  dual to CbN}-paper and might be due to Peter Selinger.
 
   It is not a coincidence that the tale feels ``continuation-y''.
   \par
@@ -847,7 +850,7 @@ min xs = ...
 \note{\justifying\footnotesize
   To decide an arbitrary statement~$A$, we proceed as follows. When asked
   whether~$A$ or~$\neg A$ holds, we bluff and immediately claim that~$\neg A$
-  holds. Since~$\neg A$ is defined as~$(A \Rightarrow \bot)$, \emph{our
+  holds. Since $\neg A$ is defined as~$(A \Rightarrow \bot)$, \emph{our
   opponent has to work in order to rebut our claim}. As soon as our opponent
   presents evidence for~$A$, we rewind time and make it look as if we always
   claimed that~$A$ holds from the start.
@@ -858,6 +861,11 @@ min xs = ...
   (take a previously-stored continuation) and claim that~$x_i$ is the minimum.
   This process of refining our initial guess will terminate after at most~$x_0$
   many time jumps.
+
+  The logical analog to this algorithm is the following. Let~$(x_n)_n$ be an
+  infinite list of natural numbers. Then we can't intuitionistically verify
+  that this list has a minimal element. But we can verify that there is
+  \emph{not not} a minimal element.
   \par
 }
 
@@ -865,6 +873,17 @@ min xs = ...
   \begin{center}\large\textbf{Food for thought}\end{center}
 
   \classicalcontent
+}
+
+\note{\justifying\footnotesize
+  See the article
+  \styledhref{http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.49.3492&rep=rep1&type=pdf}{Computational
+  content of classical logic} by Coquand for details.
+
+  Also note that the double-negation translation of the axiom of choice is not
+  valid intuitionistically. Therefore one has to work harder to extract
+  computational content from classical proofs which use this particular axiom.
+  \par
 }
 
 \note{\justifying\footnotesize
@@ -924,6 +943,7 @@ min xs = ...
 \frame{\frametitle{Outlook}
   \begin{itemize}
     \item CPS transformation $=$ Yoneda embedding
+    \item What about delimited continuations?
     \item Geometrical interpretation:
     \[ \Sh(X) \models A^\Box \quad\Longleftrightarrow\quad
     \Sh(X_{\neg\neg}) \models A \]
@@ -952,6 +972,19 @@ min xs = ...
     \item The \styledhref{http://math.andrej.com}{blog of Andrej Bauer},
     especially the posts tagged \texttt{constructive-math}.
   \end{itemize}
+
+  Not directly related to the topic of these slides, but if you haven't read
+  yet Andrej Bauer's
+  \styledhref{http://math.andrej.com/wp-content/uploads/2014/03/real-world-realizability.pdf}{short
+  book contribution} \emph{Intuitionistic mathematics and realizability in the
+  physical world} or don't follow \styledhref{http://blog.sigfpe.com/}{Dan Piponi's
+  blog}, you totally should. Actually I envy you, because you can look forward
+  to some great reading time!
+
+  If you want to know more about the geometrical interpretation, check out
+  \url{https://github.com/iblech/internal-methods} for expository notes
+  (prerequisites for the relevant sections: only general topology).
+  \par
 }
 
 \end{document}
@@ -982,29 +1015,9 @@ Start with the Spiked Math comic, of course.
 
 * http://www.reddit.com/r/math/comments/1fp3q9/how_is_the_double_negation_translation_similar_to/
 * http://stackoverflow.com/questions/2969140/what-are-the-most-interesting-equivalences-arising-from-the-curry-howard-isomorp/2969800#2969800
-* http://okmij.org/ftp/Computation/lem.html
 
 * State that (neg neg A ==> A) is like catching an exception.
 
-* Also state Friedman's Trick? And applications? For instance, halting of
-  Turing machines.
-
-* According to many-happy-returns.ps, logical contents of delimited
-  continuations are explored by Kamenaya.
-
-* Murthy's PhD thesis! Give him due credit.
-  (Murthy was a student of Robert Constable (Cornell), who in turn was a
-  student of Kleene.)
-
-* Cite Helger Rückert in /Essays on Non-Classical Logic/
-
-* Case study: Minimum of a set of natural numbers.
-  In which sense do we know that the algorithm terminates?
-
-* Axiom of choice.
-
-* Reference for negneg translation.
-
-http://math.andrej.com/wp-content/uploads/2014/03/real-world-realizability.pdf
-
-http://homepages.inf.ed.ac.uk/wadler/papers/dual/dual.pdf
+* According to /Many happy returns/ by Olivier Danvy (many-happy-returns.ps),
+  logical contents of delimited continuations are explored by Kamenaya
+  (Kammenaya?).
