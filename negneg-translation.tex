@@ -231,9 +231,9 @@
 
   \hil{Proof.} Either~$\sqrt{2}^{\sqrt{2}}$ is rational or not.
 
-  In the first case, we are done.
+  In the first case we are done.
 
-  In the second case, take~$x \defeq \sqrt{2}^{\sqrt{2}}$ and~$y \defeq
+  In the second case take~$x \defeq \sqrt{2}^{\sqrt{2}}$ and~$y \defeq
   \sqrt{2}$. Then~$x^y = 2$ is rational.
 \end{frame}
 
@@ -526,7 +526,7 @@
   a counterfactual world where there are only finitely many primes. In fact,
   the number
   \[ N \defeq 2 \cdot 3 \cdot 5 \cdot 7 \cdot 11 \cdot 13 + 1 = 59 \cdot 509 \]
-  is composite. A shorter example is
+  is composite. A smaller example is
   \[ N \defeq 2 \cdot 7 + 1 = 3 \cdot 5. \]
 }
 
@@ -624,7 +624,7 @@
   \styledhref{https://www.dpmms.cam.ac.uk/~martin/Research/Oldpapers/synthetic91.pdf}{a
   paper by Hyland}.
   \item If you adopt synthetic computability theory, you can use the ordinary
-  notions of sets and maps to really talk about enumerable sets and computable
+  notions of sets and maps to secretly talk about enumerable sets and computable
   maps. You can drop any of the usual adjectives like ``effectively'' or
   ``enumerable''. See \styledhref{http://math.andrej.com/data/synthetic.pdf}{a paper
   by Andrej Bauer}.
@@ -633,7 +633,7 @@
   All of these dream axioms can be made to work: By dropping the law of
   excluded middle. More precisely, there are alternate toposes in which the law
   of excluded middle does not hold but the given dream axiom does. Also there
-  are metatheorems which guaranteed that results obtained in the dream universe
+  are metatheorems which guarantee that results obtained in the dream universe
   also hold in the the usual universe.
 
   \emph{Warning.} For space reasons, the axioms are not presented faithfully on
@@ -695,7 +695,7 @@
   \Leftrightarrow \neg\neg A$. Such formulas are also called \emph{geometric},
   because their truth value is preserved by so-called \emph{geometric functors}
   in topos theory. In general, there is no implicational relation
-  between~$A^\Box$ and~$\not\not A$.
+  between~$A^\Box$ and~$\neg\neg A$.
 
   If you can read German, then see
   \styledhref{http://pizzaseminar.speicherleck.de/skript2/konstruktive-mathematik.pdf}{these
@@ -768,7 +768,7 @@
     \textbf{Alice.} Right. And from this I'm able to show~$B(x_0)$: \ldots
   \end{quote}
 
-  This metaphor can be formalized. Then it's a theorem that a statment~$A$
+  This metaphor can be formalized. Then it's a theorem that a statement~$A$
   holds intuitionistically if and only if the proponent has a winning strategy
   for dialogs about~$A$. See the survey article by Helger Rückert in
   \emph{Essays on Non-Classical Logic} for details.
@@ -815,7 +815,7 @@
   inhabitants). But this is a bit boring; we can also use any type for~$r$ and
   employ a variant of the double-negation translation: One where we don't
   use~$\neg\neg$, but~$\neg_r \neg_r$, where~$\neg_r$ is defined as~$\neg_r A
-  \defeq (A \Rightarrow r)$. For this variant, it still holds that we can
+  \defeqv (A \Rightarrow r)$. For this variant, it still holds that we can
   transform classical proofs of~$A$ into intuitionistic proofs of~$A^{\Box_r}$.
 
   To see that the double-negation translation corresponds to the CPS
@@ -855,14 +855,14 @@ min xs = ...
   presents evidence for~$A$, we rewind time and make it look as if we always
   claimed that~$A$ holds from the start.
 
-  Similarly, to find the minimum of an infinite list~$(x_n)_n$ of natural numbers, we
-  simply claim the first number~$x_0$ of the list is the minimum. This might actually
+  Similarly, to find the minimum of an infinite list~$[x_0,x_1,\ldots]$ of natural numbers, we
+  simply claim that the first number~$x_0$ of the list is the minimum. This might actually
   be true. Should our opponent later present a smaller element~$x_i$, we rewind time
   (take a previously-stored continuation) and claim that~$x_i$ is the minimum.
   This process of refining our initial guess will terminate after at most~$x_0$
   many time jumps.
 
-  The logical analog to this algorithm is the following. Let~$(x_n)_n$ be an
+  The logical analog to this algorithm is the following. Let~$[x_0,x_1,\ldots]$ be an
   infinite list of natural numbers. Then we can't intuitionistically verify
   that this list has a minimal element. But we can verify that there is
   \emph{not not} a minimal element.
@@ -979,11 +979,12 @@ min xs = ...
   book contribution} \emph{Intuitionistic mathematics and realizability in the
   physical world} or don't follow \styledhref{http://blog.sigfpe.com/}{Dan Piponi's
   blog}, you totally should. Actually I envy you, because you can look forward
-  to some great reading time!
+  to some great reading!
 
   If you want to know more about the geometrical interpretation, check out
   \url{https://github.com/iblech/internal-methods} for expository notes
-  (prerequisites for the relevant sections: only general topology).
+  (prerequisites for the relevant sections: general topology, but not algebraic
+  geometry).
   \par
 }
 
