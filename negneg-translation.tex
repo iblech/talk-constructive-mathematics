@@ -654,7 +654,8 @@
     \begin{exampleblock}{}
       \justifying
       \textbf{Proof.} Assume~$\neg(A \vee \neg A)$, we want to show~$\bot$. \\[0.3em]
-      If~$A$, then~$A \vee \neg A$, thus~$\bot$. Therefore~$\neg A$. \\[0.3em]
+      If~$A$, then~$A \vee \neg A$, thus~$\bot$. \\[0.3em]
+      Therefore~$\neg A$. \\[0.3em]
       Since~$\neg A$, we have $A \vee \neg A$, thus~$\bot$.
     \end{exampleblock}
   \end{minipage}
@@ -717,7 +718,7 @@
   inconsistency of Peano arithmetic.
 
   For the converse direction, write~$\mathrm{Ax}$ for the axioms of Peano
-  arithmetic, thought of as a single formula by conjuction. If Peano arithmetic
+  arithmetic, thought of as a single formula by conjunction. If Peano arithmetic
   proves~$\bot$, that is if~$\mathrm{Ax} \Rightarrow \bot$ classically, then by
   the theorem~$\mathrm{Ax}^\Box \Rightarrow \bot^\Box$ intuitionistically. By
   inspection~$\mathrm{Ax} \Rightarrow \mathrm{Ax}^\Box$ intuitionistically.
@@ -798,7 +799,7 @@
     \hil{logic} & \hil{programming} \\
     formula $A$ & type $A$ \\
     intuitionistic proof $p:A$ & term $p:A$ \\
-    conjuction $A \wedge B$ & product type $(A,B)$ \\
+    conjunction $A \wedge B$ & product type $(A,B)$ \\
     disjunction $A \vee B$ & sum type \textsf{Either} $A$ $B$ \\
     implication $A \Rightarrow B$ & function type $A \to B$ \pause \\
     \hil{$\inegneg$-translation} & \hil{CPS transformation} \pause \\
