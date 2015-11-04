@@ -1,0 +1,126 @@
+\documentclass[a4paper,ngerman]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[protrusion=true,expansion=true]{microtype}
+\usepackage{amsthm,mathtools,booktabs}
+
+\theoremstyle{plain}
+\newtheorem*{prop}{Proposition}
+
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\defequiv}{\vcentcolon\equiv}
+
+\title{Konstruktive Mathematik, \\ die Doppelnegationsübersetzung \\ und Continuations}
+\author{Ingo Blechschmidt}
+
+\begin{document}
+
+\maketitle
+
+\section*{Worum geht es?}
+
+In der Informatik untersucht man seit den XXXer Jahren das Konzept der
+\emph{Continuations}. Im Compilerbau ist dabei die
+\emph{Continuation-Passing-Style-Transformation} eine wichtige Hilfe, da man
+nach Anwendung dieser Transformation alle möglichen Kontrollstrukturen leicht
+implementieren kann.
+
+In der Logik gibt es die \emph{Doppelnegationsübersetzung}. Die änderte eine
+Aussage so ab, dass die übersetzte Aussage genau dann "`in konstruktiver
+Mathematik"' gilt, wenn die ursprüngliche Aussage "`in klassischer Mathematik"'
+gilt.
+
+Die gefeierte \emph{Curry--Howard-Korrespondenz} besagt in etwa, dass
+Programmieren und konstruktive Mathematik Betreiben ein und dasselbe sind; aus
+jedem konstruktiven Beweis kann man einen Algorithmus extrahieren. Unter diesem
+Gesichtspunkt sind die CPS-Transformation und Doppelnegationsübersetzung
+faszinierenderweise nur zwei unterschiedliche
+Sichtweisen desselben Konzepts, und damit kann man auch aus Beweisen
+klassischer Mathematik algorithmischen Inhalt extrahieren.
+
+
+\section*{Was ist konstruktive Mathematik?}
+
+Eine Zahl heißt genau dann \emph{rational}, wenn sie sich als Bruch zweier
+ganzer Zahlen schreiben lässt. Zum Beispiel ist~$\frac{21}{13}$ rational, die
+Zahl~$\sqrt{2}$ ist es dagegen nicht. Nun kann man sich fragen, ob es
+\emph{irrationale} Zahlen~$x$ und~$y$ gibt, die miteinander potenziert eine
+\emph{rationale} Zahl als Ergebnis geben. Das folgende Argument zeigt, dass die
+Antwort darauf positiv ist:
+\enlargethispage{2em}
+
+\begin{quote}
+Die Zahl~$\sqrt{2}^{\sqrt{2}}$ ist entweder rational oder irrational.
+
+\begin{itemize}
+\item Im ersten Fall sind~$x \defeq \sqrt{2}$ und $y \defeq \sqrt{2}$ Zahlen
+mit der gewünschten Eigenschaft.
+\item Im zweiten Fall können wir~$x \defeq \sqrt{2}^{\sqrt{2}}$ und~$y \defeq
+\sqrt{2}$ betrachten. Dann ist nämlich~$x^y = \sqrt{2}^{\sqrt{2} \cdot
+\sqrt{2}} = \sqrt{2}^2 = 2$ rational.
+\end{itemize}
+\end{quote}
+
+Mit diesem Beweis kennen wir also die Antwort auf die Frage. Doch halt!
+Tatsächlich sind wir immer noch nicht in der Lage, einem interessierten
+Gegenüber ein Zahlenpaar mit den gewünschten Eigenschaften nennen zu können.
+\emph{Der Beweis war unkonstruktiv.}
+
+In konstruktiver Mathematik stellt man strengere Anforderungen an einen Beweis
+-- so starke, dass man aus jedem konstruktiven Beweis einer Existenzbehauptung
+einen Algorithmus ablesen kann, der das postulierte Objekt explizit berechnet.
+
+Es stellt sich heraus, dass man, um dieses Ziel zu erreichen, auf genau ein
+Axiom klassischer Logik verzichten muss: dem \emph{Axiom vom ausgeschlossenen
+Dritten}. Dieses sagt in etwa aus, dass jede Aussage stimmt oder nicht stimmt;
+im obigen Beweis ging es gleich im ersten Schritt ein.
+
+Im Vortrag werden wir verstehen, welchen Standpunkt man einnehmen muss, damit
+der Verzicht auf dieses Axiom nicht völlig verrückt erscheint (ist es nicht
+einfach offensichtlich wahr?). Außerdem werden wir die
+\emph{Doppelnegationsübersetzung} kennenlernen, die folgende fundamentale
+Eigenschaft hat: Genau dann gibt es einen klassischen Beweis einer Aussage
+-- einen, in dem das Axiom vom ausgeschlossenen Dritten verwendet werden darf
+-- wenn es einen konstruktiven Beweis der übersetzten Aussage gibt.
+
+
+\section*{Die Curry--Howard-Korrespondenz}
+
+Die Curry--Howard-Korrespondenz identifiziert \emph{logische Aussagen} mit
+\emph{Typen} und \emph{Beweise von Aussagen} mit \emph{Termen geeigneten Typs}.
+Unter dieser Korrespondenz entspricht beispielsweise der triviale Beweis der
+Behauptung "`aus $A$ folgt $A$"' der Identitätsfunktion~\texttt{($\lambda$x ->
+x) :: A $\to$ A}. Der triviale Beweis der Behauptung "`wenn $A$ und $B$, dann
+insbesondere $A$"' entspricht der Funktion~\texttt{fst :: (A,B) $\to$ A}.
+
+\begin{center}\begin{tabular}{ll}
+  \toprule
+  Logik & Programmierung \\\midrule
+  Aussage $A$ & Typ \texttt{A} \\
+  Konstruktiver Beweis $p$ von $A$ & Term \texttt{p :: A} \\
+  Konjunktion: $A$ und $B$ & Produkttyp \texttt{(A,B)} \\
+  Disjunktion: $A$ oder $B$ & Summentyp \texttt{Either A B} \\
+  Implikation: Wenn $A$, dann $B$ & Funktionstyp \texttt{A $\to$ B} \\
+  \bottomrule
+\end{tabular}\end{center}
+
+Mit der Curry--Howard-Korrespondenz steckt also in jedem konstruktiven Beweis
+ein Programm; in diesem Sinn hat jeder konstruktiver Beweis "`algorithmischen
+Inhalt"'.
+
+\end{document}
+
+Nun gibt es eine faszinierende Verbindung zwischen der
+Doppelnegationsübersetzung und der in der Informatik wohlbekannten
+Continuation-Passing-Style-Transformation: In einem gewissen Sinn sind sie ein
+und dasselbe. Das ist ein wunderschöner Aspekt des "computational
+trinitarianism".
+
+Der Vortrag wird in diese Thematik einführen und anhand von Beispielcode in
+Haskell illustrieren. Scheibar unmögliche Aufgaben wie das Minimum einer
+unendlichen Liste von natürlichen Zahlen zu finden werden damit -- in einem
+gewissen monadischen Sinn -- möglich. Der Vortrag setzt keine Vorkenntnisse in
+formaler Logik oder konstruktiver Mathematik voraus, wohl aber gewisse
+allgemeine Vertrautheit mit mathematischen Fragestellungen und mathematischer
+Sprache.
