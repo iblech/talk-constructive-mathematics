@@ -27,9 +27,9 @@ Doppelnegationsübersetzung und Continuations}}
 
 \normalsize Ingo Blechschmidt \texttt{<iblech@speicherleck.de>}\end{center}
 
-\emph{Wie bestimmt man das Minimum einer unendlichen Liste von natürlichen
-Zahlen?} Wenn man die Liste nicht überschauen kann, ist man auf folgenden Trick
-angewiesen. Man blufft und proklamiert einfach das erste Element der Liste als
+\emph{Wie können wir das Minimum einer unendlichen Liste von natürlichen
+Zahlen bestimmen?} Wenn wir die Liste nicht überschauen können, sind wir auf folgenden Trick
+angewiesen. Wir bluffen und proklamieren einfach das erste Element der Liste als
 Minimum. Durch Zufall könnte das sogar wirklich das kleinste Element der Liste
 sein. Wenn uns aber jemand herausfordert und uns ein kleineres Element der
 Liste präsentiert, so springen wir in der Zeit zurück und ändern die Geschichte
@@ -116,7 +116,7 @@ thematisieren.
   Konstruktiver Beweis $p$ von $A$ & Term \texttt{p :: A} \\
   Konjunktion $A \wedge B$ ("`und"') & Produkttyp \texttt{(A,B)} \\
   Disjunktion $A \vee B$ ("`oder"') & Summentyp \texttt{Either A B} \\
-  Implikation $A \rightarrow B$ ("`wenn, dann"') & Funktionstyp \texttt{A $\to$ B} \\
+  Implikation $A \Rightarrow B$ ("`wenn, dann"') & Funktionstyp \texttt{A $\to$ B} \\
   \bottomrule
 \end{tabular}\end{center}
 
@@ -124,7 +124,7 @@ Mit der Curry--Howard-Korrespondenz steckt also in jedem konstruktiven Beweis
 ein Programm; in diesem Sinn hat jeder konstruktiver Beweis "`algorithmischen
 Inhalt"'. Diese Korrespondenz ist aber auf konstruktive Beweise beschränkt. Nur
 dank der Doppelnegationsübersetzung kann man auch noch in klassischen Beweisen
-algorithmischen Inhalt entdecken: Indem man die Korrespondenz auf ihre
+algorithmischen Inhalt entdecken: indem man die Korrespondenz auf ihre
 Doppelnegationsübersetzung anwendet.
 
 Welches Pendant auf der Seite der Programmierung gehört eigentlich zur
