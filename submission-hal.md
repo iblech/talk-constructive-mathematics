@@ -21,7 +21,7 @@ und dasselbe. Das ist ein wunderschöner Aspekt des "computational
 trinitarianism".
 
 Der Vortrag wird in diese Thematik einführen und anhand von Beispielcode in
-Haskell illustrieren. Scheibar unmögliche Aufgaben wie das Minimum einer
+Haskell illustrieren. Scheinbar unmögliche Aufgaben wie das Minimum einer
 unendlichen Liste von natürlichen Zahlen zu finden werden damit -- in einem
 gewissen monadischen Sinn -- möglich. Der Vortrag setzt keine Vorkenntnisse in
 formaler Logik oder konstruktiver Mathematik voraus, wohl aber gewisse

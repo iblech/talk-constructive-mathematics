@@ -1,9 +1,15 @@
-\documentclass[a4paper,ngerman]{scrartcl}
+\documentclass[a4paper,ngerman,10pt]{scrartcl}
 
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
 \usepackage[protrusion=true,expansion=true]{microtype}
-\usepackage{amsthm,mathtools,booktabs}
+\usepackage{amsthm,mathtools,booktabs,xcolor}
+
+\usepackage{hyperref}
+\hypersetup{colorlinks=true}
+
+\usepackage{geometry}
+\geometry{tmargin=2.3cm,bmargin=2.3cm,lmargin=3.9cm,rmargin=3.9cm}
 
 \theoremstyle{plain}
 \newtheorem*{prop}{Proposition}
@@ -11,57 +17,63 @@
 \newcommand{\defeq}{\vcentcolon=}
 \newcommand{\defequiv}{\vcentcolon\equiv}
 
-\title{Konstruktive Mathematik, \\ die Doppelnegationsübersetzung \\ und Continuations}
+\title{Konstruktive Mathematik, die Doppelnegationsübersetzung und Continuations}
 \author{Ingo Blechschmidt}
 
 \begin{document}
 
-\maketitle
+\begin{center}\large\textsf{\textbf{Konstruktive Mathematik, \\ die
+Doppelnegationsübersetzung und Continuations}}
 
-\section*{Worum geht es?}
+\normalsize Ingo Blechschmidt \texttt{<iblech@speicherleck.de>}\end{center}
 
-In der Informatik untersucht man seit den XXXer Jahren das Konzept der
-\emph{Continuations}. Im Compilerbau ist dabei die
-\emph{Continuation-Passing-Style-Transformation} eine wichtige Hilfe, da man
-nach Anwendung dieser Transformation alle möglichen Kontrollstrukturen leicht
-implementieren kann.
+\emph{Wie bestimmt man das Minimum einer unendlichen Liste von natürlichen
+Zahlen?} Wenn man die Liste nicht überschauen kann, ist man auf folgenden Trick
+angewiesen. Man blufft und proklamiert einfach das erste Element der Liste als
+Minimum. Durch Zufall könnte das sogar wirklich das kleinste Element der Liste
+sein. Wenn uns aber jemand herausfordert und uns ein kleineres Element der
+Liste präsentiert, so springen wir in der Zeit zurück und ändern die Geschichte
+so, als ob wir von vornherein \emph{dieses} Element als Minimum proklamiert
+hätten. Sollte auch dieser Bluff auffliegen, wiederholen wir das Prozedere.
 
-In der Logik gibt es die \emph{Doppelnegationsübersetzung}. Die änderte eine
-Aussage so ab, dass die übersetzte Aussage genau dann "`in konstruktiver
-Mathematik"' gilt, wenn die ursprüngliche Aussage "`in klassischer Mathematik"'
-gilt.
+Ist das geschummelt? Ja, in einem gewissen Sinn schon. Es steckt allerdings
+mehr dahinter: Zum einen funktioniert dieses Verfahren "`von innerhalb der
+Continuation-Monade betrachtet"' taddellos und kann in gewissen Situationen
+durchaus nützlich sein. Obacht ist nur geboten, wenn man "`die
+Continuation-Monade verlässt"'. Zum anderen entstammt das Verfahren nicht dem
+übertriebenen Ehrgeiz eines Poker-Fans, sondern ergibt sich \emph{maschinell}
+durch "`Extraktion algorithmischen Inhalts"' aus einem mathematischen Beweis
+der einfachen Tatsache, dass jede unendliche Liste von natürlichen Zahlen ein
+Minimum enthalten muss.
 
-Die gefeierte \emph{Curry--Howard-Korrespondenz} besagt in etwa, dass
-Programmieren und konstruktive Mathematik Betreiben ein und dasselbe sind; aus
-jedem konstruktiven Beweis kann man einen Algorithmus extrahieren. Unter diesem
-Gesichtspunkt sind die CPS-Transformation und Doppelnegationsübersetzung
-faszinierenderweise nur zwei unterschiedliche
-Sichtweisen desselben Konzepts, und damit kann man auch aus Beweisen
-klassischer Mathematik algorithmischen Inhalt extrahieren.
+Im Vortrag werden wir alle Floskeln dieses Absatzes verstehen. Haskell-Code
+wird die Sachverhalte illustrieren. Wir werden auch einen praktischen
+Anwendungsfall aus der Kryptographie und Zahlentheorie diskutieren (je nach
+Wunsch während des Vortrags oder durch ausführliche schriftliche Notizen), der
+"`Bestimmung von modularen Inversen in Restklassenringen"', in der die
+vorgestellten Techniken eine erhebliche Effizienzsteigerung ermöglichen.
 
 
-\section*{Was ist konstruktive Mathematik?}
+\subsection*{Notwendiger Exkurs: Was ist konstruktive Mathematik?}
 
-Eine Zahl heißt genau dann \emph{rational}, wenn sie sich als Bruch zweier
+Den Unterschied zur gewöhnlichen, klassischen Mathematik begreift man am besten
+an einem Beispiel. Eine Zahl heißt genau dann \emph{rational}, wenn sie sich als Bruch zweier
 ganzer Zahlen schreiben lässt. Zum Beispiel ist~$\frac{21}{13}$ rational, die
 Zahl~$\sqrt{2}$ ist es dagegen nicht. Nun kann man sich fragen, ob es
 \emph{irrationale} Zahlen~$x$ und~$y$ gibt, die miteinander potenziert eine
 \emph{rationale} Zahl als Ergebnis geben. Das folgende Argument zeigt, dass die
 Antwort darauf positiv ist:
-\enlargethispage{2em}
-
 \begin{quote}
-Die Zahl~$\sqrt{2}^{\sqrt{2}}$ ist entweder rational oder irrational.
+Zunächst ist die Zahl~$\sqrt{2}^{\sqrt{2}}$ entweder rational oder irrational.
 
 \begin{itemize}
 \item Im ersten Fall sind~$x \defeq \sqrt{2}$ und $y \defeq \sqrt{2}$ Zahlen
 mit der gewünschten Eigenschaft.
 \item Im zweiten Fall können wir~$x \defeq \sqrt{2}^{\sqrt{2}}$ und~$y \defeq
-\sqrt{2}$ betrachten. Dann ist nämlich~$x^y = \sqrt{2}^{\sqrt{2} \cdot
-\sqrt{2}} = \sqrt{2}^2 = 2$ rational.
+\sqrt{2}$ betrachten. Dann sind nämlich~$x$ und~$y$ irrational und die Potenz
+$x^y = \sqrt{2}^{\sqrt{2} \cdot \sqrt{2}} = \sqrt{2}^2 = 2$ ist rational.
 \end{itemize}
 \end{quote}
-
 Mit diesem Beweis kennen wir also die Antwort auf die Frage. Doch halt!
 Tatsächlich sind wir immer noch nicht in der Lage, einem interessierten
 Gegenüber ein Zahlenpaar mit den gewünschten Eigenschaften nennen zu können.
@@ -85,42 +97,143 @@ Eigenschaft hat: Genau dann gibt es einen klassischen Beweis einer Aussage
 -- wenn es einen konstruktiven Beweis der übersetzten Aussage gibt.
 
 
-\section*{Die Curry--Howard-Korrespondenz}
+\subsection*{Die Curry--Howard-Korrespondenz}
 
 Die Curry--Howard-Korrespondenz identifiziert \emph{logische Aussagen} mit
 \emph{Typen} und \emph{Beweise von Aussagen} mit \emph{Termen geeigneten Typs}.
-Unter dieser Korrespondenz entspricht beispielsweise der triviale Beweis der
-Behauptung "`aus $A$ folgt $A$"' der Identitätsfunktion~\texttt{($\lambda$x ->
-x) :: A $\to$ A}. Der triviale Beweis der Behauptung "`wenn $A$ und $B$, dann
-insbesondere $A$"' entspricht der Funktion~\texttt{fst :: (A,B) $\to$ A}.
+Unpräzise als Motto formuliert besagt sie, dass Programmieren und konstruktive
+Mathematik Betreiben ein und dasselbe sind. Unter dieser Korrespondenz
+entspricht beispielsweise der triviale Beweis der Behauptung "`aus $A$ folgt
+$A$"' der Identitätsfunktion~\texttt{id :: A $\to$ A}. Der triviale Beweis der
+Behauptung "`wenn $A$ und $B$, dann insbesondere $A$"' entspricht der
+Funktion~\texttt{fst :: (A,B) $\to$ A}. Das werden wir im Vortrag noch genauer
+thematisieren.
 
 \begin{center}\begin{tabular}{ll}
   \toprule
   Logik & Programmierung \\\midrule
   Aussage $A$ & Typ \texttt{A} \\
   Konstruktiver Beweis $p$ von $A$ & Term \texttt{p :: A} \\
-  Konjunktion: $A$ und $B$ & Produkttyp \texttt{(A,B)} \\
-  Disjunktion: $A$ oder $B$ & Summentyp \texttt{Either A B} \\
-  Implikation: Wenn $A$, dann $B$ & Funktionstyp \texttt{A $\to$ B} \\
+  Konjunktion $A \wedge B$ ("`und"') & Produkttyp \texttt{(A,B)} \\
+  Disjunktion $A \vee B$ ("`oder"') & Summentyp \texttt{Either A B} \\
+  Implikation $A \rightarrow B$ ("`wenn, dann"') & Funktionstyp \texttt{A $\to$ B} \\
   \bottomrule
 \end{tabular}\end{center}
 
 Mit der Curry--Howard-Korrespondenz steckt also in jedem konstruktiven Beweis
 ein Programm; in diesem Sinn hat jeder konstruktiver Beweis "`algorithmischen
-Inhalt"'.
+Inhalt"'. Diese Korrespondenz ist aber auf konstruktive Beweise beschränkt. Nur
+dank der Doppelnegationsübersetzung kann man auch noch in klassischen Beweisen
+algorithmischen Inhalt entdecken: Indem man die Korrespondenz auf ihre
+Doppelnegationsübersetzung anwendet.
+
+Welches Pendant auf der Seite der Programmierung gehört eigentlich zur
+Dop\-pel\-ne\-ga\-tions\-über\-set\-zung? \emph{Faszinierenderweise ist das gerade die beim
+Compilerbau oft verwendete Continuation-Passing-Style-Transformation.} Die
+CPS-Transformation, mit der man etwa beliebige Kontrollstrukturen recht leicht
+implementieren kann, wurde in den 60er-Jahren entwickelt. Die
+Doppelnegationsübersetzung wird seit den 30er-Jahren untersucht. Die
+Curry--Howard-Korrespondenz vereint also zwei scheinbar unterschiedliche
+Konzepte aus unterschiedlichen Epochen und unterschiedlichen Teilgebieten der
+Mathematik und Informatik.
+
+
+\subsection*{Fallbeispiel: Minimum einer unendlichen Liste}
+
+Ist~\texttt{[x0, x1, x2, ...]} eine unendliche Liste von natürlichen Zahlen, so
+ist klar: In dieser Liste ist eines der Elemente das kleinste, das Minimum. Wenn man
+die Situation genauer untersucht, erkennt man jedoch, dass der Beweis dieser
+Behauptung das Axiom vom ausgeschlossenen Dritten verwendet und daher nicht
+konstruktiv ist. In Übereinstimmung mit der Curry--Howard-Korrespondenz können
+wir auch keine Funktion~\texttt{minimum :: [Nat] $\to$ Nat} schreiben, die das
+Minimum einer übergebenen unendlichen Liste bestimmen würde.
+
+Was passiert, wenn wir auf den klassischen Beweis die
+Doppelnegationsübersetzung anwenden, so einen konstruktiven Beweis erhalten und
+dann diesen mit der Curry--Howard-Korrespondenz in ein Programm umwandeln? Dann
+erhalten wir eine Funktion vom Typ \[\texttt{minimum :: [Nat] $\to$ Cont r (Nat,
+Nat $\to$ Cont r ())}.\] Dabei ist~\texttt{Cont r} die Con\-ti\-nuation-Monade. Der
+Rückgabewert~\texttt{(n, f)} von~\texttt{minimum xs} enthält an erster Stelle
+das Minimum der Liste und an zweiter Stelle eine Funktion, die die Minimalität
+von~\texttt{n} bezeugt: Übergibt man ihr einen Folgenindex~\texttt{i}, so
+antwortet sie mit einem Beweis der Behauptung~\texttt{n $\leq$ xs!!i}. (Um das
+treu in Haskell abbilden zu können, bräuchte man \emph{abhängige Typen}. Da es
+die in Haskell nicht gibt, muss der triviale Typ~\texttt{()} zusammen mit einem
+sozialen Versprechen als Ersatz herhalten.)
+
+Was macht diese Funktion? \emph{Sie setzt genau das eingangs beschriebene
+Verfahren um.}
+
+\renewcommand{\thefootnotemark}{}
+\footnotetext{Originalliteratur:
+\href{http://ecommons.library.cornell.edu/bitstream/1813/6991/1/90-1151.pdf}{Chetan Murthy,
+Extracting Constructive Content from Classical Proofs, 1990}. Popularisierungen: in
+Artikeln von
+\href{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.49.3492}{Thierry Coquand},
+\href{http://okmij.org/ftp/Computation/lem.html}{Oleg Kiselyov},
+\href{https://lukepalmer.wordpress.com/2007/10/26/computing-without-a-middle/}{Luke Palmer},
+\href{http://blog.sigfpe.com/2008/06/drugs-kate-moss-and-intuitionistic.html}{Dan Piponi (sigfpe)},
+\href{http://homepages.inf.ed.ac.uk/wadler/papers/dual/dual.pdf}{Philip Wadler} und
+\href{http://blog.ezyang.com/2013/04/a-classical-logic-fairy-tale/}{Edward Z. Yang}.
+Empfehlenswert ist in diesem Zusammenhang auch ein Buchkapitel von
+\href{http://math.andrej.com/wp-content/uploads/2014/03/real-world-realizability.pdf}{Andrej Bauer}.}
 
 \end{document}
 
-Nun gibt es eine faszinierende Verbindung zwischen der
-Doppelnegationsübersetzung und der in der Informatik wohlbekannten
-Continuation-Passing-Style-Transformation: In einem gewissen Sinn sind sie ein
-und dasselbe. Das ist ein wunderschöner Aspekt des "computational
-trinitarianism".
 
-Der Vortrag wird in diese Thematik einführen und anhand von Beispielcode in
-Haskell illustrieren. Scheibar unmögliche Aufgaben wie das Minimum einer
-unendlichen Liste von natürlichen Zahlen zu finden werden damit -- in einem
-gewissen monadischen Sinn -- möglich. Der Vortrag setzt keine Vorkenntnisse in
-formaler Logik oder konstruktiver Mathematik voraus, wohl aber gewisse
-allgemeine Vertrautheit mit mathematischen Fragestellungen und mathematischer
-Sprache.
+In der Informatik untersucht man seit den 60er-Jahren das Konzept der
+\emph{Continuations}. Im Compilerbau ist dabei die
+\emph{Continuation-Passing-Style-Transformation} eine wichtige Hilfe, da man
+nach Anwendung dieser Transformation alle möglichen Kontrollstrukturen leicht
+implementieren kann.
+In der Logik gibt es seit den 30er-Jahren die
+\emph{Doppelnegationsübersetzung}. Die ändert eine Aussage so ab, dass die
+übersetzte Aussage genau dann "`in konstruktiver Mathematik"' gilt, wenn die
+ursprüngliche Aussage "`in klassischer Mathematik"' gilt.
+
+Die gefeierte \emph{Curry--Howard-Korrespondenz} besagt in etwa, dass
+Programmieren und konstruktive Mathematik Betreiben ein und dasselbe sind; aus
+jedem konstruktiven Beweis kann man einen Algorithmus extrahieren. Unter diesem
+Gesichtspunkt sind CPS-Transformation und Doppelnegationsübersetzung
+faszinierenderweise nur zwei unterschiedliche
+Sichtweisen desselben Konzepts. Hinzu kommt, dass man damit auch aus Beweisen
+\emph{klassischer} Mathematik algorithmischen Inhalt extrahieren kann. Dieser ist
+längst nicht so direkt wie der Inhalt konstruktiver Beweise, sondern von einer
+monadischen Natur. Wie er genau aussieht und wozu er gut ist, werden wir im
+Vortrag verstehen. Haskell-Code wird dabei die Sachverhalte illustrieren.
+
+
+Was macht diese Funktion? \emph{Sie blufft.} Sie speichert zunächst die
+aktuelle Continuation. Dann proklamiert sie willkürlich das erste Element der
+Liste als Minimum und gibt dieses als erste Komponente~\texttt{n} zurück. Als
+Zeugen der Minimalität gibt sie eine Funktion~\texttt{f} zurück, die bei Aufruf
+von~\texttt{f i} zunächst prüft, ob zufälligerweise~\texttt{n $\leq$ xs!!i} gelten
+sollte. Wenn ja, kann der Bluff noch gehalten werden. Aber wenn nein, dann ist
+mit~\texttt{xs!!i} ein kleineres Element der Liste gefunden worden. In diesem
+Fall nimmt sie die zuvor gespeicherte Continuation, macht den vorherigen Bluff
+ungeschehen und ändert die Geschichte so, dass der Rückgabewert~\texttt{n} nun
+nicht mehr das erste Element der Liste ist, sondern~\texttt{xs!!i}. Wenn auch
+der neue Bluff auffliegen sollte, geht es auf dieselbe Art und Weise weiter.
+
+Von innerhalb der Continuation-Monade betrachtet macht diese
+Funktion~\texttt{minimum} genau das, was sie soll. Vorsicht ist nur geboten,
+wenn man die Continuation-Monade verlässt -- dann ist die Fehlerkorrektur durch
+Zurückspringen nicht mehr möglich.
+
+
+Ein praktischer Anwendungsfall liegt in der Bestimmung von Inversen in
+so genannten Restklassenringen, welche in der Kryptographie und Zahlentheorie wichtig
+sind. Aus der in klassischer Logik trivialen Beobachtung "`jedes Polynom ist
+entweder reduzibel oder irreduzibel"' folgt mit den vorgestellten Techniken
+eine erhebliche Effizienzsteigerung. Dieses Beispiel kann bei Interesse noch
+während des Vortrags diskutiert werden und wird ansonsten ausführlich
+schriftlich erklärt.
+
+
+\subsection*{In Kürze}
+
+Es ist spannend, dass CPS-Transformation und Doppelnegationsübersetzung ein und
+dasselbe sind. Auch in klassischen Beweisen steckt algorithmischer Inhalt,
+allerdings ist dieser von einer nicht ganz direkten, monadischen Natur. Im
+Vortrag werden wir das genauer verstehen und praktische Anwendungen
+kennenlernen.
