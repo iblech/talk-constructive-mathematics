@@ -20,17 +20,20 @@
 \title{Konstruktive Mathematik, die Doppelnegationsübersetzung und Continuations}
 \author{Ingo Blechschmidt}
 
+\pagestyle{empty}
+
 \begin{document}
 
 \begin{center}\large\textsf{\textbf{Konstruktive Mathematik, \\ die
 Doppelnegationsübersetzung und Continuations}}
 
-\normalsize Ingo Blechschmidt \texttt{<iblech@speicherleck.de>}\end{center}
+\normalsize Ingo Blechschmidt \texttt{<iblech@speicherleck.de>}, Universität
+Augsburg\end{center}
 
 \emph{Wie können wir das Minimum einer unendlichen Liste von natürlichen
 Zahlen bestimmen?} Wenn wir die Liste nicht überschauen können, sind wir auf folgenden Trick
 angewiesen. Wir bluffen und proklamieren einfach das erste Element der Liste als
-Minimum. Durch Zufall könnte das sogar wirklich das kleinste Element der Liste
+Minimum. Zufälligerweise könnte das sogar wirklich das kleinste Element der Liste
 sein. Wenn uns aber jemand herausfordert und uns ein kleineres Element der
 Liste präsentiert, so springen wir in der Zeit zurück und ändern die Geschichte
 so, als ob wir von vornherein \emph{dieses} Element als Minimum proklamiert
@@ -100,7 +103,7 @@ Eigenschaft hat: Genau dann gibt es einen klassischen Beweis einer Aussage
 \subsection*{Die Curry--Howard-Korrespondenz}
 
 Die Curry--Howard-Korrespondenz identifiziert \emph{logische Aussagen} mit
-\emph{Typen} und \emph{Beweise von Aussagen} mit \emph{Termen geeigneten Typs}.
+\emph{Typen} und \emph{konstruktive Beweise von Aussagen} mit \emph{Termen geeigneten Typs}.
 Unpräzise als Motto formuliert besagt sie, dass Programmieren und konstruktive
 Mathematik Betreiben ein und dasselbe sind. Unter dieser Korrespondenz
 entspricht beispielsweise der triviale Beweis der Behauptung "`aus $A$ folgt
@@ -141,7 +144,7 @@ Mathematik und Informatik.
 \subsection*{Fallbeispiel: Minimum einer unendlichen Liste}
 
 Ist~\texttt{[x0, x1, x2, ...]} eine unendliche Liste von natürlichen Zahlen, so
-ist klar: In dieser Liste ist eines der Elemente das kleinste, das Minimum. Wenn man
+ist klar: In dieser Liste ist (mindestens) eines der Elemente das kleinste, das Minimum. Wenn man
 die Situation genauer untersucht, erkennt man jedoch, dass der Beweis dieser
 Behauptung das Axiom vom ausgeschlossenen Dritten verwendet und daher nicht
 konstruktiv ist. In Übereinstimmung mit der Curry--Howard-Korrespondenz können
