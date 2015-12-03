@@ -38,8 +38,8 @@
 %\usefonttheme{default}?
 %\usepackage{kurier}?
 \usefonttheme{serif}
-%\usepackage{libertine}?
-\usepackage{mathpazo}
+\usepackage{libertine}
+%\usepackage{mathpazo}
 \useinnertheme{rectangles}
 
 \setbeamertemplate{blocks}[rounded][shadow=false]
@@ -78,6 +78,14 @@
 }
 
 \setbeamertemplate{frametitle}[default][colsep=-2bp,rounded=false,shadow=false,center]
+\setbeamertemplate{frametitle}{%
+  \vskip1em%
+  \leavevmode%
+  \begin{beamercolorbox}[dp=1ex,center]{}%
+      \usebeamercolor[fg]{item}{\textbf{\Large \insertframetitle}}
+  \end{beamercolorbox}%
+}
+
 
 \setbeamertemplate{headline}{}
 \setbeamertemplate{navigation symbols}{}
@@ -121,7 +129,7 @@
   Universität Augsburg
   \medskip
 
-  HAL 2015 XXX \\
+  Haskell in Leipzig \\
   4. Dezember 2015
   \par
 \end{frame}
@@ -134,15 +142,16 @@
 \begin{frame}\frametitle{Nichtkonstruktive Beweise}
   Eine Zahl heißt genau dann \hil{rational}, wenn sie sich als Bruch zweier
   ganzer Zahlen schreiben lässt.
-
   \begin{itemize}
     \item $\frac{21}{13}$ und $37$ sind rational.
     \item $\sqrt{2}$ und $\pi$ sind irrational.
   \end{itemize}
 
+  \only<1>{\vspace*{1em}\centering\includegraphics[scale=0.3]{images/pythagoras}}
+
   \pause
 
-  \hil{Satz.} Es gibt \hil{irrationale} Zahlen~$x,y$ sodass~$x^y$ rational ist.
+  \hil{Satz.} Es gibt \hil{irrationale} Zahlen~$x$ und~$y$ sodass~$x^y$ rational ist.
   \medskip
 
   \pause
