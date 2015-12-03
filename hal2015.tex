@@ -2,7 +2,7 @@
 \documentclass[12pt,utf8,notheorems,compress,t]{beamer}
 \usepackage{etex}
 
-\usepackage[english]{babel}
+\usepackage[ngerman]{babel}
 
 \usepackage{mathtools}
 \usepackage{booktabs}
@@ -13,6 +13,7 @@
 \usepackage{xstring}
 \usepackage{mathtools}
 \usepackage{soul}\setul{0.2ex}{}
+\usepackage{minted}
 \usepackage[all]{xy}
 \xyoption{rotate}
 \usepackage{tikz}
@@ -26,6 +27,24 @@
 \newcommand{\defeq}{\vcentcolon=}
 \newcommand{\defeqv}{\vcentcolon\equiv}
 
+\newcommand{\fmini}[2]{%
+  \setlength{\fboxrule}{2pt}%
+  \setlength{\fboxsep}{-3pt}%
+  \usebeamercolor[fg]{item}\fbox{\usebeamercolor[fg]{normal text}\parbox{#1}{\begin{center}#2\end{center}}}}
+
+\newcommand{\korr}[2]{
+  \begin{center}
+    \fmini{0.25\textwidth}{#1}
+    {\usebeamercolor[fg]{item}$\boldsymbol{\xleftrightarrow{\qquad\quad}}$}
+    \fmini{0.25\textwidth}{#2}
+  \end{center}}
+\newcommand{\pkorr}[2]{
+  \begin{center}
+    \parbox{0.25\textwidth}{\begin{center}#1\end{center}}
+    {\usebeamercolor[fg]{item}$\boldsymbol{\phantom{\xleftrightarrow{\qquad\quad}}}$}
+    \parbox{0.25\textwidth}{\begin{center}#1\end{center}}
+  \end{center}}
+
 \setlength\parskip{\medskipamount}
 \setlength\parindent{0pt}
 
@@ -38,6 +57,7 @@
 %\usefonttheme{default}?
 %\usepackage{kurier}?
 \usefonttheme{serif}
+\usepackage[T1]{fontenc}
 \usepackage{libertine}
 %\usepackage{mathpazo}
 \useinnertheme{rectangles}
@@ -70,10 +90,10 @@
 
 \newcommand{\slogan}[1]{%
   \begin{center}%
-    \setlength{\fboxrule}{0pt}%
-    \setlength{\fboxsep}{-14pt}%
+    \setlength{\fboxrule}{2pt}%
+    \setlength{\fboxsep}{5pt}%
     {\usebeamercolor[fg]{item}\fbox{\usebeamercolor[fg]{normal
-    text}\parbox{0.9\textwidth}{\begin{center}#1\end{center}}}}%
+    text}\parbox{0.87\textwidth}{#1}}}%
   \end{center}%
 }
 
@@ -162,6 +182,163 @@
   \sqrt{2}$ nehmen. Dann ist~$x^y = \sqrt{2}^{\sqrt{2} \cdot \sqrt{2}} =
   \sqrt{2}^2 = 2$ rational.
   \end{enumerate}
+\end{frame}
+
+\newcommand{\constructiveinterpretation}{
+  \begin{minipage}{0.99\textwidth}
+    \begin{block}{\centering Konstruktive Interpretation}
+      \begin{description}\small
+        \item[$\bot$] Widerspruch.
+        \item[$A \wedge B$] Wir haben Beleg für~$A$ und für~$B$.
+        \item[$A \vee B$] Wir haben Beleg für~$A$ oder für~$B$.
+        \item[$A \Rightarrow B$] Wir können Beleg für~$A$ in Beleg für~$B$
+        transformieren.
+        \item[$\forall x{:}X\_ A(x)$] Zu jedem $x:X$ können wir Beleg für
+        $A(x)$ konstruieren.
+        \item[$\exists x{:}X\_ A(x)$] Wir haben ein $x:X$ zusammen mit Beleg
+        für~$A(x)$.
+      \end{description}
+    \end{block}
+  \end{minipage}
+}
+
+\frame{\frametitle{Das Axiom vom ausgeschlossenen Dritten}
+  \centering
+  "`Für jede Aussage~$A$ dürfen wir~$A \,\vee\, \neg A$ voraussetzen."'
+
+  \medskip
+  Klassische Logik $=$ \\
+  konstruktive Logik $+$ das Axiom vom ausgeschlossenen Dritten.
+
+  \vfill
+
+  \only<1>{
+    \begin{minipage}{0.8\textwidth}
+      \begin{block}{\centering Klassische Interpretation}
+        \begin{description}\small
+          \item[$\bot$] Widerspruch.
+          \item[$A \wedge B$] $A$ und $B$ sind wahr.
+          \item[$A \vee B$] $A$ ist wahr oder $B$ ist wahr.
+          \item[$A \Rightarrow B$] Sollte $A$ wahr sein, so auch $B$.
+          \item[$\forall x{:}X\_ A(x)$] Für alle $x:X$ gilt $A(x)$.
+          \item[$\exists x{:}X\_ A(x)$] Es gibt ein $x:X$ mit $A(x)$.
+        \end{description}
+      \end{block}
+    \end{minipage}
+  }
+  \only<2>{
+    \constructiveinterpretation
+  }
+  \par
+}
+
+\begin{frame}\frametitle{Negierte Aussagen}
+  \centering
+  "`$\neg A$"' ist syntaktischer Zucker für $(A \Rightarrow \bot)$ \\[0.2em]
+  und bedeutet: Es gibt keinen Beleg für~$A$.
+
+  \vfill
+  \constructiveinterpretation
+  \par
+\end{frame}
+
+\begin{frame}\frametitle{Doppelt negierte Aussagen}
+  \centering
+  "`$\neg\neg A$"' bedeutet: Es gibt keinen Beleg für~$\neg A$.
+
+  Trivialerweise haben wir $A \Longrightarrow \neg\neg A$. \\
+  Aber nicht $\neg\neg A \Longrightarrow A$.
+
+  \vfill
+  \only<1>{\constructiveinterpretation}
+  \only<2>{
+    \begin{minipage}{0.7\textwidth}
+      \begin{block}{\centering Where is the key?}
+        \centering
+        $\neg\neg (\exists x\_ \text{the key is at position $x$})$ \\[0.7em]
+        \emph{versus} \\[0.7em]
+        $\phantom{\neg\neg(} \exists x\_ \text{the key is at position $x$}
+        \phantom{)}$
+      \end{block}
+    \end{minipage}
+  }
+  \par
+\end{frame}
+
+
+\section{Die Curry--Howard-Korrespondenz}
+
+\begin{frame}\frametitle{Die Curry--Howard-Korrespondenz}
+  \korr{\hil{Aussagen}}{\hil{Typen}}
+  \vspace*{-3em}
+  \pkorr{\usebeamercolor[fg]{item}$\boldsymbol{\Biggl|}$}{\usebeamercolor[fg]{item}$\boldsymbol{\Biggl|}$}
+  \vspace*{-3em}
+  \korr{\hil{Beweise}}{\hil{Terme}}
+
+  \only<1>{
+    \centering
+    \includegraphics[height=2.2cm]{images/haskell-curry}
+    \qquad
+    \includegraphics[height=2.2cm]{images/william-howard}
+    \par
+  }
+
+  \only<2>{
+    \centering
+    \setlength{\extrarowheight}{0.3em}
+    \begin{tabular}{l@{\qquad}l}
+      \hil{Logik} & \hil{Programmierung} \\
+      $A \Rightarrow A$ & \texttt{A $\to$ A} \\
+      $(A \wedge B) \Rightarrow A$ & \texttt{(A,B) $\to$ A} \\
+      $A \Rightarrow (A \vee B)$ & \texttt{A $\to$ Either A B}
+    \end{tabular}
+    \par
+  }
+\end{frame}
+
+\begin{frame}\frametitle{Die Curry--Howard-Korrespondenz}
+  \centering
+  \setlength{\extrarowheight}{0.3em}
+  \begin{tabular}{l@{\qquad}l}
+    \hil{Logik} & \hil{Programmierung} \\
+    Aussage $A$ & Typ \texttt{A} der Belege für $A$ \\
+    Beweis von $A$ & Programm vom Typ \texttt{A} \\
+    $A \Rightarrow A$ & \texttt{A $\to$ A} \\
+    $(A \wedge B) \Rightarrow A$ & \texttt{(A,B) $\to$ A} \\
+    $A \Rightarrow (A \vee B)$ & \texttt{A $\to$ Either A B} \\
+    \visible<2->{$\neg A$\visible<3->{, d.\,h. $A \Rightarrow \bot$} &
+      \only<2-3>{??}
+      \visible<4->{\texttt{A $\to$ r}}} \\
+    \visible<5->{$\neg\neg A$, d.\,h. $(A \Rightarrow \bot) \Rightarrow \bot$} &
+      \only<5>{??}
+      \visible<6->{\texttt{(A $\to$ r) $\to$ r}\visible<7->{, d.\,h. \texttt{Cont r A}}}
+  \end{tabular}
+  \par
+
+  \slogan{
+    Aus jedem konstruktiven Beweis kann man ein Programm extrahieren.
+    Jedes Programm beweist eine Behauptung.
+  }
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{$\boldsymbol{\neg\neg}$-Übersetzung $\widehat=$ CPS-Transformation}
+  \centering
+  \setlength{\extrarowheight}{0.3em}
+  \begin{tabular}{l@{\qquad}l}
+    \hil{Logik} & \hil{Programmierung} \\
+    Aussage $A$ & Typ \texttt{A} der Belege für $A$ \\
+    Beweis von $A$ & Programm vom Typ \texttt{A} \\
+    $\neg\neg A$, d.\,h. $(A \Rightarrow \bot) \Rightarrow \bot$ &
+      \texttt{(A $\to$ r) $\to$ r}, d.\,h. \texttt{Cont r A} \\
+    Doppelnegationsübersetzung & CPS-Transformation
+  \end{tabular}
+
+  \begin{minted}{haskell}
+type Cont r a = ((a -> r) -> r)
+
+lem :: Cont r (Either a (a -> Cont r b))
+lem = \k -> k $ Right $ \x -> (\k' -> k (Left x))
+  \end{minted}
 \end{frame}
 
 \end{document}
