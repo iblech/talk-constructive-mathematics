@@ -93,8 +93,7 @@
   \begin{center}%
     \setlength{\fboxrule}{2pt}%
     \setlength{\fboxsep}{5pt}%
-    {\usebeamercolor[fg]{item}\fbox{\usebeamercolor[fg]{normal
-    text}\parbox{0.87\textwidth}{#1}}}%
+    {\usebeamercolor[fg]{item}\fbox{\usebeamercolor[fg]{normal text}\parbox{0.80\textwidth}{#1}}}%
   \end{center}%
 }
 
@@ -220,6 +219,7 @@
   }
 
   \only<2>{
+    \centering
     \begin{minipage}{0.8\textwidth}
       \begin{block}{\centering Klassische Interpretation}
         \begin{description}\small
@@ -232,45 +232,65 @@
         \end{description}
       \end{block}
     \end{minipage}
+    \par
   }
-  \only<3>{
-    \vfill
-    \constructiveinterpretation
-  }
-  \par
 }
 
-\begin{frame}\frametitle{Negierte Aussagen}
-  \centering
-  "`$\neg A$"' ist syntaktischer Zucker für $(A \Rightarrow \bot)$ \\[0.2em]
-  und bedeutet: Es gibt keinen Beleg für~$A$.
-
-  \vfill
-  \constructiveinterpretation
-  \par
+\begin{frame}\frametitle{Klassische vs. konstruktive Logik}
+  \vspace*{-0.5em}
+  \small
+  \setlength{\extrarowheight}{0.6em}
+  \begin{tabular}{@{$\!\!\!\!\!\!$}lll}
+    \hil{Symbol} & \hil{klassisch} & \hil{konstruktiv} \\
+    $\bot$ & Widerspruch. & Widerspruch. \\
+    $A \wedge B$ & $A$ und $B$ sind wahr. & Wir haben Beleg für~$A$ und für~$B$. \\
+    $A \vee B$ & $A$ ist wahr oder $B$ ist wahr. & Wir haben Beleg für~$A$ oder für~$B$. \\
+    $A \Rightarrow B$ & Aus~$A$ folgt~$B$. & Wir können Beleg für~$A$ in \\[-0.8em]&& Beleg für~$B$ transformieren. \\
+    $\forall x{:}X\_ A(x)$ &
+    Für alle $x:X$ gilt $A(x)$. &
+    Zu jedem $x:X$ können wir \\[-0.8em]&&
+    Beleg für $A(x)$ konstruieren. \\
+    $\exists x{:}X\_ A(x)$ &
+    Es gibt ein $x:X$ mit $A(x)$. &
+    Wir haben ein $x:X$ zusammen \\[-0.8em]&&
+    mit Beleg für~$A(x)$. \\
+    \pause
+    $\neg A$ & $A$ ist falsch. & Es gibt keinen Beleg für $A$. \\
+    $\neg\neg A$ & $A$ ist nicht nicht wahr. & Es gibt keinen Beleg für $\neg A$.
+  \end{tabular}
 \end{frame}
 
-\begin{frame}\frametitle{Doppelt negierte Aussagen}
-  \centering
-  "`$\neg\neg A$"' bedeutet: Es gibt keinen Beleg für~$\neg A$.
-
-  Aus~$A$ folgt trivialerweise $\neg\neg A$. \\
-  Aber nicht umgekehrt.
-
-  \vfill
-  \only<1>{\constructiveinterpretation}
-  \only<2>{
-    \begin{minipage}{0.95\textwidth}
-      \begin{block}{\centering Wo ist der Schlüssel?}
-        \centering
-        Es gibt \hil{nicht nicht} eine Stelle, an der der Schlüssel liegt.  \\[0.7em]
-        \emph{versus} \\[0.7em]
-        Es gibt eine Selle, an der der Schlüssel liegt.
-      \end{block}
-    \end{minipage}
-  }
-  \par
-\end{frame}
+%\begin{frame}\frametitle{Negierte Aussagen}
+%  \centering
+%  "`$\neg A$"' ist syntaktischer Zucker für $(A \Rightarrow \bot)$ \\[0.2em]
+%  und bedeutet: Es gibt keinen Beleg für~$A$.
+%
+%  \vfill
+%  \constructiveinterpretation
+%  \par
+%\end{frame}
+%
+%\begin{frame}\frametitle{Doppelt negierte Aussagen}
+%  \centering
+%  "`$\neg\neg A$"' bedeutet: Es gibt keinen Beleg für~$\neg A$.
+%
+%  Aus~$A$ folgt trivialerweise $\neg\neg A$. \\
+%  Aber nicht umgekehrt.
+%
+%  \vfill
+%  \only<1>{\constructiveinterpretation}
+%  \only<2>{
+%    \begin{minipage}{0.95\textwidth}
+%      \begin{block}{\centering Wo ist der Schlüssel?}
+%        \centering
+%        Es gibt \hil{nicht nicht} eine Stelle, an der der Schlüssel liegt.  \\[0.7em]
+%        \emph{versus} \\[0.7em]
+%        Es gibt eine Selle, an der der Schlüssel liegt.
+%      \end{block}
+%    \end{minipage}
+%  }
+%  \par
+%\end{frame}
 
 \newcommand{\inegneg}{{\usebeamercolor[fg]{item}{\boldsymbol{\neg\neg}}}}
 \newcommand{\gnegneg}[1]{\textcolor{gray}{\boldsymbol{\neg\neg}(}#1\textcolor{gray}{)}}
@@ -391,10 +411,10 @@ lem = \k -> k $ Right $ \x -> (\k' -> k (Left x))
 
   Aber nicht konstruktiv! Es gibt kein Programm vom Typ:
   \begin{center}
-    \begin{minipage}{0.7\textwidth}
+    \begin{minipage}{0.65\textwidth}
       \begin{minted}{haskell}
 minimum :: [Nat] -> Ix
--- Ix: Typ der Indizes (also auch Nat)
+-- Ix: Typ der Indizes (also Nat)
       \end{minted}
     \end{minipage}
   \end{center}
