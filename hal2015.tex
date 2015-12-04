@@ -41,6 +41,7 @@
 \newcommand{\pkorr}[2]{
   \begin{center}
     \parbox{0.25\textwidth}{\begin{center}#1\end{center}}
+    %\parbox{0.5\textwidth}{\ \\\includegraphics[scale=0.25]{images/program-extraction-without-border}}
     {\usebeamercolor[fg]{item}$\boldsymbol{\phantom{\xleftrightarrow{\qquad\quad}}}$}
     \parbox{0.25\textwidth}{\begin{center}#1\end{center}}
   \end{center}}
@@ -213,6 +214,12 @@
   \vfill
 
   \only<1>{
+    \centering
+    \includegraphics[scale=0.7]{images/lem}
+    \par
+  }
+
+  \only<2>{
     \begin{minipage}{0.8\textwidth}
       \begin{block}{\centering Klassische Interpretation}
         \begin{description}\small
@@ -226,7 +233,8 @@
       \end{block}
     \end{minipage}
   }
-  \only<2>{
+  \only<3>{
+    \vfill
     \constructiveinterpretation
   }
   \par
@@ -246,23 +254,49 @@
   \centering
   "`$\neg\neg A$"' bedeutet: Es gibt keinen Beleg für~$\neg A$.
 
-  Trivialerweise haben wir $A \Longrightarrow \neg\neg A$. \\
-  Aber nicht $\neg\neg A \Longrightarrow A$.
+  Aus~$A$ folgt trivialerweise $\neg\neg A$. \\
+  Aber nicht umgekehrt.
 
   \vfill
   \only<1>{\constructiveinterpretation}
   \only<2>{
-    \begin{minipage}{0.7\textwidth}
-      \begin{block}{\centering Where is the key?}
+    \begin{minipage}{0.95\textwidth}
+      \begin{block}{\centering Wo ist der Schlüssel?}
         \centering
-        $\neg\neg (\exists x\_ \text{the key is at position $x$})$ \\[0.7em]
+        Es gibt \hil{nicht nicht} eine Stelle, an der der Schlüssel liegt.  \\[0.7em]
         \emph{versus} \\[0.7em]
-        $\phantom{\neg\neg(} \exists x\_ \text{the key is at position $x$}
-        \phantom{)}$
+        Es gibt eine Selle, an der der Schlüssel liegt.
       \end{block}
     \end{minipage}
   }
   \par
+\end{frame}
+
+\newcommand{\inegneg}{{\usebeamercolor[fg]{item}{\boldsymbol{\neg\neg}}}}
+\newcommand{\gnegneg}[1]{\textcolor{gray}{\boldsymbol{\neg\neg}(}#1\textcolor{gray}{)}}
+
+\begin{frame}\frametitle{Die Doppelnegationsübersetzung}
+  \vspace*{-2em}
+  \begin{align*}
+%   (x=y)^\Box &\defeqv \inegneg (x=y) \\
+    (A \wedge B)^\Box &\defeqv \gnegneg{A^\Box \wedge B^\Box} \\
+    (A \vee B)^\Box &\defeqv \inegneg(A^\Box \vee B^\Box) \\
+    (A \Rightarrow B)^\Box &\defeqv \gnegneg{A^\Box \Rightarrow B^\Box} \\
+    (\forall x{:}X\_ A(x))^\Box &\defeqv \gnegneg{\forall x{:}X\_ A^\Box(x)} \\
+    (\exists x{:}X\_ A(x))^\Box &\defeqv \inegneg(\exists x{:}X\_ A^\Box(x))
+  \end{align*}
+
+  Beispiel: Die Doppelnegationsübersetzung von
+  \begin{center}
+    \emph{Es gibt eine Stelle, an der der Schlüssel liegt.}
+  \end{center}
+  ist
+  \begin{center}
+    \emph{Es gibt \hil{nicht nicht} eine Stelle, an der der Schlüssel
+    liegt.}
+  \end{center}
+
+  \hil{Satz.} Es gilt $A$ genau dann klassisch, wenn $A^\Box$ konstruktiv gilt.
 \end{frame}
 
 
@@ -298,6 +332,8 @@
 
 \begin{frame}\frametitle{Die Curry--Howard-Korrespondenz}
   \centering
+  \small
+  \vspace*{-0.5em}
   \setlength{\extrarowheight}{0.3em}
   \begin{tabular}{l@{\qquad}l}
     \hil{Logik} & \hil{Programmierung} \\
@@ -306,6 +342,8 @@
     $A \Rightarrow A$ & \texttt{A $\to$ A} \\
     $(A \wedge B) \Rightarrow A$ & \texttt{(A,B) $\to$ A} \\
     $A \Rightarrow (A \vee B)$ & \texttt{A $\to$ Either A B} \\
+    $A \Rightarrow B$ & \texttt{A $\to$ B} \\
+    \text{Es gibt eine natürliche Zahl.} & \texttt{Nat} \\
     \visible<2->{$\neg A$\visible<3->{, d.\,h. $A \Rightarrow \bot$} &
       \only<2-3>{??}
       \visible<4->{\texttt{A $\to$ r}}} \\
@@ -322,22 +360,82 @@
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{$\boldsymbol{\neg\neg}$-Übersetzung $\widehat=$ CPS-Transformation}
-  \centering
-  \setlength{\extrarowheight}{0.3em}
-  \begin{tabular}{l@{\qquad}l}
-    \hil{Logik} & \hil{Programmierung} \\
-    Aussage $A$ & Typ \texttt{A} der Belege für $A$ \\
-    Beweis von $A$ & Programm vom Typ \texttt{A} \\
-    $\neg\neg A$, d.\,h. $(A \Rightarrow \bot) \Rightarrow \bot$ &
-      \texttt{(A $\to$ r) $\to$ r}, d.\,h. \texttt{Cont r A} \\
-    Doppelnegationsübersetzung & CPS-Transformation
-  \end{tabular}
+  \begin{changemargin}{-0.3em}{0em}
+    \centering
+    \vspace*{-1em}
+    \setlength{\extrarowheight}{0.3em}
+    \begin{tabular}{@{}l@{\qquad}l}
+      \hil{Logik} & \hil{Programmierung} \\
+      Aussage $A$ & Typ \texttt{A} der Belege für $A$ \\
+      Beweis von $A$ & Programm vom Typ \texttt{A} \\
+      $\neg\neg A$, d.\,h. $(A \Rightarrow \bot) \Rightarrow \bot$ &
+        \texttt{(A $\to$ r) $\to$ r}, d.\,h. \texttt{Cont r A} \\
+      Doppelnegationsübersetzung & CPS-Transformation
+    \end{tabular}
 
+    \begin{minted}{haskell}
+type Cont r a = ((a -> r) -> r)
+
+-- Axiom vom ausgeschlossenen Dritten ohne Übersetzung:
+-- lem :: Either a (a -> r)
+
+lem :: Cont r (Either a (a -> Cont r b))
+lem = \k -> k $ Right $ \x -> (\k' -> k (Left x))
+    \end{minted}
+  \end{changemargin}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Minima unendlicher Listen}
+  \hil{Satz.} In jeder unendlichen Liste~\texttt{xs} natürlicher Zahlen gibt es
+  ein kleinstes Element.
+
+  Aber nicht konstruktiv! Es gibt kein Programm vom Typ:
+  \begin{center}
+    \begin{minipage}{0.7\textwidth}
+      \begin{minted}{haskell}
+minimum :: [Nat] -> Ix
+-- Ix: Typ der Indizes (also auch Nat)
+      \end{minted}
+    \end{minipage}
+  \end{center}
+
+  \pause
+  \hil{Beweis.} Durch Induktion über die Größe eines gegebenen
+  Elements~\texttt{xs!!i}.
+  \begin{itemize}
+    \item Anfang: Also \texttt{xs!!i == 0}. Damit ist \texttt{xs!!i}
+    minimal.
+    \item Schritt: Entweder gibt es \texttt{j} mit \texttt{xs!!j < xs!!i} oder nicht.
+    \begin{enumerate}
+      \item Im ersten Fall gibt es ein Minimum nach Ind'voraussetzung.
+      \item Im zweiten Fall ist \texttt{xs!!i} minimal.
+    \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Minima unendlicher Listen}
+  \only<2>{\footnotesize\vspace*{-1.5em}}
   \begin{minted}{haskell}
 type Cont r a = ((a -> r) -> r)
 
 lem :: Cont r (Either a (a -> Cont r b))
 lem = \k -> k $ Right $ \x -> (\k' -> k (Left x))
+
+minimum :: [Nat] -> Cont r (Ix, Ix -> Cont r ())
+minimum xs = go 0 where
+   go i = do
+      oracle <- lem
+      case oracle of
+         Left  j -> go j
+         Right f -> return (i, \j ->
+            if xs!!j >= xs!!i then return () else f j)
+  \end{minted}
+  \pause
+  \begin{minted}{haskell}
+example = do
+   (i, g) <- minimum [...]
+   g 5 >> g 7 >> g 3
+   ...
   \end{minted}
 \end{frame}
 

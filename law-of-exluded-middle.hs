@@ -37,8 +37,18 @@ type Ix = Nat
 minimum :: [Nat] -> Cont r (Ix, Ix -> Cont r ())
 minimum as = callCC (go 0)
     where
-    -- go i k = k (n, \j -> do if as !! j < as !! i then go j k >> return () else return ())
+    -- go i k = k (i, \j -> do if as !! j < as !! i then go j k >> return () else return ())
     go i k = k (i, \j -> when (as !! j < as !! i) (go j k >> return ()))
+
+minimum' :: [Nat] -> Cont r (Ix, Ix -> Cont r ())
+minimum' as = go 0 where
+    go :: Ix -> Cont r (Ix, Ix -> Cont r ())
+    go i = do
+        oracle <- lem'
+        case oracle of
+            Left  j -> go j
+            Right f -> return (i, \j ->
+                if as!!j >= as!!i then return () else f j)
 
 -- Given a natural number n, fakePrimalityTest n decides whether n is
 -- prime or not. In the first case, it returns the Right option:
