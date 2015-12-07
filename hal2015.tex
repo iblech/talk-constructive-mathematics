@@ -9,7 +9,6 @@
 \usepackage{array}
 \usepackage{ragged2e}
 \usepackage{multicol}
-\usepackage{tabto}
 \usepackage{xstring}
 \usepackage{mathtools}
 \usepackage{soul}\setul{0.2ex}{}
@@ -79,19 +78,6 @@
   }%
   \item[]}{\end{list}}
 
-\newcommand{\pointthis}[2]{%
-  \tikz[remember picture,baseline]{\node[anchor=base,inner sep=0,outer sep=0]%
-    (#1) {#1};\node[overlay,rectangle callout,%
-    callout relative pointer={(-0.2cm,0.8cm)},fill=blue!20] at ($(#1.north)+(1.8cm,-1.4cm)$) {#2};}%
-}%
-
-\newcommand{\hcancel}[5]{%
-  \tikz[baseline=(tocancel.base)]{
-    \node[inner sep=0pt,outer sep=0pt] (tocancel) {#1};
-    \draw[red, line width=0.4mm] ($(tocancel.south west)+(#2,#3)$) -- ($(tocancel.north east)+(#4,#5)$);
-  }%
-}
-
 \newcommand{\slogan}[1]{%
   \begin{center}%
     \setlength{\fboxrule}{2pt}%
@@ -100,7 +86,6 @@
   \end{center}%
 }
 
-\setbeamertemplate{frametitle}[default][colsep=-2bp,rounded=false,shadow=false,center]
 \setbeamertemplate{frametitle}{%
   \vskip1em%
   \leavevmode%
@@ -108,7 +93,6 @@
       \usebeamercolor[fg]{item}{\textbf{\Large \insertframetitle}}
   \end{beamercolorbox}%
 }
-
 
 \setbeamertemplate{headline}{}
 \setbeamertemplate{navigation symbols}{}
@@ -130,10 +114,10 @@
 
 \newcommand{\hil}[1]{{\usebeamercolor[fg]{item}{\textbf{#1}}}}
 
-\IfSubStr{\jobname}{\detokenize{nonotes}}{
-  \setbeameroption{hide notes}
-}{
+\IfSubStr{\jobname}{\detokenize{notes}}{
   \setbeameroption{show notes}
+}{
+  \setbeameroption{hide notes}
 }
 \setbeamertemplate{note page}[plain]
 
@@ -236,7 +220,7 @@
   Es stellt sich heraus, dass von all den Axiomen klassischer Logik genau eines
   für Nichtkonstruktivität verantwortlich ist: das auf der nächsten Folie
   beschriebene Axiom vom ausgeschlossenen Dritten. In dem Beweis auf der
-  vorherigen Folie ist es gleich in der ersten Zeile eingegangen.
+  vorherigen Folie ging es gleich in der ersten Zeile ein.
   \par
 }
 
@@ -353,7 +337,7 @@
 
 \note{\justifying\footnotesize
   Vor ein paar Jahren tauchte ein Video von Kate Moss auf, das sie beim
-  Konsumieren von Drogen zeigte. Es war klar, dass es sich dabei entweder um
+  Konsumieren von Drogen zeigte. Aus dem Video war klar, dass es sich dabei entweder um
   Drogen von einem gewissen Typ~$A$ oder von einem gewissen Typ~$B$ handelte;
   aber es gab keinen direkten Beleg für einen der beiden Typen.
   Kate Moss wurde nicht verfolgt; in diesem Sinn verwendete das Justizsystem
@@ -394,23 +378,33 @@
   die Situation genauer verstehen möchte, muss man den Unterschied zwischen
   \emph{Beweisen von negierten Aussagem} und echten \emph{Widerspruchsbeweisen}
   verstehen. Das erklärt
-  \href{http://math.andrej.com/2010/03/29/proof-of-negation-and-proof-by-contradiction/}{Andrej
-  Bauer} auf seinem Blog ganz wunderbar.
+  Andrej Bauer
+  \href{http://math.andrej.com/2010/03/29/proof-of-negation-and-proof-by-contradiction/}{auf
+  seinem Blog} ganz wunderbar.
   \par
 }
 
 \note{\justifying\footnotesize
-  Zwei letzte Bemerkungen. PhilosophInnen untersuchen nicht nur was wahr ist,
-  sondern auch was stimmen sollte, was möglich ist, was notwendig ist, was
-  jemand weiß oder was jemand glaubt. Das formalisiert man mit \emph{modalen
-  Operatoren}. In konstruktiver Logik ist die Doppelnegation auch ein solcher
-  modaler Operator. (In klassischer auch, da ist er aber nicht interessant.)
+  Zwei letzte Bemerkungen. PhilosophInnen untersuchen nicht nur was \emph{wahr} ist,
+  sondern auch was stimmen \emph{sollte}, was \emph{möglich} ist, was \emph{notwendig} ist, was
+  jemand \emph{weiß} oder was jemand \emph{glaubt}. Das formalisiert man mit \emph{modalen
+  Operatoren}.
+
+  Als MathematikerIn kann man daher manchmal neidisch werden. In konstruktiver
+  Mathematik aber gibt es durchaus eine Vielzahl von modalen Operatoren! Die
+  Doppelnegation ist das wichtigste Beispiel. (In klassischer Logik ist die
+  Doppelnegation auch ein modaler Operator, dort aber ein sehr
+  uninteressanter.)
 
   Es gibt mehrere gute und von philosophischen Vorlieben unabhängige Gründe,
   konstruktive Mathematik zu untersuchen. Einer steht auf der übernächsten Folie:
   die Curry--Howard-Korrespondenz funktioniert nur mit konstruktiven Beweisen.
   Ein anderer ist, dass nur konstruktive Logik allen \emph{Topoi} --
   mathematischen Alternativuniversen -- gemein ist.
+
+  Wer sich von einer mathematischen Sicht näher für das Thema interessiert, kann in ein
+  \href{http://pizzaseminar.speicherleck.de/skript2/konstruktive-mathematik.pdf}{Skript
+  zu einem Pizzaseminar} schauen.
   \par
 }
 
@@ -512,7 +506,7 @@
       \visible<4->{\texttt{A $\to$ r}}} \\
     \visible<5->{$\neg\neg A$, d.\,h. $(A \Rightarrow \bot) \Rightarrow \bot$} &
       \only<5>{??}%
-      \visible<6->{\texttt{(A $\to$ r) $\to$ r}\visible<7->{, d.\,h. \texttt{Cont r A}}}
+      \visible<6->{\texttt{(A $\to$ r) $\to$ r}}
   \end{tabular}
   \par
 
@@ -558,7 +552,7 @@
 
   Mit der Curry--Howard-Korrespondenz ist auch klarer, was der semantische
   Gehalt einer doppelt negierten Aussage ist. Unter der Korrespondenz gehört
-  zur Aussage~$\neg\neg A$ der Typ~\texttt{Cont r A}. Ein Wert dieses Typs kann
+  zur Aussage~$\neg\neg A$ der Typ~\texttt{(A $\to$ r) $\to$ r}, also einfach~\texttt{Cont r A}. Ein Wert dieses Typs kann
   zum Beispiel von der Form~\texttt{return x} sein, wobei~\texttt{x} ein Wert
   vom Typ~\texttt{A} ist. Ein Wert dieses Typs kann aber auch eine andere Form
   haben -- er kann mit der gegebenen Continuation spielen, zum Beispiel sie
@@ -602,7 +596,7 @@ lem = \k -> k $ Right $ \x -> (\k' -> k (Left x))
 
 \note{\justifying\footnotesize
   Mit den Übersetzungsregeln der Curry--Howard-Korrespondenz entspricht zur
-  Aussage~$A \vee \neg A$ der Typ~\texttt{Either A (A -> r)}. Dieser ist im
+  Aussage~$A \vee \neg A$ der Typ~\texttt{Either A (A $\to$ r)}. Dieser ist im
   Allgemeinen nicht bewohnt, passend dazu, dass sich konstruktiv das Axiom vom
   ausgeschlossenen Dritten nicht zeigen lässt.
   
@@ -610,9 +604,10 @@ lem = \k -> k $ Right $ \x -> (\k' -> k (Left x))
   sich aber sehr wohl konstruktiv zeigen. Das zeigt der auf der vorherigen
   Folie angegebene Term~\texttt{lem}.
 
-  Unterschiedliche aber logisch äquivalente Varianten der
-  Doppelnegationsübersetzung führen übrigens zu den unterschiedlichen Varianten
-  der CPS-Transformation (call by name, call by value, \ldots).
+  Es gibt übrigens mehrere Möglichkeiten, aus einem klassischen Beweis einer
+  Aussage einen konstruktiven Beweis der übersetzten Aussage zu machen. Diese
+  Möglichkeiten entsprechen den unterschiedlichen Varianten der
+  CPS-Transformation (call by name, call by value, \ldots).
   \par
 }
 
@@ -620,7 +615,7 @@ lem = \k -> k $ Right $ \x -> (\k' -> k (Left x))
   Wie funktioniert das Programm~\texttt{lem}? Zunächst sichern wir uns die
   aktuelle Continuation~\texttt{k}. Dann behaupten wir sofort: "`Die Aussage
   ist falsch!"' Beziehungsweise: "`Es gibt keine Werte vom Typ~\texttt{a}!"'
-  Wir geben also~\texttt{Right f} zurück, mit~\texttt{f} vom Typ~\texttt{a ->
+  Wir geben also~\texttt{Right f} zurück, mit~\texttt{f} vom Typ~\texttt{a $\to$
   Cont r b}.  Diese Funktion~\texttt{f} ist der Zeuge für unsere Behauptung.
 
   Nun kann es zufälligerweise sein, dass unsere Behauptung richtig ist. Dann
@@ -638,7 +633,7 @@ lem = \k -> k $ Right $ \x -> (\k' -> k (Left x))
   Er sollte stattdessen, sobald er von der Königin den Stein der Weisen
   ausgehändigt bekommen hat, zurück in die Vergangenheit springen, zu jenem
   verhängnisvollen Tag, an dem die Königin den Philosophen das erste Mal zu
-  sich riefen ließ.
+  sich rief.
   \par
 }
 
@@ -698,7 +693,7 @@ example = do
 \note{\justifying\footnotesize
   Die angegebene Funktion~\texttt{minimum} berechnet (innerhalb der
   Continuation-Monade) das Minimum einer unendlichen Liste von natürlichen
-  Zahlen. Ihr Rückgabewert ist ein Tupel~\texttt{(i, g)}, bestehend aus dem
+  Zahlen. Ihr Rückgabewert ist ein Tupel~\texttt{(i, g)} bestehend aus dem
   Index~\texttt{i} des minimalen Elements und einem Zeugen~\texttt{g} seiner
   Minimalität: Gegeben ein weiterer Index~\texttt{j}, so soll~\texttt{g j}
   einen Beweis der Behauptung~\texttt{xs!!j >= xs!!i} zurückgeben.
@@ -711,7 +706,7 @@ example = do
 
 \note{\justifying\footnotesize
   Wie geht die Funktion~\texttt{minimum} in der Praxis vor? Um eigene Fehler
-  später auszugleichen, sichert sie zunächst die aktuelle Continuation.
+  später korrigieren zu können, sichert sie zunächst die aktuelle Continuation.
   Anschließend proklamiert sie das erste Listenelement (Index~\texttt{0}) als
   Minimum. Das kann tatsächlich korrekt sein. Falls allerdings
   irgendwann~\texttt{g} mit einem Index~\texttt{j}, für den~\texttt{xs!!j <
@@ -721,11 +716,12 @@ example = do
   dieselbe Art und Weise geht es weiter.
 
   Von innerhalb der Continuation-Monade aus kann dieses Schummeln nicht
-  beobachtet werden. Man muss allerdings beim Verlassen der Monade Sorgfalt
-  walten lassen: Je nach konkretem Problem kann es schlimm sein oder auch
-  nicht, dass die Funktion nicht das tatsächliche Minimum gefunden, sondern nur
-  das kleinste unter allen vom Rest des Programms inspizierten Elementen
-  bestimmt hat.
+  beobachtet werden.
+  
+  Man muss allerdings beim Verlassen der Monade Sorgfalt
+  walten lassen: Je nach konkretem Einsatzszenario kann es schlimm sein oder auch
+  nicht, dass die Funktion nicht das tatsächlich minimale Element bestimmt, sondern nur
+  das kleinste unter allen vom Rest des Programms inspizierten Elementen.
   \par
 }
 
@@ -747,7 +743,7 @@ example = do
   der Folie verkürzt wiedergegeben; ausführlich lautet er so (ja, das ist etwas
   umständlich formuliert): "`Um zu beweisen, dass~\texttt{xs!!i} minimal ist,
   sei ein beliebiger Index~\texttt{j} gegeben. Wir müssen zeigen,
-  dass~\texttt{xs!!j >= xs!!i}. Falls dem so sein sollte (diese
+  dass~\texttt{xs!!j $\geq$ xs!!i}. Falls dem so sein sollte (diese
   Fallunterscheidung können wir konstruktiv treffen), sind wir fertig.
   Andernfalls gilt also~\texttt{xs!!j < xs!!i}. Das ist ein Widerspruch zur
   Fallvoraussetzung. Nach dem Explosionsprinzip folgt aus diesem Widerspruch
@@ -757,76 +753,85 @@ example = do
   \par
 }
 
-\note{\justifying\footnotesize
-  Hier folgt noch ein praktisches Beispiel aus algorithmischer Zahlentheorie
-  für die Nützlichkeit dieses "`algorithmischen Axioms vom ausgeschlossenen
-  Dritten"'. Es soll demonstrieren, dass das schummelnde Verhalten in manchen
-  Fällen völlig ausreicht.
+\note{\justifying\tiny
+  \setlength{\columnsep}{25pt}
+  \begin{multicols}{2}
+    Hier folgt noch ein praktisches Beispiel aus algorithmischer Zahlentheorie
+    für die Nützlichkeit dieses "`algorithmischen Axioms vom ausgeschlossenen
+    Dritten"'. Es soll demonstrieren, dass das schummelnde Verhalten in manchen
+    Fällen völlig ausreicht.
 
-  Sei~$x$ eine algebraische Zahl, also eine komplexe Zahl, die Nullstelle eines
-  normierten Polynoms~$f(X) \in \QQ[X]$ ist. Dann gibt es die von~$x$ erzeugte
-  Körpererweiterung~$\QQ(x)$ von~$\QQ$; dieser Körper enthält die rationalen
-  Zahlen, die Zahl~$x$ und alle Zahlen, die induktiv aus diesen durch Addition,
-  Subtraktion, Multiplikation und Division gewonnen werden können.
+    Sei~$x$ eine algebraische Zahl, also eine komplexe Zahl, die Nullstelle eines
+    normierten Polynoms~$f(X) \in \QQ[X]$ ist. Dann gibt es die von~$x$ erzeugte
+    Körpererweiterung~$\QQ(x)$ von~$\QQ$; dieser Körper enthält die rationalen
+    Zahlen, die Zahl~$x$ und alle Zahlen, die induktiv aus diesen durch Addition,
+    Subtraktion, Multiplikation und Division gewonnen werden können.
 
-  Wir möchten einen Algorithmus dafür angeben, ein von Null verschiedenes
-  Element in~$\QQ(x)$ zu invertieren und das Inverse als polynomiellen Ausdruck
-  in~$x$ anzugeben. Theoretisch funktioniert das wie folgt:
+    Wir möchten einen Algorithmus dafür angeben, ein von Null verschiedenes
+    Element in~$\QQ(x)$ zu invertieren und das Inverse als polynomiellen Ausdruck
+    in~$x$ anzugeben. Theoretisch funktioniert das wie folgt:
 
-  Zunächst zerlegen wir~$f(X)$ in seine irreduzible Faktoren. Einer der
-  Faktoren, sagen wir~$g(X)$, hat immer noch~$x$ als Nullstelle. Dieser Faktor
-  heißt auch \emph{Minimalpolynom} von~$x$, und die allgemeine Theorie besagt,
-  dass~$\QQ(x)$ isomorph zum Ring~$\QQ[X]/(g(X))$ ist. Das heißt:
-  In~$\QQ(x)$ zu arbeiten ist gleichbedeutend damit, im Polynomring~$\QQ[X]$
-  modulo~$g(X)$ zu arbeiten. Von diesem weiß man, dass der erweiterte
-  euklidische Algorithmus ein effizientes Verfahren zur Bestimmung von
-  modularen Inversen ist.
-  \par
-}
+    Zunächst zerlegen wir~$f(X)$ in seine irreduzible Faktoren. Einer der
+    Faktoren, sagen wir~$g(X)$, hat immer noch~$x$ als Nullstelle. Dieser Faktor
+    heißt auch \emph{Minimalpolynom} von~$x$, und die allgemeine Theorie besagt,
+    dass~$\QQ(x)$ isomorph zum Ring~$\QQ[X]/(g(X))$ ist. Das heißt:
+    In~$\QQ(x)$ zu arbeiten ist gleichbedeutend damit, im Polynomring~$\QQ[X]$
+    modulo~$g(X)$ zu arbeiten. Von diesem weiß man, dass der erweiterte
+    euklidische Algorithmus ein effizientes Verfahren zur Bestimmung von
+    modularen Inversen ist.
 
-\note{\justifying\footnotesize
-  Allerdings hat dieses Verfahren ein gravierendes Problem: Die Zerlegung
-  von~$f(X)$ in seine irreduziblen Faktoren ist sehr aufwendig. Kann man die
-  Zerlegung irgendwie umgehen?
+    Allerdings hat dieses Verfahren ein gravierendes Problem: Die Zerlegung
+    von~$f(X)$ in seine irreduziblen Faktoren ist sehr aufwendig. Kann man die
+    Zerlegung irgendwie umgehen?
 
-  Ja! Sei~$[h(X)] \in \QQ[X]/(f(X))$. Wir möchten das Inverse von~$h(x)$
-  in~$\QQ(x)$ bestimmen. Da~$f(X)$ nicht notwendigerweise irreduzibel ist, ist
-  der Ring~$\QQ[X]/(f(X))$ nicht notwendigerweise ein Körper (jeder Faktor
-  von~$f(X)$ ist in ihm ein Nullteiler). Wir können aber trotzdem den
-  erweiterten euklidischen Algorithmus verwenden, um den (monischen) größten
-  gemeinsamen Teiler~$d(X)$ von~$f(X)$ und~$h(X)$ und eine
-  \emph{Bézoutdarstellung}
-  \[ d(X) = a(X) f(X) + b(X) h(X). \]
-  zu berechnen. Dann können drei Fälle eintreten:
-  \begin{enumerate}\justifying\scriptsize
-  \item $d(X) = 1$. Die Gleichung zeigt dann, dass~$b(X)$ modulo~$f(X)$
-  zu~$h(X)$ invers ist. Insbesondere ist also~$b(x)$ in~$\QQ(x)$ invers
-  zu~$h(x)$.
-  \item $d(X) = f(X)$. Dann zeigt die Gleichung, dass~$h(X)$ ein Vielfaches
-  von~$f(X)$ ist und somit~$h(x)$ Null ist. In diesem Fall müssen (und können)
-  wir das Inverse nicht berechnen.
-  \item Ansonsten ist~$d(X)$ ein nichttrivialer Faktor von~$f(X)$. Mindestens
-  eines der beiden Polynome~$d(X)$ und~$f(X)/d(X)$ hat immer noch~$x$ als
-  Nullstelle; wir nennen dieses~$\tilde f(X)$ und starten die Berechnung
-  mit~$\tilde f(X)$ statt~$f(X)$ neu.
-  \end{enumerate}
-}
+    Ja! Sei~$[h(X)] \in \QQ[X]/(f(X))$. Wir möchten das Inverse von~$h(x)$
+    in~$\QQ(x)$ bestimmen. Da~$f(X)$ nicht notwendigerweise irreduzibel ist, ist
+    der Ring~$\QQ[X]/(f(X))$ nicht notwendigerweise ein Körper (jeder Faktor
+    von~$f(X)$ ist in ihm ein Nullteiler). Wir können aber trotzdem den
+    erweiterten euklidischen Algorithmus verwenden, um den (monischen) größten
+    gemeinsamen Teiler~$d(X)$ von~$f(X)$ und~$h(X)$ und eine
+    \emph{Bézoutdarstellung}
+    \[ d(X) = a(X) f(X) + b(X) h(X). \]
+    zu berechnen. Dann können drei Fälle eintreten:
+    \begin{enumerate}\justifying
+    \item $d(X) = 1$. Die Gleichung zeigt dann, dass~$b(X)$ modulo~$f(X)$
+    zu~$h(X)$ invers ist. Insbesondere ist also~$b(x)$ in~$\QQ(x)$ invers
+    zu~$h(x)$.
+    \item $d(X) = f(X)$. Dann zeigt die Gleichung, dass~$h(X)$ ein Vielfaches
+    von~$f(X)$ ist und somit~$h(x)$ Null ist. In diesem Fall müssen (und können)
+    wir das Inverse nicht berechnen.
+    \item Ansonsten ist~$d(X)$ ein nichttrivialer Faktor von~$f(X)$. Mindestens
+    eines der beiden Polynome~$d(X)$ und~$f(X)/d(X)$ hat immer noch~$x$ als
+    Nullstelle; wir nennen dieses~$\tilde f(X)$ und starten die Berechnung
+    mit~$\tilde f(X)$ statt~$f(X)$ neu.
+    \end{enumerate}
 
-\note{\justifying\footnotesize
-  Auf diese Art und Weise können wir in~$\QQ[X]/(g(X))$ arbeiten ohne
-  explizit~$g(X)$ bestimmen zu müssen. Die Continuation-Monade zu verlassen ist
-  kein Problem, da Inverse modulo~$f(X)$, modulo~$\tilde f(X)$ oder
-  gar modulo~$\tilde{\tilde f}(X)$ auch Inverse modulo des eigentlich
-  relevanten~$g(X)$ sind.
-  \par
+    Auf diese Art und Weise können wir in~$\QQ[X]/(g(X))$ arbeiten ohne
+    explizit~$g(X)$ bestimmen zu müssen. Die Continuation-Monade zu verlassen ist
+    kein Problem, da Inverse modulo~$f(X)$, modulo~$\tilde f(X)$ oder
+    gar modulo~$\tilde{\tilde f}(X)$ auch Inverse modulo des eigentlich
+    relevanten~$g(X)$ sind.
+  \end{multicols}
 }
 
 
-\section{Literatur}
+\section{Fazit}
+
+\begin{frame}\frametitle{Fazit}
+  \begin{itemize}
+    \item Konstruktive Beweise haben algorithmischen Inhalt. Dieser lässt sich
+    mit der Curry--Howard-Korrespondenz maschinell extrahieren.
+    \item Die Doppelnegationsübersetzung macht aus jedem klassischen Beweis
+    einen konstruktiven. Auf diese Weise steckt auch in klassischen Beweisen
+    noch algorithmischer Inhalt. Dieser spielt sich in der Continuation-Monade ab.
+    \item Manchmal lösen die so erhaltenen Algorithmen konkrete Probleme.
+  \end{itemize}
+\end{frame}
 
 \note{\justifying\footnotesize
   Dieser Foliensatz stellt nur eine Popularisierung der Ideen anderer dar.
-  Die Originalliteratur ist die \href{Doktorarbeit von Chetan Murthy}:
+  Die Originalliteratur ist die
+  \href{http://ecommons.library.cornell.edu/bitstream/1813/6991/1/90-1151.pdf}{Doktorarbeit von Chetan Murthy}:
   \emph{Extracting Constructive Content from Classical Proofs} (1990).
 
   Andere Popularisierungen findet man in Artikeln von
@@ -842,5 +847,35 @@ example = do
   \href{http://math.andrej.com/wp-content/uploads/2014/03/real-world-realizability.pdf}{Andrej Bauer}.
   \par
 }
+
+
+\appendix
+\backupstart
+
+\begin{frame}\frametitle{Gründe einen funktionalen Stammtisch!}
+  \justifying
+  In Augsburg haben wir ein monatliches Treffen mit Vorträgen und gemeinsamen
+  Restaurantbesuch für alle, die an funktionalen Sprachen interessiert sind,
+  ins Leben gerufen. Überleg doch, so etwas auch in deiner Stadt zu gründen!
+
+  \begin{center}\href{http://curry-club-augsburg.de/}{\includegraphics[scale=0.5]{images/curry-club}}\end{center}
+\end{frame}
+
+\begin{frame}\frametitle{Gründe einen Matheschülerzirkel!}
+  \footnotesize\justifying
+  Organisiere ein Angebot, bei dem an Mathematik interessierte Schülerinnen und
+  Schüler aus deiner Stadt regelmäßig an die Uni kommen können, um in kleinen
+  Gruppen spannende Mathematik abseits des Schulunterrichts zu sehen. Mach das
+  ganze per Post für weiter entfernt wohnende Kinder und Jugendliche. Und
+  veranstalte immer in den Sommerferien ein einwöchiges Mathecamp.
+
+  In Augsburg machen wir das seit etwa drei Jahren mit durchschnittlich etwa
+  200~Teilnehmenden. Vielleicht würde auch in deiner Stadt ein solches Angebot
+  gut aufgenommen werden! Wir können dich mit umfangreichen Materialien und
+  Erfahrungsberichten versorgen.
+  \begin{center}\href{http://www.math.uni-augsburg.de/schueler/mathezirkel/index.html}{\phantom{aaaaaa}\includegraphics[scale=0.1]{images/mathezirkel}}\end{center}
+\end{frame}
+
+\backupend
 
 \end{document}
