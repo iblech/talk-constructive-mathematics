@@ -21,7 +21,10 @@
 
 \usepackage[protrusion=true,expansion=true]{microtype}
 
+\hypersetup{colorlinks=true}
+
 \newcommand{\NN}{\mathbb{N}}
+\newcommand{\QQ}{\mathbb{Q}}
 \renewcommand{\_}{\mathpunct{.}}
 \newcommand{\?}{\,{:}\,}
 \newcommand{\defeq}{\vcentcolon=}
@@ -154,8 +157,41 @@
   \par
 \end{frame}
 
+\begin{frame}\frametitle{Gliederung}
+  \small
+  \tableofcontents
+\end{frame}
+
 
 \section{Konstruktive Mathematik}
+
+\subsection{Ein Märchen über klassische Logik}
+
+\begin{frame}[plain]\frametitle{Ein Märchen über klassische Logik}
+  \vspace*{-1.5em}
+  \begin{changemargin}{-1em}{-1em}
+    \setlength{\columnsep}{15pt}
+    \begin{multicols}{2}
+      \justifying
+      \scriptsize
+      \input{stein-der-weisen-text}
+    \end{multicols}
+  \end{changemargin}
+\end{frame}
+
+\note{\justifying\footnotesize
+  Edward Yang erzählt in seinem
+  \href{http://blog.ezyang.com/2013/04/a-classical-logic-fairy-tale/}{Blog}
+  eine leichte Variante dieses Märchens. Es wurde von Philip Wadler in seinem
+  \href{http://homepages.inf.ed.ac.uk/wadler/papers/dual/dual.pdf}{"`CbV is
+  dual to CbN"'}-Aufsatz popularisiert und geht vielleicht auf Peter Selinger
+  zurück.
+
+  Wenn sich das Märchen "`continuation-y"' anfühlt, hat man schon eine gewisse
+  Vorahnung, wohin die Reise geht.
+  \par
+}
+
 
 \subsection{Das Axiom vom ausgeschlossenen Dritten}
 
@@ -183,6 +219,26 @@
   \sqrt{2}^2 = 2$ rational.
   \end{enumerate}
 \end{frame}
+
+\note{\justifying\footnotesize
+  Der Beweis ist schön und kurz. Allerdings kennen wir nach dem Beweis immer noch
+  nicht ein konkretes Beispiel für ein Paar irrationaler Zahlen, die potenziert
+  eine rationale Zahl ergeben! Der Beweis war \emph{nichtkonstruktiv}.
+
+  Wenn wir aus einem Beweis explizite Zeugen (witnesses) extrahieren möchten,
+  muss der Beweis konstruktiv sein, zum Beispiel wie folgender:
+
+  \begin{quote}Setze~$x \defeq \sqrt{2}$ und~$y \defeq \log_{\sqrt{2}} 3$.
+  Dann ist~$x^y = 3$ rational. Der Beweis, dass~$y$ irrational ist, führt sich
+  sogar leichter als der übliche Beweis, dass~$\sqrt{2}$ irrational
+  ist.\end{quote}
+
+  Es stellt sich heraus, dass von all den Axiomen klassischer Logik genau eines
+  für Nichtkonstruktivität verantwortlich ist: das auf der nächsten Folie
+  beschriebene Axiom vom ausgeschlossenen Dritten. In dem Beweis auf der
+  vorherigen Folie ist es gleich in der ersten Zeile eingegangen.
+  \par
+}
 
 \newcommand{\constructiveinterpretation}{
   \begin{minipage}{0.99\textwidth}
@@ -236,6 +292,9 @@
   }
 }
 
+
+\subsection{Die konstruktive Interpretation logischer Symbole}
+
 \begin{frame}\frametitle{Klassische vs. konstruktive Logik}
   \vspace*{-0.5em}
   \small
@@ -260,37 +319,103 @@
   \end{tabular}
 \end{frame}
 
-%\begin{frame}\frametitle{Negierte Aussagen}
-%  \centering
-%  "`$\neg A$"' ist syntaktischer Zucker für $(A \Rightarrow \bot)$ \\[0.2em]
-%  und bedeutet: Es gibt keinen Beleg für~$A$.
-%
-%  \vfill
-%  \constructiveinterpretation
-%  \par
-%\end{frame}
-%
-%\begin{frame}\frametitle{Doppelt negierte Aussagen}
-%  \centering
-%  "`$\neg\neg A$"' bedeutet: Es gibt keinen Beleg für~$\neg A$.
-%
-%  Aus~$A$ folgt trivialerweise $\neg\neg A$. \\
-%  Aber nicht umgekehrt.
-%
-%  \vfill
-%  \only<1>{\constructiveinterpretation}
-%  \only<2>{
-%    \begin{minipage}{0.95\textwidth}
-%      \begin{block}{\centering Wo ist der Schlüssel?}
-%        \centering
-%        Es gibt \hil{nicht nicht} eine Stelle, an der der Schlüssel liegt.  \\[0.7em]
-%        \emph{versus} \\[0.7em]
-%        Es gibt eine Selle, an der der Schlüssel liegt.
-%      \end{block}
-%    \end{minipage}
-%  }
-%  \par
-%\end{frame}
+\note{\justifying\footnotesize
+  In der konstruktiven Mathematik verwendet man dieselben logischen Symbole wie in der
+  klassischen Mathematik, versieht sie aber mit einer leicht anderen Bedeutung.
+  Die klassische Interpretation des Axioms vom ausgeschlossenen Dritten ist
+  einfach die, dass jede Aussage wahr oder falsch ist. Da es hier nur um
+  mathematische (also in einem starken Sinn objektive) Aussagen geht, ist das
+  eine banale Trivialität: Entweder gibt es unendlich viele Primzahlzwillinge
+  oder eben nicht. [Es gibt auch die Philosophie, das Axiom vom
+  ausgeschlossenen Dritten auch auf Meta-Ebene abzulehnen. Darum geht es hier
+  aber nicht.]
+
+  Die konstruktive Interpretation dagegen lautet: Für jede Aussage~$A$ haben
+  wir entweder Beleg für~$A$ oder für~$\neg A$. Das ist eine absurde
+  Behauptung. (Man erinnere sich an Gödels Unvollständigkeitssatz: Es gibt
+  Aussagen -- \emph{Gödelsätze} -- die die Eigenschaft haben, dass weder sie
+  noch ihre Negation beweisbar sind.)
+
+  Mit "`wir"' in der Tabelle ist nicht wortwörtlich irgendeine Gruppe von
+  Leuten gemeint; es sollte in einem generischen mathematischen Sinn gelesen
+  werden. Stichwörter sind die \emph{Brouwer--Heyting--Kolmogorov-Interpretation}
+  und \emph{Realisierbarkeitstheorie} (siehe zum Beispiel
+  \href{http://math.andrej.com/data/c2c.pdf}{Notizen von Andrej Bauer}).
+
+  Die Notation~"`$\neg A$"' für die Negation ist \emph{syntaktischer Zucker}
+  für~"`$A \Rightarrow \bot$"'.
+  
+  Aus einer Aussage~$A$ folgt konstruktiv wie klassisch ihre doppelte
+  Negation~$\neg\neg A$, aber konstruktiv gilt im Allgemeinen nicht die
+  Umkehrung.
+  \par
+}
+
+\note{\justifying\footnotesize
+  Vor ein paar Jahren tauchte ein Video von Kate Moss auf, das sie beim
+  Konsumieren von Drogen zeigte. Es war klar, dass es sich dabei entweder um
+  Drogen von einem gewissen Typ~$A$ oder von einem gewissen Typ~$B$ handelte;
+  aber es gab keinen direkten Beleg für einen der beiden Typen.
+  Kate Moss wurde nicht verfolgt; in diesem Sinn verwendete das Justizsystem
+  also konstruktive Logik. Siehe
+  \href{http://blog.sigfpe.com/2008/06/drugs-kate-moss-and-intuitionistic.html}{ein
+  Blog-Post von Dan Piponi} über das Thema.
+
+  Konstruktive Logik kann feinere Unterschiede abbilden als klassische Logik.
+  Wenn wir zum Beispiel wissen, dass sich unser Haustürschlüssel irgendwo in
+  der Wohnung befinden muss (da wir ihn letzte Nacht verwendet haben, um die Tür
+  aufzusperren), wir ihn momentan aber nicht finden, so können wir konstruktiv
+  nicht die Aussage vertreten, dass es eine Stelle gäbe, an der der Schlüssel
+  liege. Denn dazu müssten wir in der Lage sein, einen expliziten Zeugen dieser
+  Existenzbehauptung (also den Aufenthaltsort des Schlüssels) anzugeben.
+  Wir können konstruktiv nur die durch doppelte Negation abgeschwächte Aussage
+  vertreten.
+
+  (Die Beispiele hinken etwas, da sie sich auf den Kenntnisstand von gewissen
+  Personen beziehen.)
+  \par
+}
+
+\note{\justifying\footnotesize
+  Nebenbei bemerkt: Konstruktive MathematikerInnen behaupten \emph{nicht}, dass
+  das Axiom vom ausgeschlossenen Dritten falsch sei (d.\,h. dass seine Negation
+  gelten würde). Sie setzen es nur nicht in seiner vollen Allgemeinheit voraus.
+
+  Tatsächlich lassen sich manche Instanzen des Axioms auch konstruktiv zeigen:
+  Zum Beispiel folgt mit Induktion, dass jede natürliche Zahl gleich Null oder
+  ungleich Null ist. (Die analoge Behauptung für reelle Zahlen lässt sich
+  konstruktiv nicht zeigen. Das hat eine Parallele in der Programmierung:
+  Bekanntlich ist es unschicklich, Fließkommazahlen auf Gleichheit zu testen,
+  während das bei Ganzzahlen kein Problem ist.)
+
+  An dieser Stelle sollte auch das mancherorts immer noch geisternde Gerücht
+  zerstreut werden, dass in konstruktiver Mathematik das Wort
+  \emph{Widerspruch} grundsätzlich verboten wäre. Das stimmt so nicht; wenn man
+  die Situation genauer verstehen möchte, muss man den Unterschied zwischen
+  \emph{Beweisen von negierten Aussagem} und echten \emph{Widerspruchsbeweisen}
+  verstehen. Das erklärt
+  \href{http://math.andrej.com/2010/03/29/proof-of-negation-and-proof-by-contradiction/}{Andrej
+  Bauer} auf seinem Blog ganz wunderbar.
+  \par
+}
+
+\note{\justifying\footnotesize
+  Zwei letzte Bemerkungen. PhilosophInnen untersuchen nicht nur was wahr ist,
+  sondern auch was stimmen sollte, was möglich ist, was notwendig ist, was
+  jemand weiß oder was jemand glaubt. Das formalisiert man mit \emph{modalen
+  Operatoren}. In konstruktiver Logik ist die Doppelnegation auch ein solcher
+  modaler Operator. (In klassischer auch, da ist er aber nicht interessant.)
+
+  Es gibt mehrere gute und von philosophischen Vorlieben unabhängige Gründe,
+  konstruktive Mathematik zu untersuchen. Einer steht auf der übernächsten Folie:
+  die Curry--Howard-Korrespondenz funktioniert nur mit konstruktiven Beweisen.
+  Ein anderer ist, dass nur konstruktive Logik allen \emph{Topoi} --
+  mathematischen Alternativuniversen -- gemein ist.
+  \par
+}
+
+
+\subsection{Die Doppelnegationsübersetzung}
 
 \newcommand{\inegneg}{{\usebeamercolor[fg]{item}{\boldsymbol{\neg\neg}}}}
 \newcommand{\gnegneg}[1]{\textcolor{gray}{\boldsymbol{\neg\neg}(}#1\textcolor{gray}{)}}
@@ -298,7 +423,7 @@
 \begin{frame}\frametitle{Die Doppelnegationsübersetzung}
   \vspace*{-2em}
   \begin{align*}
-%   (x=y)^\Box &\defeqv \inegneg (x=y) \\
+    (x=y)^\Box &\defeqv \inegneg (x=y) \\
     (A \wedge B)^\Box &\defeqv \gnegneg{A^\Box \wedge B^\Box} \\
     (A \vee B)^\Box &\defeqv \inegneg(A^\Box \vee B^\Box) \\
     (A \Rightarrow B)^\Box &\defeqv \gnegneg{A^\Box \Rightarrow B^\Box} \\
@@ -310,7 +435,9 @@
   \begin{center}
     \emph{Es gibt eine Stelle, an der der Schlüssel liegt.}
   \end{center}
+  \vspace*{-0.8em}
   ist
+  \vspace*{-0.5em}
   \begin{center}
     \emph{Es gibt \hil{nicht nicht} eine Stelle, an der der Schlüssel
     liegt.}
@@ -319,8 +446,24 @@
   \hil{Satz.} Es gilt $A$ genau dann klassisch, wenn $A^\Box$ konstruktiv gilt.
 \end{frame}
 
+\note{\justifying\footnotesize
+  Die grauen~\textcolor{gray}{$\neg\neg$}'s können weggelassen werden. Die
+  blauen~$\inegneg$'s dagegen sind entscheidend; man könnte sagen, dass der
+  einzige Unterschied zwischen klassischer und konstruktiver Logik in der
+  Bedeutung der Disjunktion und des Existenzquantors liegen.
+
+  Siehe ein
+  \href{http://pizzaseminar.speicherleck.de/skript2/konstruktive-mathematik.pdf}{Skript
+  zu einem Pizzaseminar} für Details zur Doppelnegationsübersetzung.
+
+  Die grundlegende Beweisidee werden wir im Laufe der Folien noch verstehen.
+  \par
+}
+
 
 \section{Die Curry--Howard-Korrespondenz}
+
+\subsection{Eine Brücke zwischen Logik und Programmierung}
 
 \begin{frame}\frametitle{Die Curry--Howard-Korrespondenz}
   \korr{\hil{Aussagen}}{\hil{Typen}}
@@ -365,10 +508,10 @@
     $A \Rightarrow B$ & \texttt{A $\to$ B} \\
     \text{Es gibt eine natürliche Zahl.} & \texttt{Nat} \\
     \visible<2->{$\neg A$\visible<3->{, d.\,h. $A \Rightarrow \bot$} &
-      \only<2-3>{??}
+      \only<2-3>{??}%
       \visible<4->{\texttt{A $\to$ r}}} \\
     \visible<5->{$\neg\neg A$, d.\,h. $(A \Rightarrow \bot) \Rightarrow \bot$} &
-      \only<5>{??}
+      \only<5>{??}%
       \visible<6->{\texttt{(A $\to$ r) $\to$ r}\visible<7->{, d.\,h. \texttt{Cont r A}}}
   \end{tabular}
   \par
@@ -378,6 +521,58 @@
     Jedes Programm beweist eine Behauptung.
   }
 \end{frame}
+
+\note{\justifying\footnotesize
+  Die Curry--Howard-Korrespondenz schlägt eine erstaunliche und tief reichende
+  Brücke zwischen konstruktiver Mathematik und Programmierung. Zu jeder
+  logischen Aussage gehört ein Typ, anschaulich vorgestellt als der Typ ihrer
+  Belege. Zu jedem konstruktiven Beweis der Aussage gehört ein Wert des
+  entsprechenden Typs.
+
+  Zu einer falschen Aussage gehört dann einfach der leere Typ, der keinerlei
+  Werte hat. Etwa ist die Aussage "`aus~$A$ folgt~$B$"' im Allgemeinen falsch,
+  und passend dazu ist der Typ~\texttt{A $\to$ B} im Allgemeinen unbewohnt
+  (wenn man von \texttt{unsafeCoerce} und Nichtterminierung absieht).
+
+  Das andere Extrem ist die Aussage "`Es gibt eine natürliche
+  Zahl."', für die jede natürliche Zahl jeweils ein Beleg ist. Der Typ der
+  Belege dieser Aussage ist also der Typ der natürlichen Zahlen.
+
+  Die Curry--Howard-Korrespondenz ist fundamental auf konstruktive Beweise
+  beschränkt.
+
+  Für eine formale Behandlung muss man sowohl die linke Seite ("`Logik"') als
+  auch die rechte ("`Programmierung"') konkretisieren. Eine Möglichkeit ist
+  \emph{propositionale intuitionistische Logik} als linke und das
+  \emph{einfach-getypte Lambda-Kalkül} als rechte Seite.
+  \par
+}
+
+\note{\justifying\footnotesize
+  Unter der Curry--Howard-Korrespondenz gehört zur Negation~$\neg A$ der
+  Typ \texttt{A $\to$ r}. Das stellt man sich vor: Wenn man konstruktiv~$\neg
+  A$ behauptet, so behauptet man, aus einem hypothetischen Beleg für~$A$ Beleg
+  einer beliebigen anderen Aussage machen zu können. Schließlich glaubt man ja,
+  dass es gar keinen Beleg für~$A$ gibt, sodass man also überzeugt ist, nie in
+  die Verlegenheit zu geraten, diese Transformation durchführen zu müssen.
+
+  Mit der Curry--Howard-Korrespondenz ist auch klarer, was der semantische
+  Gehalt einer doppelt negierten Aussage ist. Unter der Korrespondenz gehört
+  zur Aussage~$\neg\neg A$ der Typ~\texttt{Cont r A}. Ein Wert dieses Typs kann
+  zum Beispiel von der Form~\texttt{return x} sein, wobei~\texttt{x} ein Wert
+  vom Typ~\texttt{A} ist. Ein Wert dieses Typs kann aber auch eine andere Form
+  haben -- er kann mit der gegebenen Continuation spielen, zum Beispiel sie
+  mehrmals ausführen.
+
+  Etwas unpräzise ausgedrückt kann man sich merken: Eine doppelt negierte
+  Aussage~$\neg\neg A$ konstruktiv zu belegen bedeutet, die Aussage~$A$
+  \emph{innerhalb der Continuation-Monade}, also etwa unter Verwendung von
+  Zeitsprüngen in die Vergangenheit, zu belegen.
+  \par
+}
+
+
+\subsection{Doppelnegationsübersetzung $=$ CPS-Transformation}
 
 \begin{frame}[fragile]\frametitle{$\boldsymbol{\neg\neg}$-Übersetzung $\widehat=$ CPS-Transformation}
   \begin{changemargin}{-0.3em}{0em}
@@ -405,6 +600,51 @@ lem = \k -> k $ Right $ \x -> (\k' -> k (Left x))
   \end{changemargin}
 \end{frame}
 
+\note{\justifying\footnotesize
+  Mit den Übersetzungsregeln der Curry--Howard-Korrespondenz entspricht zur
+  Aussage~$A \vee \neg A$ der Typ~\texttt{Either A (A -> r)}. Dieser ist im
+  Allgemeinen nicht bewohnt, passend dazu, dass sich konstruktiv das Axiom vom
+  ausgeschlossenen Dritten nicht zeigen lässt.
+  
+  Die Doppelnegationsübersetzung des Axioms vom ausgeschlossenen Dritten lässt
+  sich aber sehr wohl konstruktiv zeigen. Das zeigt der auf der vorherigen
+  Folie angegebene Term~\texttt{lem}.
+
+  Unterschiedliche aber logisch äquivalente Varianten der
+  Doppelnegationsübersetzung führen übrigens zu den unterschiedlichen Varianten
+  der CPS-Transformation (call by name, call by value, \ldots).
+  \par
+}
+
+\note{\justifying\footnotesize
+  Wie funktioniert das Programm~\texttt{lem}? Zunächst sichern wir uns die
+  aktuelle Continuation~\texttt{k}. Dann behaupten wir sofort: "`Die Aussage
+  ist falsch!"' Beziehungsweise: "`Es gibt keine Werte vom Typ~\texttt{a}!"'
+  Wir geben also~\texttt{Right f} zurück, mit~\texttt{f} vom Typ~\texttt{a ->
+  Cont r b}.  Diese Funktion~\texttt{f} ist der Zeuge für unsere Behauptung.
+
+  Nun kann es zufälligerweise sein, dass unsere Behauptung richtig ist. Dann
+  wird~\texttt{f} nie aufgerufen. Es kann aber auch sein, dass der Aufrufer
+  einen Wert~\texttt{x} vom Typ~\texttt{a} auftreibt und damit unseren Bluff
+  herausfordert. Natürlich ist es uns nicht möglich, mit einem Wert vom
+  Typ~\texttt{b} aufzuwarten (über diesen wissen wir ja nichts weiter). Wir befreien
+  uns aus unserer Not, indem wir die momentan laufende Berechnung abbrechen und
+  die anfangs gesicherte Continuation nehmen. Dieser übergeben wir gerade den
+  uns präsentierten Wert~\texttt{x}.
+
+  Das ist auch genau die Strategie, die der Philosoph aus dem Märchen vom
+  Anfang verfolgen sollte. Bei wörtlicher Auslegung der Geschichte nimmt er ja
+  die Königin etwas auf den Arm, was sie vermutlich nicht gutheißen wird.
+  Er sollte stattdessen, sobald er von der Königin den Stein der Weisen
+  ausgehändigt bekommen hat, zurück in die Vergangenheit springen, zu jenem
+  verhängnisvollen Tag, an dem die Königin den Philosophen das erste Mal zu
+  sich riefen ließ.
+  \par
+}
+
+
+\subsection{Fallbeispiel: Minima unendlicher Listen}
+
 \begin{frame}[fragile]\frametitle{Minima unendlicher Listen}
   \hil{Satz.} In jeder unendlichen Liste~\texttt{xs} natürlicher Zahlen gibt es
   ein kleinstes Element.
@@ -420,17 +660,13 @@ minimum :: [Nat] -> Ix
   \end{center}
 
   \pause
-  \hil{Beweis.} Durch Induktion über die Größe eines gegebenen
+  \hil{Beweis.} Durch noethersche Induktion über die Größe eines gegebenen
   Elements~\texttt{xs!!i}.
-  \begin{itemize}
-    \item Anfang: Also \texttt{xs!!i == 0}. Damit ist \texttt{xs!!i}
-    minimal.
-    \item Schritt: Entweder gibt es \texttt{j} mit \texttt{xs!!j < xs!!i} oder nicht.
-    \begin{enumerate}
-      \item Im ersten Fall gibt es ein Minimum nach Ind'voraussetzung.
-      \item Im zweiten Fall ist \texttt{xs!!i} minimal.
-    \end{enumerate}
-  \end{itemize}
+  Entweder gibt es einen Index~\texttt{j} mit \texttt{xs!!j < xs!!i} oder nicht.
+  \begin{enumerate}
+    \item Im ersten Fall gibt es ein Minimum nach Ind'voraussetzung.
+    \item Im zweiten Fall ist \texttt{xs!!i} minimal.
+  \end{enumerate}
 \end{frame}
 
 \begin{frame}[fragile]\frametitle{Minima unendlicher Listen}
@@ -458,5 +694,153 @@ example = do
    ...
   \end{minted}
 \end{frame}
+
+\note{\justifying\footnotesize
+  Die angegebene Funktion~\texttt{minimum} berechnet (innerhalb der
+  Continuation-Monade) das Minimum einer unendlichen Liste von natürlichen
+  Zahlen. Ihr Rückgabewert ist ein Tupel~\texttt{(i, g)}, bestehend aus dem
+  Index~\texttt{i} des minimalen Elements und einem Zeugen~\texttt{g} seiner
+  Minimalität: Gegeben ein weiterer Index~\texttt{j}, so soll~\texttt{g j}
+  einen Beweis der Behauptung~\texttt{xs!!j >= xs!!i} zurückgeben.
+
+  Um das treu umsetzen zu können, bräuchten wir abhängige Typen. Da es die in
+  Haskell nicht gibt, muss der Unit-Typ~\texttt{()} zusammen mit einem sozialen
+  Versprechen als Ersatz herhalten.
+  \par
+}
+
+\note{\justifying\footnotesize
+  Wie geht die Funktion~\texttt{minimum} in der Praxis vor? Um eigene Fehler
+  später auszugleichen, sichert sie zunächst die aktuelle Continuation.
+  Anschließend proklamiert sie das erste Listenelement (Index~\texttt{0}) als
+  Minimum. Das kann tatsächlich korrekt sein. Falls allerdings
+  irgendwann~\texttt{g} mit einem Index~\texttt{j}, für den~\texttt{xs!!j <
+  xs!!i} ist, aufgerufen wird, so nimmt sie die eingangs gesicherte
+  Continuation und sorgt so dafür, dass es den Anschein hat, als hätte sie die
+  gesamte Zeit über behauptet, das Element~\texttt{xs!!j} sei das Minimum. Auf
+  dieselbe Art und Weise geht es weiter.
+
+  Von innerhalb der Continuation-Monade aus kann dieses Schummeln nicht
+  beobachtet werden. Man muss allerdings beim Verlassen der Monade Sorgfalt
+  walten lassen: Je nach konkretem Problem kann es schlimm sein oder auch
+  nicht, dass die Funktion nicht das tatsächliche Minimum gefunden, sondern nur
+  das kleinste unter allen vom Rest des Programms inspizierten Elementen
+  bestimmt hat.
+  \par
+}
+
+\note{\justifying\footnotesize
+  Spannend ist noch, dass die Funktion~\texttt{minimum} \emph{nicht} das
+  Ergebnis einer kreativen Überlegung ist. Stattdessen ergibt sich die Funktion
+  rein mechanisch, indem man zunächst den nur in klassischer Logik gültigen
+  Beweis des besprochenen Satzes mit der Doppelnegationsübersetzung in einen
+  konstruktiven Beweis überführt und anschließend diesen mit der
+  Curry--Howard-Korrespondenz zu einem Programm transformiert.
+
+  Die Struktur des klassischen Beweises kann man in dem Programmcode deutlich
+  erkennen. Der Aufruf von~\texttt{lem} steht sowohl im Code als auch im Beweis
+  ganz am Anfang. Der \texttt{Left}-Fall im Code entspricht Fall~1 im Beweis.
+  Der Beweis verwendete in diesem Fall die Induktionsvoraussetzung; das äußert
+  sich im Code durch den rekursiven Aufruf~\texttt{go j}.
+
+  Der \texttt{Right}-Fall im Code entspricht Fall~2 im Beweis. Dieser war auf
+  der Folie verkürzt wiedergegeben; ausführlich lautet er so (ja, das ist etwas
+  umständlich formuliert): "`Um zu beweisen, dass~\texttt{xs!!i} minimal ist,
+  sei ein beliebiger Index~\texttt{j} gegeben. Wir müssen zeigen,
+  dass~\texttt{xs!!j >= xs!!i}. Falls dem so sein sollte (diese
+  Fallunterscheidung können wir konstruktiv treffen), sind wir fertig.
+  Andernfalls gilt also~\texttt{xs!!j < xs!!i}. Das ist ein Widerspruch zur
+  Fallvoraussetzung. Nach dem Explosionsprinzip folgt aus diesem Widerspruch
+  unsere Behauptung."' Die Ähnlichkeit zum Code ist offenkundig; der Anwendung
+  des Explosionsprinzips nach dem Herleiten des Widerspruchs entspricht dem
+  Aufruf~\texttt{f j}.
+  \par
+}
+
+\note{\justifying\footnotesize
+  Hier folgt noch ein praktisches Beispiel aus algorithmischer Zahlentheorie
+  für die Nützlichkeit dieses "`algorithmischen Axioms vom ausgeschlossenen
+  Dritten"'. Es soll demonstrieren, dass das schummelnde Verhalten in manchen
+  Fällen völlig ausreicht.
+
+  Sei~$x$ eine algebraische Zahl, also eine komplexe Zahl, die Nullstelle eines
+  normierten Polynoms~$f(X) \in \QQ[X]$ ist. Dann gibt es die von~$x$ erzeugte
+  Körpererweiterung~$\QQ(x)$ von~$\QQ$; dieser Körper enthält die rationalen
+  Zahlen, die Zahl~$x$ und alle Zahlen, die induktiv aus diesen durch Addition,
+  Subtraktion, Multiplikation und Division gewonnen werden können.
+
+  Wir möchten einen Algorithmus dafür angeben, ein von Null verschiedenes
+  Element in~$\QQ(x)$ zu invertieren und das Inverse als polynomiellen Ausdruck
+  in~$x$ anzugeben. Theoretisch funktioniert das wie folgt:
+
+  Zunächst zerlegen wir~$f(X)$ in seine irreduzible Faktoren. Einer der
+  Faktoren, sagen wir~$g(X)$, hat immer noch~$x$ als Nullstelle. Dieser Faktor
+  heißt auch \emph{Minimalpolynom} von~$x$, und die allgemeine Theorie besagt,
+  dass~$\QQ(x)$ isomorph zum Ring~$\QQ[X]/(g(X))$ ist. Das heißt:
+  In~$\QQ(x)$ zu arbeiten ist gleichbedeutend damit, im Polynomring~$\QQ[X]$
+  modulo~$g(X)$ zu arbeiten. Von diesem weiß man, dass der erweiterte
+  euklidische Algorithmus ein effizientes Verfahren zur Bestimmung von
+  modularen Inversen ist.
+  \par
+}
+
+\note{\justifying\footnotesize
+  Allerdings hat dieses Verfahren ein gravierendes Problem: Die Zerlegung
+  von~$f(X)$ in seine irreduziblen Faktoren ist sehr aufwendig. Kann man die
+  Zerlegung irgendwie umgehen?
+
+  Ja! Sei~$[h(X)] \in \QQ[X]/(f(X))$. Wir möchten das Inverse von~$h(x)$
+  in~$\QQ(x)$ bestimmen. Da~$f(X)$ nicht notwendigerweise irreduzibel ist, ist
+  der Ring~$\QQ[X]/(f(X))$ nicht notwendigerweise ein Körper (jeder Faktor
+  von~$f(X)$ ist in ihm ein Nullteiler). Wir können aber trotzdem den
+  erweiterten euklidischen Algorithmus verwenden, um den (monischen) größten
+  gemeinsamen Teiler~$d(X)$ von~$f(X)$ und~$h(X)$ und eine
+  \emph{Bézoutdarstellung}
+  \[ d(X) = a(X) f(X) + b(X) h(X). \]
+  zu berechnen. Dann können drei Fälle eintreten:
+  \begin{enumerate}\justifying\scriptsize
+  \item $d(X) = 1$. Die Gleichung zeigt dann, dass~$b(X)$ modulo~$f(X)$
+  zu~$h(X)$ invers ist. Insbesondere ist also~$b(x)$ in~$\QQ(x)$ invers
+  zu~$h(x)$.
+  \item $d(X) = f(X)$. Dann zeigt die Gleichung, dass~$h(X)$ ein Vielfaches
+  von~$f(X)$ ist und somit~$h(x)$ Null ist. In diesem Fall müssen (und können)
+  wir das Inverse nicht berechnen.
+  \item Ansonsten ist~$d(X)$ ein nichttrivialer Faktor von~$f(X)$. Mindestens
+  eines der beiden Polynome~$d(X)$ und~$f(X)/d(X)$ hat immer noch~$x$ als
+  Nullstelle; wir nennen dieses~$\tilde f(X)$ und starten die Berechnung
+  mit~$\tilde f(X)$ statt~$f(X)$ neu.
+  \end{enumerate}
+}
+
+\note{\justifying\footnotesize
+  Auf diese Art und Weise können wir in~$\QQ[X]/(g(X))$ arbeiten ohne
+  explizit~$g(X)$ bestimmen zu müssen. Die Continuation-Monade zu verlassen ist
+  kein Problem, da Inverse modulo~$f(X)$, modulo~$\tilde f(X)$ oder
+  gar modulo~$\tilde{\tilde f}(X)$ auch Inverse modulo des eigentlich
+  relevanten~$g(X)$ sind.
+  \par
+}
+
+
+\section{Literatur}
+
+\note{\justifying\footnotesize
+  Dieser Foliensatz stellt nur eine Popularisierung der Ideen anderer dar.
+  Die Originalliteratur ist die \href{Doktorarbeit von Chetan Murthy}:
+  \emph{Extracting Constructive Content from Classical Proofs} (1990).
+
+  Andere Popularisierungen findet man in Artikeln von
+  \begin{itemize}
+    \item \href{http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.49.3492}{Thierry Coquand},
+    \item \href{http://okmij.org/ftp/Computation/lem.html}{Oleg Kiselyov},
+    \item \href{https://lukepalmer.wordpress.com/2007/10/26/computing-without-a-middle/}{Luke Palmer},
+    \item \href{http://blog.sigfpe.com/2008/06/drugs-kate-moss-and-intuitionistic.html}{Dan Piponi (sigfpe)},
+    \item \href{http://homepages.inf.ed.ac.uk/wadler/papers/dual/dual.pdf}{Philip Wadler} und
+    \item \href{http://blog.ezyang.com/2013/04/a-classical-logic-fairy-tale/}{Edward Z. Yang}.
+  \end{itemize}
+  Empfehlenswert ist in diesem Zusammenhang auch ein Buchkapitel von
+  \href{http://math.andrej.com/wp-content/uploads/2014/03/real-world-realizability.pdf}{Andrej Bauer}.
+  \par
+}
 
 \end{document}
