@@ -1,11 +1,15 @@
 {-# LANGUAGE DeriveFunctor #-}
-module Main where
+module LEM where
 
 import Prelude hiding (recip, minimum)
 import Control.Monad (when)
 
 newtype Cont r a = MkCont { runCont :: (a -> r) -> r }
     deriving (Functor)
+
+instance Applicative (Cont r) where
+    pure x  = MkCont ($ x)
+    f <*> x = MkCont $ \k -> runCont f $ \f' -> runCont x $ \x' -> k (f' x')
 
 instance Monad (Cont r) where
     return x = MkCont ($ x)
@@ -34,6 +38,12 @@ type Nat = Int
 -- thought of as nonnegative integers
 
 type Ix = Nat
+
+-- Given an infinite list xs of natural numbers, compute an index i
+-- together with a witness that xs !! i is the minimum of the list xs.
+--
+-- This cannot actually be done. However, it can be approximated in the
+-- continuation monad.
 minimum :: [Nat] -> Cont r (Ix, Ix -> Cont r ())
 minimum as = callCC (go 0)
     where
@@ -49,6 +59,23 @@ minimum' as = go 0 where
             Left  j -> go j
             Right f -> return (i, \j ->
                 if as!!j >= as!!i then return () else f j)
+
+-- A basic version of Dickson's lemma states: Given any infinite list xs,
+-- there is an index n such that xs !! n <= xs !! (n + 1).
+--
+-- A quick proof of Dickson's lemma is the following: Let n be such that xs !! n
+-- is minimal among all values of f. Then, trivially, xs !! n <= xs !! (n + 1).
+--
+-- This proof is not constructive, as it uses the nonconstructive principle
+-- "any infinite list of naturals contains a minimal element". However, the
+-- conclusion of Dickson's lemma still holds constructively, and the given
+-- classical proof can be mined for constructive content by employing the
+-- continuation monad.
+dickson :: [Nat] -> Ix
+dickson xs = flip runCont id $ do
+    (n, p) <- minimum xs  -- compute the minimum along with a witness of minimality
+    p (n + 1)             -- challenge the witness to show that xs !! n <= xs !! (n + 1)
+    return n
 
 -- Given a natural number n, fakePrimalityTest n decides whether n is
 -- prime or not. In the first case, it returns the Right option:
